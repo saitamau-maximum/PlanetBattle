@@ -943,11 +943,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: c5898019-819a-4fed-8fbd-b9e52bf46dcf
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Get started with Unity
-  organizationId: 
+  projectName: Setup-Guide-In-Editor-Tutorial
+  organizationId: shiger1catapult
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
