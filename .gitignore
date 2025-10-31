@@ -1,3 +1,4 @@
+# Unity generated folders
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -7,12 +8,13 @@
 UserSettings/
 MemoryCaptures/
 
-# Visual Studio
+# Visual Studio / Rider / VSCode
 .vs/
 *.csproj
 *.sln
 *.user
 *.pidb
+.vscode/
 
 # OS-specific
 .DS_Store
