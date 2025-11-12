@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    
     [SerializeField] private InputActionAsset _inputActions;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
@@ -50,3 +51,4 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 }
+
