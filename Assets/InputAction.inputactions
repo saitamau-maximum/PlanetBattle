@@ -34,10 +34,19 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Attack2",
+                    "type": "Button",
+                    "id": "7758632d-0700-4067-b9ec-e24b7d1ae82a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "f55df37e-d491-47c9-ae2c-d86f55fcb0a0",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -64,7 +73,7 @@
                     "name": "Previous",
                     "type": "Button",
                     "id": "e82e69ab-360e-4f9f-8b94-4a0dcc1376f7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -311,12 +320,12 @@
                 },
                 {
                     "name": "",
-                    "id": "d7091a2f-85a9-4135-8602-e77bf0dd4a65",
-                    "path": "<Keyboard>/space",
+                    "id": "dfb79333-0767-46d9-8522-cf8fbb41876a",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Attack",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Attack2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
