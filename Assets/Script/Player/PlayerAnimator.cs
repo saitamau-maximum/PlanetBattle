@@ -1,31 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerAnimator : MonoBehaviour
 {
+    [SerializeField] private Animator _animatorOverlay;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
+    private Vector3 _firstScale;
+
+    readonly int _hashSpeed = Animator.StringToHash("Speed");
+    readonly int _hashJump = Animator.StringToHash("Jump");
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        _firstScale = transform.localScale;
     }
 
     private void Update()
     {
-        _animator.SetBool("Walk", Mathf.Abs(_rigidbody.linearVelocityX) > 0);
-        _animator.SetBool("Jump", _rigidbody.linearVelocityY > 0);
-        _animator.SetBool("Fall", _rigidbody.linearVelocityY < 0);
+        _animator.SetFloat(_hashSpeed, Mathf.Abs(_rigidbody.linearVelocityX));
+        //移動する向きによってキャラクターを反転させる
+        if (_rigidbody.linearVelocityX > 0)
+        {
+            transform.localScale = new Vector3(-_firstScale.x, _firstScale.y, _firstScale.z);
+        }
+        else if (_rigidbody.linearVelocityX < 0)
+        {
+            transform.localScale = _firstScale;
+        }
     }
 
     public void JumpAnimation()
     {
-        _animator.SetBool("Jump", true);
+        _animator.SetTrigger(_hashJump);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void AttackAnimation(string weaponName)
     {
-        //_animator.SetBool("Jump", false);
-        _animator.SetBool("Fall", false);
+        _animator.SetTrigger(weaponName + "Attack");
+        _animatorOverlay.SetTrigger(weaponName + "Attack");
     }
 }
