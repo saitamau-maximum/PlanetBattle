@@ -20,3 +20,5 @@ ex)
 play start -> PlayStart
 
 end of file -> EndOfFile
+
+アセットでコードが重くなった場合はGit IgnoreでアセットだけGoogleドライブとかで共有する必要があるかも
