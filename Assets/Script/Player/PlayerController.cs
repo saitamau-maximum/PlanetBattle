@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
             //移動処理
             _moveInputX = _moveAction.ReadValue<Vector2>().x;
+            Debug.Log("_moveInputX: " + _moveInputX);
             if (_moveInputX != 0)
             {
 
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
             {
                 _currentSpeed = 0f;
             }
+            
+            _rigidbody.linearVelocityX = _currentSpeed;
         }
 
         //ジャンプ処理
@@ -91,12 +94,12 @@ public class PlayerController : MonoBehaviour
             Attack(PlayerWeaponManager.SECONDARY_WEAPON_INDEX);
         }
     }
-
+/*
     private void FixedUpdate()
     {
         _rigidbody.linearVelocityX = _currentSpeed;
     }
-
+*/
     private void Jump()
     {
         _rigidbody.linearVelocityY = 0;
