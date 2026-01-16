@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class ScreenManager : MonoBehaviour
 {
@@ -10,10 +13,11 @@ public class ScreenManager : MonoBehaviour
 
     private const float LOADED_SCENE_RATE = 0.9f;
 
-    public enum SceneType
+    public enum SceneType //ここで遷移するシーンを定義
     {
         Title,
-        GetStarted_Scene
+        GetStarted_Scene,
+        Config,
     }
 
     private void Awake()
@@ -22,6 +26,9 @@ public class ScreenManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+#if UNITY_EDITOR
+            ValidateScenesInBuild();
+#endif
         }
         else
         {
@@ -31,6 +38,14 @@ public class ScreenManager : MonoBehaviour
 
     public void ChangeScene(SceneType scene)
     {
+#if UNITY_EDITOR
+        if (!SceneIsInBuildSettings(scene.ToString()))
+        {
+            Debug.LogError($"ScreenManager: Scene '{scene}' is not included in the active build profile or Build Settings. Add it via File -> Build Profiles or File -> Build Settings -> Add Open Scenes.");
+            return;
+        }
+#endif
+        Debug.Log($"ScreenManager: Requesting scene change to {scene}");
         StartCoroutine(LoadSceneAsyncWithLoadingUI(scene));
     }
 
@@ -59,4 +74,37 @@ public class ScreenManager : MonoBehaviour
     }
 
     public T GetData<T>() { return default; } //TODO:シーン間でのデータのやり取り用
+
+#if UNITY_EDITOR
+    private void ValidateScenesInBuild()
+    {
+        var enumNames = System.Enum.GetNames(typeof(SceneType));
+        var buildScenes = UnityEditor.EditorBuildSettings.scenes;
+        foreach (var name in enumNames)
+        {
+            bool found = false;
+            foreach (var s in buildScenes)
+            {
+                if (s.path.EndsWith("/" + name + ".unity") || s.path.EndsWith("\\" + name + ".unity") || s.path.EndsWith(name + ".unity"))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                Debug.LogWarning($"ScreenManager: Scene '{name}.unity' for SceneType.{name} not found in Build Settings or the active build profile. Add it via File -> Build Settings -> Add Open Scenes, or File -> Build Profiles if you use the Build Profiles package.");
+        }
+    }
+
+    private static bool SceneIsInBuildSettings(string sceneName)
+    {
+        var buildScenes = UnityEditor.EditorBuildSettings.scenes;
+        foreach (var s in buildScenes)
+        {
+            if (s.path.EndsWith("/" + sceneName + ".unity") || s.path.EndsWith("\\" + sceneName + ".unity") || s.path.EndsWith(sceneName + ".unity"))
+                return true;
+        }
+        return false;
+    }
+#endif
 }
