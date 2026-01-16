@@ -9,3 +9,5 @@ public class SceneSwitchButton : MonoBehaviour
         ScreenManager.Instance.ChangeScene(_sceneType);
     }
 }
+
+
