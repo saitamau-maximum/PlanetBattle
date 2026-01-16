@@ -8,6 +8,18 @@ public class Health : MonoBehaviour
     [Header("HP Bar")]
     [SerializeField] private Transform hpBarFillRoot;
 
+    // インスペクターで値が変更されたときに呼ばれる
+    private void OnValidate()
+    {
+        // ゲーム実行中のみ、HPバーの表示を更新する
+        if (Application.isPlaying && hpBarFillRoot != null)
+        {
+            // 範囲外の数値にならないよう制限
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+            UpdateHPBar();
+        }
+    }
+
     void Start()
     {
         currentHP = maxHP;
@@ -31,7 +43,8 @@ public class Health : MonoBehaviour
     {
         if (hpBarFillRoot != null)
         {
-            float ratio = (float)currentHP / maxHP;
+            // 0除算を防ぐため maxHP が 0 より大きいか確認
+            float ratio = maxHP > 0 ? (float)currentHP / maxHP : 0;
             hpBarFillRoot.localScale = new Vector3(ratio, 1f, 1f);
         }
     }
