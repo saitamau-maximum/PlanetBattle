@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BehaviourTrees
 {
     /// <summary>
@@ -8,12 +10,14 @@ namespace BehaviourTrees
     /// （AND 条件を表す制御ノード）
     /// </summary>
 
-    public class Sequence : Node
+    public class Sequence : CompositeNode
     {
         public Sequence(string name) : base(name) { }
 
         public override Status Process()
         {
+            Debug.Log($"Processing Sequence: {Name}");
+
             if (_currentChild < _children.Count)
             {
                 switch (_children[_currentChild].Process())
@@ -30,7 +34,7 @@ namespace BehaviourTrees
             }
 
             Reset();
-            return Status.Failure;
+            return Status.Success;
         }
     }
 }

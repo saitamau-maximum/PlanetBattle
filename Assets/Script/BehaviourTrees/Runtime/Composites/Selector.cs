@@ -7,7 +7,7 @@ namespace BehaviourTrees
     /// すべての子ノードが Failure の場合のみ Failure を返す。
     /// （優先度付きの OR 判定を行う制御ノード）
     /// </summary>
-    public class Selector : Node
+    public class Selector : CompositeNode
     {
         public Selector(string name) : base(name) { }
 
@@ -24,7 +24,7 @@ namespace BehaviourTrees
                         return Status.Success;
                     default:
                         _currentChild++;
-                        break;
+                        return Status.Running;
                 }
             }
             Reset();

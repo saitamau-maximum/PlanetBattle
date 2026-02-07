@@ -1,0 +1,51 @@
+RepeatWhile (chasing : _isChasing)
+└─ Selector goToTargetSelector
+   │
+   ├─ Sequence idleSequence
+   │  └─ Condition
+   │     └─ !_IsGrounded && IsEdgeAhead && !_IsGroundBehind
+   │
+   ├─ Sequence stepDownSequence
+   │  ├─ Condition CanStepDown?
+   │  ├─ Condition IsTargetLower?
+   │  │  └─ GetStepLevelDifferenceToTarget < 0
+   │  └─ RepeatWhile MoveForwardToFall
+   │     ├─ condition: IsGroundBehind
+   │     └─ Leaf MoveForward
+   │
+   ├─ Sequence jumpStepUpSequence
+   │  ├─ Condition CanJumpStepUp?
+   │  ├─ Condition IsTargetHigher?
+   │  │  ├─ stepDiff > 0
+   │  │  └─ OR (stepDiff == 0 AND IsEdgeAhead)
+   │  ├─ Leaf JumpStepUp
+   │  └─ RepeatWhile MoveForwardAfterJump
+   │     ├─ condition: NOT (IsGrounded AND IsLinearVelocityYStopped)
+   │     └─ Leaf MoveForward
+   │
+   ├─ Sequence changeDirectionSequence
+   │  ├─ Condition IsTargetOnSameLevelOrIsEdge?
+   │  │  └─ stepDiff == 0 OR IsEdgeAhead
+   │  ├─ Condition IsLookingAtTarget?
+   │  │  └─ NOT IsLookingAtTarget
+   │  └─ Leaf ChangeDirection
+   │
+   ├─ Sequence jumpAcrossSequence
+   │  ├─ Condition CanJumpAcross?
+   │  ├─ Leaf JumpAcross
+   │  └─ RepeatWhile MoveForwardAfterJump
+   │     ├─ condition: NOT (IsGrounded AND IsLinearVelocityYStopped)
+   │     └─ Leaf MoveForward
+   │
+   └─ Selector moveToBranchPointSelector
+      │
+      ├─ Sequence moveToBranchPointSequence
+      │  ├─ Condition NOT IsBranchPoint
+      │  └─ RepeatWhile MoveToBranchPoint
+      │     ├─ condition: NOT IsBranchPoint
+      │     └─ Leaf MoveForward
+      │
+      └─ Sequence moveToNextBranchPointSequence
+         └─ RepeatWhile MoveToNextBranchPoint
+            ├─ condition: IsBranchPoint
+            └─ Leaf MoveForward

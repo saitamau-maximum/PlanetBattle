@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BehaviourTrees
 {
     public class Leaf : Node
@@ -11,6 +13,7 @@ namespace BehaviourTrees
 
         public override Status Process()
         {
+            Debug.Log($"Processing Leaf: {Name}");
             return _behaviour.Process();
         }
 

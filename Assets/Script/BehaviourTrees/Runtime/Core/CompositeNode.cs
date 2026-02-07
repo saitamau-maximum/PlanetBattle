@@ -2,35 +2,19 @@ using System.Collections.Generic;
 
 namespace BehaviourTrees
 {
-    public class Node
+    public abstract class CompositeNode : Node
     {
-        public enum Status
-        {
-            Success,
-            Failure,
-            Running
-        }
-        public readonly string Name;
-
         protected readonly List<Node> _children = new();
         protected int _currentChild = 0;
 
-        public Node(string name = "Node")
-        {
-            Name = name;
-        }
+        protected CompositeNode(string name, int priority = 0) : base(name, priority) { }
 
         public void AddChild(Node child)
         {
             _children.Add(child);
         }
 
-        public virtual Status Process()
-        {
-            return _children[_currentChild].Process();
-        }
-
-        public virtual void Reset()
+        public override void Reset()
         {
             _currentChild = 0;
             foreach (var child in _children)

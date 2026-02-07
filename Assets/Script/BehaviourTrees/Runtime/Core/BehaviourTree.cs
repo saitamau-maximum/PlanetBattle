@@ -1,8 +1,8 @@
 namespace BehaviourTrees
 {
-    public class BehaviourTrees : Node
+    public class BehaviourTree : CompositeNode
     {
-        public BehaviourTrees(string name) : base(name) { }
+        public BehaviourTree(string name) : base(name) { }
 
         public override Status Process()
         {
