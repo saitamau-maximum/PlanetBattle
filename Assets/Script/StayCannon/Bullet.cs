@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
     [Header("Hit")]
     public bool destroyOnHit = true;
 
+    private bool hasHit = false;   // ★ 多重ヒット防止
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
@@ -22,16 +24,21 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Enemy に当たったかどうかだけ判断
+        // 既にヒット済みなら何もしない
+        if (hasHit) return;
+
         if (other.CompareTag("Enemy"))
         {
-            // 何もしない（Enemy 側が処理する）
+            hasHit = true;
+
+            // Enemy 側がダメージ処理を担当
 
             if (destroyOnHit)
                 Destroy(gameObject);
         }
         else if (other.CompareTag("Ground"))
         {
+            hasHit = true;
             Destroy(gameObject);
         }
     }

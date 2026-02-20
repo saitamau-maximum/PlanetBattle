@@ -13,20 +13,43 @@ public class AutoTurret : MonoBehaviour
 
     [Header("Rotation")]
     public float rotateSpeed = 5f;
+    [Tooltip("回転できる最小角度")]
+    public float minAngle = -90f;
+    [Tooltip("回転できる最大角度")]
+    public float maxAngle = 90f;
 
     [Header("Angle Offset")]
     [Tooltip("見た目補正用の角度（バリスタは -32.74）")]
     public float angleOffset = -32.74f;
 
     protected float fireTimer;
+    protected bool isTargetInAngle = false; // ターゲットが射程角度内にいるか
 
     protected virtual void Update()
     {
         Transform target = FindNearestTarget();
-        if (target == null) return;
 
+        // 1. ターゲットがいない場合は初期位置に戻して終了
+        if (target == null)
+        {
+            isTargetInAngle = false;
+            ReturnToDefaultRotation();
+            return;
+        }
+
+        // 2. ターゲットの方向を計算・判定
         AimAt(target);
-        TryFire(target);
+
+        // 3. 角度内にいる場合のみ発射を試みる
+        if (isTargetInAngle)
+        {
+            TryFire(target);
+        }
+        else
+        {
+            // 角度外に逃げられたら初期位置に戻る
+            ReturnToDefaultRotation();
+        }
     }
 
     protected virtual Transform FindNearestTarget()
@@ -51,19 +74,40 @@ public class AutoTurret : MonoBehaviour
 
     protected virtual void AimAt(Transform target)
     {
-        // 敵方向ベクトル
         Vector2 dir = target.position - transform.position;
 
-        // 矢（発射方向）の角度
-        float fireAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        // 敵の方向（純粋な角度）を計算
+        float rawAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float fireAngle = Mathf.DeltaAngle(0f, rawAngle);
 
-        // バリスタの見た目角度（補正込み）
-        float turretAngle = fireAngle + angleOffset;
+        // 設定した角度の範囲内かどうかをチェック
+        if (fireAngle >= minAngle && fireAngle <= maxAngle)
+        {
+            isTargetInAngle = true;
+            
+            // 範囲内の場合はその方向を向く（補正込み）
+            float finalAngle = fireAngle + angleOffset;
+            ApplyRotation(finalAngle);
+        }
+        else
+        {
+            isTargetInAngle = false;
+        }
+    }
 
-        Quaternion rot = Quaternion.Euler(0f, 0f, turretAngle);
+    // 初期位置（0度 + オフセット）に戻る
+    protected virtual void ReturnToDefaultRotation()
+    {
+        ApplyRotation(0f + angleOffset);
+    }
+
+    // 共通の回転処理
+    private void ApplyRotation(float targetZAngle)
+    {
+        Quaternion targetRot = Quaternion.Euler(0f, 0f, targetZAngle);
         transform.rotation = Quaternion.Lerp(
             transform.rotation,
-            rot,
+            targetRot,
             rotateSpeed * Time.deltaTime
         );
     }
@@ -80,6 +124,9 @@ public class AutoTurret : MonoBehaviour
 
     protected virtual void Fire(Transform target)
     {
-        Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        if (firePoint != null && projectilePrefab != null)
+        {
+            Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        }
     }
 }
