@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BehaviourTrees
@@ -13,6 +14,11 @@ namespace BehaviourTrees
     public class Sequence : CompositeNode
     {
         public Sequence(string name) : base(name) { }
+
+        public Sequence(string name, params Node[] children) : base(name)
+        {
+            _children = new List<Node>(children);
+        }
 
         public override Status Process()
         {

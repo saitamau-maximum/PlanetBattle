@@ -1,17 +1,26 @@
 using System.Collections.Generic;
+using BlackboardSystem;
 
 namespace BehaviourTrees
 {
     public abstract class CompositeNode : Node
     {
-        protected readonly List<Node> _children = new();
+        protected List<Node> _children = new();
         protected int _currentChild = 0;
 
-        protected CompositeNode(string name, int priority = 0) : base(name, priority) { }
+        protected CompositeNode(string name = "CompositeNode") : base(name) { }
 
-        public void AddChild(Node child)
+        public virtual void AddChild(Node child)
         {
             _children.Add(child);
+        }
+
+        public override void SetBlackboard(Blackboard blackboard)
+        {
+            foreach (Node node in _children)
+            {
+                node.SetBlackboard(blackboard);
+            }
         }
 
         public override void Reset()

@@ -1,8 +1,10 @@
+using BlackboardSystem;
+
 namespace BehaviourTrees
 {
     public class BehaviourTree : CompositeNode
     {
-        public BehaviourTree(string name) : base(name) { }
+        public BehaviourTree(string name = "behaviourTree") : base(name) { }
 
         public override Status Process()
         {

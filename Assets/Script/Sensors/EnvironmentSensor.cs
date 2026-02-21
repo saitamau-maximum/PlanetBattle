@@ -15,42 +15,42 @@ public class EnvironmentSensor : MonoBehaviour
     [SerializeField] private float _raycastStepUpDistance = 0.8f;
     [SerializeField] private float _raycastFallDistance = 1.3f;
 
-    // 地面に接地しているかどうかを判定する
-    public bool IsGrounded()
+    // 真下に地面があるかどうかを判定する
+    public bool HasGroundBelow()
     {
         return HasHit(_groundCheckPointCenter.position, Vector2.down, _raycastDistance);
     }
 
     // 後方に地面があるかどうかを判定する
-    public bool IsGroundBehind()
+    public bool HasGroundBehind()
     {
         return HasHit(_groundCheckPointBack.position, Vector2.down, _raycastDistance);
     }
 
     // 前方に地面があるかどうかを判定する
-    public bool IsEdgeAhead()
+    public bool HasGroundFront()
     {
-        return !HasHit(_groundCheckPointFront.position, Vector2.down, _raycastDistance);
+        return HasHit(_groundCheckPointFront.position, Vector2.down, _raycastDistance);
     }
 
     // 前方にジャンプで渡れる地形があるかどうかを判定する
-    public bool CanJumpAcross()
+    public bool HasGroundAcrossGap()
     {
         Vector3 groundOffset = new(0, -0.1f, 0);
-        return IsEdgeAhead() && HasHit(_groundCheckPointFront.position + groundOffset, transform.right, _raycastAcrossDistance);
+        return HasHit(_groundCheckPointFront.position + groundOffset, transform.right, _raycastAcrossDistance);
     }
 
     // 一段ジャンプできる地形があるかどうかを判定する
-    public bool CanJumpStepUp()
+    public bool HasStepUpObstacle()
     {
         return HasHit(_groundCheckPointStepUp.position, Vector2.up, _raycastStepUpDistance) && !HasHit(_groundCheckPointTop.position, Vector2.up, _raycastStepUpDistance);
     }
 
     // 前方に落下できる地形があるかどうかを判定する
-    public bool CanStepDown()
+    public bool HasLandingSpotBelow()
     {
-        Vector3 groundOffset = new(transform.right.x * 0.5f, 0, 0);
-        return IsEdgeAhead() && HasHit(_groundCheckPointFront.position + groundOffset, Vector2.down, _raycastFallDistance);
+        Vector3 groundOffset = new(transform.right.x * 0.3f, 0, 0);
+        return HasHit(_groundCheckPointFront.position + groundOffset, Vector2.down, _raycastFallDistance);
     }
 
     private bool HasHit(Vector3 point, Vector2 direction, float distance)

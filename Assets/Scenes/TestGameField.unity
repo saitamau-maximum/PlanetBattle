@@ -3650,6 +3650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5792236778970836163, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8113305405434122685, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.37
@@ -3855,7 +3859,7 @@ Transform:
   m_GameObject: {fileID: 1099182882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.21, y: 1.01, z: 0}
+  m_LocalPosition: {x: 2.2, y: 3.02, z: 0}
   m_LocalScale: {x: 0.4, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3877,6 +3881,7 @@ MonoBehaviour:
   _speed: 1
   _jumpForwardspeed: 1.2
   _jumpForce: 5
+  _attackRange: 0.45
   _environmentSensor: {fileID: 14148032}
   _target: {fileID: 733527304}
   _isChasing: 1

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace BehaviourTrees
 {
     /// <summary>
@@ -10,6 +12,10 @@ namespace BehaviourTrees
     public class Selector : CompositeNode
     {
         public Selector(string name) : base(name) { }
+        public Selector(string name, params Node[] children) : base(name)
+        {
+            _children = new List<Node>(children);
+        }
 
         public override Status Process()
         {

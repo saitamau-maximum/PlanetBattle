@@ -6,7 +6,7 @@ namespace BehaviourTrees
     /// 処理完了後に常に Success を返す葉ノード。    
     /// </summary>
 
-    public class Action : IBehaviour
+    public class Action : Node
     {
         private readonly System.Action _action;
 
@@ -15,10 +15,12 @@ namespace BehaviourTrees
             _action = action;
         }
 
-        public Node.Status Process()
+        public override Status Process()
         {
             _action();
-            return Node.Status.Success;
+            return Status.Success;
         }
+
+        public override void Reset() { }
     }
 }

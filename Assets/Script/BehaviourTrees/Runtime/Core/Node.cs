@@ -1,3 +1,6 @@
+using BlackboardSystem;
+using TMPro;
+
 namespace BehaviourTrees
 {
     public abstract class Node
@@ -10,12 +13,17 @@ namespace BehaviourTrees
         }
 
         public readonly string Name;
-        public readonly int Priority;
 
-        protected Node(string name = "Node", int priority = 0)
+        protected Blackboard _blackboard;
+
+        protected Node(string name = "Node")
         {
             Name = name;
-            Priority = priority;
+        }
+
+        public virtual void SetBlackboard(Blackboard blackboard)
+        {
+            _blackboard = blackboard;
         }
 
         public abstract Status Process();
