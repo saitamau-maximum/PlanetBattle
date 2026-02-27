@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 7446688044297608900}
   m_Layer: 8
   m_Name: SpikeHead
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,6 +266,7 @@ MonoBehaviour:
   _jumpForwardspeed: 1.2
   _jumpForce: 5
   _attackRange: 0.46
+  _weapon: {fileID: 0}
   _environmentSensor: {fileID: 7767269331947246720}
   _target: {fileID: 0}
   _isChasing: 1
