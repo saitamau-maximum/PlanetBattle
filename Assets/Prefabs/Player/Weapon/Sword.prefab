@@ -110,6 +110,7 @@ MonoBehaviour:
     DamageAmount: 5
     CoolTime: 0.4
     HoldOffset: {x: 0, y: -0.3, z: 0}
+  _hitBox: {fileID: 6717655182974550672}
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7

@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _jumpForwardspeed = 1.2f;
     [SerializeField] private float _jumpForce = 1f;
     [SerializeField] private float _attackRange;
+    [SerializeField] private WeaponBase _weapon;
     [SerializeField] private EnvironmentSensor _environmentSensor;
     [SerializeField] private Transform _target;
     [SerializeField] private bool _isChasing;//テスト用
@@ -41,7 +42,9 @@ public class EnemyController : MonoBehaviour
         Selector rootSelector = new Selector("rootSelector",
             new Sequence("attackSequence",
                 new IsTargetInAttackRange(),
-                new StopVelocityX()
+                new StopVelocityX(),
+                new BehaviourTrees.WaitForSeconds(0.3f),
+                new UseWeapon(_weapon)
             ),
             new Selector("goToTargetSelector",
                 new Sequence("InAir",

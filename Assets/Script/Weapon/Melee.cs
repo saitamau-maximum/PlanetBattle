@@ -1,18 +1,39 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Melee : WeaponBase
 {
+    [SerializeField] private GameObject _hitBox;
     private Animator _animator;
+    private SpriteRenderer _renderer;
     readonly int _hashAttack = Animator.StringToHash("Attack");
 
     protected override void Awake()
     {
         base.Awake();
+        _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
-    protected override void Attack()
+    protected override IEnumerator AttackCoroutine()
     {
         _animator.SetTrigger(_hashAttack);
+
+        int layerIndex = 0;
+        float attackDuration = _animator.GetCurrentAnimatorStateInfo(layerIndex).length;
+        yield return new WaitForSeconds(attackDuration);
+    }
+
+    public override void Equip()
+    {
+        _hitBox.SetActive(true);
+        _renderer.enabled = true;
+    }
+
+    public override void Unequip()
+    {
+        _hitBox.SetActive(false);
+        _renderer.enabled = false;
     }
 }

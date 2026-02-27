@@ -1,47 +1,42 @@
+using System.Collections;
 using UnityEngine;
-using Utility;
 
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
-    private CountdownTimer coolTimer;
+    protected bool _isAttacking = false;
+    protected bool _isCoolingDown = false;
 
     protected virtual void Awake()
     {
-        coolTimer = new CountdownTimer(_weaponData.CoolTime);
         transform.localPosition = _weaponData.HoldOffset;
-    }
-    private void Update()
-    {
-        coolTimer.Tick();
-    }
-    public void OnEquip()
-    {
-        gameObject.SetActive(true);
-    }
-    public void OnUnequip()
-    {
-        gameObject.SetActive(false);
-    }
-    public string GetWeaponName()
-    {
-        return _weaponData.WeaponName;
     }
 
     public bool TryAttack()
     {
-        if (coolTimer.IsFinished())
-        {
-            Attack();
-            coolTimer.Start();
-            return true;
-        }
-        return false;
+        if (_isAttacking || _isCoolingDown) return false;
+
+        StartCoroutine(AttackAndCooldown());
+
+        return true;
     }
 
-    public bool IsCoolingDown()
+    private IEnumerator AttackAndCooldown()
     {
-        return !coolTimer.IsFinished();
+        _isAttacking = true;
+        yield return StartCoroutine(AttackCoroutine());
+        _isAttacking = false;
+
+        _isCoolingDown = true;
+        yield return new WaitForSeconds(_weaponData.CoolTime);
+        _isCoolingDown = false;
     }
-    protected abstract void Attack();
+
+    protected abstract IEnumerator AttackCoroutine();
+    public abstract void Equip();
+    public abstract void Unequip();
+
+    public bool IsAttacking() => _isAttacking;
+    public bool IsCoolingDown() => _isCoolingDown;
+    public string GetWeaponName() => _weaponData.WeaponName;
 }
