@@ -1,8 +1,6 @@
 using UnityEngine;
 using BehaviourTrees;
 using BlackboardSystem;
-using NUnit.Framework;
-using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,9 +9,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _jumpForce = 1f;
     [SerializeField] private float _attackRange;
     [SerializeField] private EnvironmentSensor _environmentSensor;
-
     [SerializeField] private Transform _target;
-    [SerializeField] private bool _isChasing;
+    [SerializeField] private bool _isChasing;//テスト用
 
     private Rigidbody2D _rigidbody;
 
@@ -29,13 +26,11 @@ public class EnemyController : MonoBehaviour
         _blackboard.SetValue(CharacterKeys.SelfRigidbody2D, _rigidbody);
         _blackboard.SetValue(CharacterKeys.SelfEnvironmentSensor, _environmentSensor);
         _blackboard.SetValue(CharacterKeys.TargetTransform, _target);
-        _blackboard.SetValue(CharacterKeys.Speed, _speed);
-        _blackboard.SetValue(CharacterKeys.JumpForce, _jumpForce);
         _blackboard.SetValue(CharacterKeys.AttackRange, _attackRange);
+        _blackboard.SetValue(CharacterKeys.JumpForce, _jumpForce);
 
         // ビヘイビアツリーの構築
         _behaviourTree = CreateBehaviourTree();
-        Debug.Log(_blackboard);
         _behaviourTree.SetBlackboard(_blackboard);
     }
 
@@ -46,38 +41,34 @@ public class EnemyController : MonoBehaviour
         Selector rootSelector = new Selector("rootSelector",
             new Sequence("attackSequence",
                 new IsTargetInAttackRange(),
-                new Action(() => { _rigidbody.linearVelocityX = 0; })
+                new StopVelocityX()
             ),
             new Selector("goToTargetSelector",
                 new Sequence("InAir",
                     new IsInAir(),
-                    new Action(() => { _rigidbody.linearVelocityX = 0; })
-                ),
-                new Sequence("jumpAcrossSequence",
-                    new ShouldAcross(),
-                    new Jump(),
-                    new Action(() => { _blackboard.SetValue(CharacterKeys.Speed, _jumpForwardspeed); }),
-                    new MoveForward()
-                ),
-                new Sequence("stepDownSequence",
-                    new ShouldStepDown(),
-                    new Action(() => { _blackboard.SetValue(CharacterKeys.Speed, _speed); }),
-                    new RepeatWhile("", () => { return _environmentSensor.HasGroundBehind(); }, new MoveForward()),
-                    new Action(() => { _rigidbody.linearVelocityX = 0; })
-                ),
-                new Sequence("stepUpSequence",
-                    new ShouldStepUp(),
-                    new Jump(),
-                    new Action(() => { _blackboard.SetValue(CharacterKeys.Speed, _jumpForwardspeed); }),
-                    new MoveForward()
+                    new StopVelocityX()
                 ),
                 new Sequence("changeDirectionSequence",
                     new ShouldChangeDirection(),
                     new ChangeDirection()
                 ),
+                new Sequence("jumpAcrossSequence",
+                    new ShouldAcross(),
+                    new Jump(),
+                    new MoveForward(_jumpForwardspeed)
+                ),
+                new Sequence("stepDownSequence",
+                    new ShouldStepDown(),
+                    new RepeatWhile("", () => { return _environmentSensor.HasGroundBehind(); }, new MoveForward(_speed)),
+                    new StopVelocityX()
+                ),
+                new Sequence("stepUpSequence",
+                    new ShouldStepUp(),
+                    new Jump(),
+                    new MoveForward(_jumpForwardspeed)
+                ),
                 new Sequence("moveForwardnSequence",
-                    new Action(() => { _blackboard.SetValue(CharacterKeys.Speed, _speed); }),
-                    new MoveForward()
+                    new MoveForward(_speed)
                 )
             )
         );

@@ -22,7 +22,7 @@ namespace BehaviourTrees
 
         public override Status Process()
         {
-            Debug.Log($"Processing Sequence: {Name}");
+            //Debug.Log($"Processing Sequence: {Name}");
 
             if (_currentChild < _children.Count)
             {

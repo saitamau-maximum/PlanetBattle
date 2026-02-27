@@ -108,7 +108,7 @@ MonoBehaviour:
   _weaponData:
     WeaponName: Sword
     DamageAmount: 5
-    CoolTime: 0.6
+    CoolTime: 0.4
     HoldOffset: {x: 0, y: -0.3, z: 0}
 --- !u!95 &3136778619705771245
 Animator:

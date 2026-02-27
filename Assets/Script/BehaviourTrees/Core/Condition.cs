@@ -11,7 +11,7 @@ namespace BehaviourTrees
 
         public override Status Process()
         {
-            Debug.Log($"Processing Sequence: {Name} {Check()}");
+            //Debug.Log($"Processing Sequence: {Name} {Check()}");
             return Check() ? Status.Success : Status.Failure;
         }
 
