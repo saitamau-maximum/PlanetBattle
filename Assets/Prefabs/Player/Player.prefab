@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 6304543317347794888}
   - component: {fileID: 2496341395458143598}
   - component: {fileID: 4962964937671980220}
-  - component: {fileID: 6539825676654749502}
-  m_Layer: 0
+  - component: {fileID: -270791443910438903}
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1104030580405893016}
@@ -113,7 +113,7 @@ MonoBehaviour:
   _firstSpeed: 0.8
   _maxSpeed: 3
   _acceleration: 3
-  _jumpForce: 3.5
+  _jumpForce: 5.25
   _maxMultiJumpCount: 2
 --- !u!114 &53369434894549803
 MonoBehaviour:
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
   _weaponPrefabs:
-  - {fileID: 6577305756939457091, guid: 549de06d5a028494a9870b5ca5783409, type: 3}
-  - {fileID: 6577305756939457091, guid: f09bac5f0374047b89c11c2e619f3bed, type: 3}
+  - {fileID: 6577305756939457091, guid: 799bd40a2af90446a9fa0b7600ee1926, type: 3}
+  - {fileID: 6577305756939457091, guid: 899cf62b68798429faf274d870d0d959, type: 3}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &6539825676654749502
+--- !u!61 &-270791443910438903
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,7 +202,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5776af39de04243638b8c10e7fc92962, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -226,7 +226,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.30340943}
+  m_Offset: {x: 0.040786326, y: -0.32628983}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -236,7 +236,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.95, y: 1.7413144}
+  m_Size: {x: 1.3215898, y: 1.7492224}
   m_EdgeRadius: 0
 --- !u!1 &6968856960421715795
 GameObject:
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 1104030580405893016}
   - component: {fileID: 8391618608241890867}
   - component: {fileID: 7140318532480801357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}

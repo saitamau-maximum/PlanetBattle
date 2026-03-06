@@ -15,32 +15,32 @@ public class PlayerWeaponManager : MonoBehaviour
         foreach (var weaponPrefab in _weaponPrefabs)
         {
             WeaponBase weaponInstance = Instantiate(weaponPrefab, transform);
-            weaponInstance.OnUnequip();
+            weaponInstance.Unequip();
             _weapons.Add(weaponInstance);
         }
     }
 
     public bool TryUseWeapon(int index)
     {
-        if (IsUsingWeapon()) return false;
+        if (IsAttaking() || _weapons[_currentWeaponIndex].IsCoolingDown()) return false;
 
         if (_currentWeaponIndex != index)
-            _weapons[_currentWeaponIndex].OnUnequip();
+            _weapons[_currentWeaponIndex].Unequip();
 
         _currentWeaponIndex = index;
 
-        _weapons[_currentWeaponIndex].OnEquip();
+        _weapons[_currentWeaponIndex].Equip();
         return _weapons[_currentWeaponIndex].TryAttack();
     }
 
     public void UnequipCurrentWeapon()
     {
-        _weapons[_currentWeaponIndex].OnUnequip();
+        _weapons[_currentWeaponIndex].Unequip();
     }
 
-    public bool IsUsingWeapon()
+    public bool IsAttaking()
     {
-        return _weapons[_currentWeaponIndex].IsCoolingDown();
+        return _weapons[_currentWeaponIndex].IsAttacking();
     }
 
     public string GetWeaponName(int index)
