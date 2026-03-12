@@ -50,15 +50,15 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //武器使用中でなければ移動処理を行う
-        if (!_weaponManager.IsUsingWeapon())
+        if (!_weaponManager.IsAttaking())
         {
             _weaponManager.UnequipCurrentWeapon();
 
             //移動処理
             _moveInputX = _moveAction.ReadValue<Vector2>().x;
-            Debug.Log("_moveInputX: " + _moveInputX);
             if (_moveInputX != 0)
             {
+                Rotate();
 
                 // 加速
                 if (Mathf.Abs(_currentSpeed) < _firstSpeed)
@@ -69,8 +69,6 @@ public class PlayerController : MonoBehaviour
             {
                 _currentSpeed = 0f;
             }
-            
-            _rigidbody.linearVelocityX = _currentSpeed;
         }
 
         //ジャンプ処理
@@ -94,18 +92,30 @@ public class PlayerController : MonoBehaviour
             Attack(PlayerWeaponManager.SECONDARY_WEAPON_INDEX);
         }
     }
-/*
+
     private void FixedUpdate()
     {
         _rigidbody.linearVelocityX = _currentSpeed;
     }
-*/
+
+    private void Rotate()
+    {
+        //移動する向きによってキャラクターを反転させる
+        if (_moveInputX > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (_moveInputX < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
     private void Jump()
     {
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
-        if (!_weaponManager.IsUsingWeapon())
+        if (!_weaponManager.IsAttaking())
             _playerAnimator.JumpAnimation();
 
         _currentJumpCount++;
