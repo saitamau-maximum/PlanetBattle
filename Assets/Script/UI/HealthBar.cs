@@ -9,11 +9,11 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        _health.OnChangeHealth += UpdateHealthBar;
+        _health.OnHealthChanged += UpdateHealthBar;
     }
     private void OnDestroy()
     {
-        _health.OnChangeHealth -= UpdateHealthBar;
+        _health.OnHealthChanged -= UpdateHealthBar;
     }
 
     private void Update()
