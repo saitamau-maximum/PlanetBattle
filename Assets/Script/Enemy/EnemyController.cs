@@ -44,7 +44,11 @@ public class EnemyController : MonoBehaviour
                 new IsTargetInAttackRange(),
                 new StopVelocityX(),
                 new BehaviourTrees.WaitForSeconds(0.3f),
-                new UseWeapon(_weapon)
+                new UseWeapon(_weapon),
+                new Sequence("changeDirectionSequence",
+                    new ShouldChangeDirection(),
+                    new ChangeDirection()
+                )
             ),
             new Selector("goToTargetSelector",
                 new Sequence("InAir",

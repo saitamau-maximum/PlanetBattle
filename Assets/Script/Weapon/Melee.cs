@@ -27,13 +27,11 @@ public class Melee : WeaponBase
 
     public override void Equip()
     {
-        _hitBox.SetActive(true);
         _renderer.enabled = true;
     }
 
     public override void Unequip()
     {
-        _hitBox.SetActive(false);
         _renderer.enabled = false;
     }
 }

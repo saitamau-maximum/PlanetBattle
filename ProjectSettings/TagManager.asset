@@ -22,8 +22,8 @@ TagManager:
   - Ground
   - Player
   - Enemy
-  - Attack
-  - 
+  - PlayerAttack
+  - EnemyAttack
   - 
   - 
   - 
