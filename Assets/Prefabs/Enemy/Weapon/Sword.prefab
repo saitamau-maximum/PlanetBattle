@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3136778619705771246}
   - component: {fileID: 6577305756939457091}
   - component: {fileID: 3136778619705771245}
-  m_Layer: 9
-  m_Name: Hammer
+  m_Layer: 10
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: 3a14974fdba6469e9ac7efe437a615a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c3bfd3ef11e418babd878fef32326dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,10 +106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Melee
   _weaponData:
-    WeaponName: Hammer
+    WeaponName: Sword
     DamageAmount: 5
-    CoolTime: 1
-    HoldOffset: {x: 0, y: -0.3, z: 0}
+    CoolTime: 0.4
+    HoldOffset: {x: 0, y: 0, z: 0}
   _hitBox: {fileID: 6717655182974550672}
 --- !u!95 &3136778619705771245
 Animator:
@@ -121,7 +121,7 @@ Animator:
   m_GameObject: {fileID: 3136778619705771243}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 023583ab5f1f4c3db55be0d65c15137b, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0657b59648d44b79f898558463be768, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -143,8 +143,8 @@ GameObject:
   m_Component:
   - component: {fileID: 485712830623775806}
   - component: {fileID: 3296932450751681006}
-  - component: {fileID: 3652541240674635085}
-  m_Layer: 9
+  - component: {fileID: 1362146289782622282}
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,8 +160,8 @@ Transform:
   m_GameObject: {fileID: 6001645751913811869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.36, y: 0.78, z: 0}
-  m_LocalScale: {x: 1.28469, y: 1.06, z: 1.1679}
+  m_LocalPosition: {x: -0.66, y: -0.56, z: 0}
+  m_LocalScale: {x: 1.28469, y: 0.46387523, z: 1.1679}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 895142467444723458}
@@ -210,9 +210,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.38}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3652541240674635085
+--- !u!114 &1362146289782622282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc06e9035cb044627ac2064544b0e269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageArea
-  _damageAmount: 100
+  _damageAmount: 10
 --- !u!1 &6717655182974550672
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 895142467444723458}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,11 +249,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6717655182974550672}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.64944804, w: 0.760406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 485712830623775806}
   m_Father: {fileID: 3136778619705771244}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -81}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

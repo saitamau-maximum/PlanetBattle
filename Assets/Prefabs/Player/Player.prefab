@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2657262360820082321}
   - component: {fileID: 53369434894549803}
   - component: {fileID: 6304543317347794888}
+  - component: {fileID: 2661061160532804966}
   - component: {fileID: 2496341395458143598}
   - component: {fileID: 4962964937671980220}
   - component: {fileID: -270791443910438903}
@@ -143,6 +144,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
   _animatorOverlay: {fileID: 7140318532480801357}
+--- !u!114 &2661061160532804966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792236778970836163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bde8f3560cfea40aad262d2a835090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _maxHealth: 10000000
+  _currentHealth: 0
 --- !u!95 &2496341395458143598
 Animator:
   serializedVersion: 7
