@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageArea : MonoBehaviour
+public class Hitbox : MonoBehaviour
 {
     [SerializeField] private int _damageAmount;
     private bool _canAttack = false;
