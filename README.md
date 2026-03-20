@@ -2,6 +2,13 @@
 
 ゲーム開発班の新しいゲーム開発用のリポジトリです。
 
+# チームメンバー
+-hinemosu
+-yuto
+-shigeru
+-mototashi
+-sgok
+
 # 開発方針
 
 - 共同開発指示書.md
