@@ -15,7 +15,7 @@ public class RandomEnemySpawner : MonoBehaviour
     {
         _coolTimer.Tick();
 
-        if (_coolTimer.IsFinished() && transform.childCount <= _maxEnemyCount)
+        if (_coolTimer.IsFinished() && transform.childCount < _maxEnemyCount)
         {
             EnemyController enemy = Instantiate(_enemyPre[Random.Range(0, _enemyPre.Length)], transform.position, transform.rotation, transform);
             enemy.Init(_target);
