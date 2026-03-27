@@ -35,6 +35,11 @@ public class EnemyController : MonoBehaviour
         _behaviourTree.SetBlackboard(_blackboard);
     }
 
+    public void Init(Transform target)
+    {
+        _blackboard.SetValue(CharacterKeys.TargetTransform, target);
+    }
+
     private BehaviourTree CreateBehaviourTree()
     {
         BehaviourTree behaviourTree = new BehaviourTree();
