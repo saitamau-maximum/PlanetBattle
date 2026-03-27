@@ -3586,28 +3586,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5538833221161398068, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
       propertyPath: m_Name
-      value: EnemySpawner
+      value: RandomEnemySpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6342457829818517369, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
       propertyPath: _target
       value: 
       objectReference: {fileID: 733527304}
-    - target: {fileID: 6342457829818517369, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
-      propertyPath: _maxEnemyCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834175080060217960, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834175080060217960, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834175080060217960, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8834175080060217960, guid: 1ac6ff83da7534c54ba08fb5a4814971, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.9776927
