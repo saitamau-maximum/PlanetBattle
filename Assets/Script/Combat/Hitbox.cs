@@ -14,8 +14,11 @@ public class Hitbox : MonoBehaviour
     {
         if (_canAttack)
         {
-            other.gameObject.GetComponent<Health>()?.TakeDamage(_damageAmount);
-            _canAttack = false;
+            if (other.gameObject.TryGetComponent<Health>(out var health))
+            {
+                health.TakeDamage(_damageAmount);
+                _canAttack = false;
+            }
         }
     }
 }
