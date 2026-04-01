@@ -286,7 +286,7 @@ MonoBehaviour:
     JumpForce: 5
     AttackRange: 0.46
     SearchRange: 2
-    BaseTargetLockRange: 2
+    BaseTargetLockRange: 0
     TargetTag: Player
   _weapon: {fileID: 2615237314331586480}
   _environmentSensor: {fileID: 7767269331947246720}

@@ -36,6 +36,11 @@ public class CharacterAIController : MonoBehaviour
             return;
         }
 
+        if (_context.BaseTargetLockRange < _context.AttackRange)
+        {
+            _context.BaseTargetLockRange = _context.AttackRange;
+        }
+
         //ブラックボードの構築
         _blackboard.SetValue(CharacterKeys.SelfTransform, transform);
         _blackboard.SetValue(CharacterKeys.SelfRigidbody2D, _rigidbody);

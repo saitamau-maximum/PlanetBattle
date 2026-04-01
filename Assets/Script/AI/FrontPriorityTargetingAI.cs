@@ -18,8 +18,10 @@ public class FrontPriorityTargetingAIBuilder : NormalAIBuilder
         behaviourTree.AddChild(new RepeatForever(
             new Sequence("rootSequence",
                 new Selector("SetTargetSelector",
-                    new IsTargetInRange(baseTarget, baseTargetLockRange),
-                    new FindFrontTarget(),
+                    new Sequence("FindFrontTargetSequence",
+                        new Inverter("TargetIsNotInRange", new IsTargetInRange(baseTarget, baseTargetLockRange)),
+                        new FindFrontTarget()
+                    ),
                     new Action(() => { bb.SetValue(CharacterKeys.TargetTransform, baseTarget); })
                 ),
                 new Selector("root",

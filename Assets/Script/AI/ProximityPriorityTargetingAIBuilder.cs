@@ -18,8 +18,10 @@ public class ProximityPriorityTargetingAIBuilder : NormalAIBuilder
         behaviourTree.AddChild(new RepeatForever(
             new Sequence("rootSequence",
                 new Selector("SetTargetSelector",
-                    new IsTargetInRange(baseTarget, baseTargetLockRange),
-                    new FindNearestTarget(),
+                    new Sequence("FindNearestTargetSequence",
+                        new Inverter("TargetIsNotInRange", new IsTargetInRange(baseTarget, baseTargetLockRange)),
+                        new FindNearestTarget()
+                    ),
                     new Action(() => { bb.SetValue(CharacterKeys.TargetTransform, baseTarget); })
                 ),
                 new Selector("root",
