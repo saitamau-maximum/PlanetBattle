@@ -10,7 +10,7 @@ public class CharacterAIController : MonoBehaviour
     [SerializeField] private WeaponBase _weapon;
     [SerializeField] private EnvironmentSensor _environmentSensor;
     [SerializeField] private Transform _baseTarget;
-    [SerializeField] private NormalAIBuilder _behaviourTreeBuilder;
+    [SerializeField] private BehaviourTreeBuilder _behaviourTreeBuilder;
     [SerializeField] private bool _isChasing;//テスト用    
 
     private Rigidbody2D _rigidbody;

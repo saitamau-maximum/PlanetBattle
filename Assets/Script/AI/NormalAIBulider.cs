@@ -7,9 +7,9 @@ using UnityEngine;
 // 射程距離圏内にターゲットがいると攻撃する。
 //</summary>
 [CreateAssetMenu(menuName = "AI/NormalAIBuilder")]
-public class NormalAIBuilder : ScriptableObject
+public class NormalAIBuilder : BehaviourTreeBuilder
 {
-    public virtual BehaviourTree Build(Blackboard bb)
+    public override BehaviourTree Build(Blackboard bb)
     {
         BehaviourTree behaviourTree = new BehaviourTree();
         behaviourTree.AddChild(new RepeatForever(
