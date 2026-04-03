@@ -1,5 +1,3 @@
-using BlackboardSystem;
-
 namespace BehaviourTrees
 {
     public class BehaviourTree : CompositeNode

@@ -3,7 +3,7 @@ using Utility;
 
 public class RandomEnemySpawner : MonoBehaviour
 {
-    [SerializeField] private EnemyController[] _enemyPre;
+    [SerializeField] private CharacterAIController[] _enemyPre;
     [SerializeField] private float _maxCoolTime;
     [SerializeField] private float _minCoolTime;
     [SerializeField] private int _maxEnemyCount;
@@ -17,7 +17,7 @@ public class RandomEnemySpawner : MonoBehaviour
 
         if (_coolTimer.IsFinished() && transform.childCount < _maxEnemyCount)
         {
-            EnemyController enemy = Instantiate(_enemyPre[Random.Range(0, _enemyPre.Length)], transform.position, transform.rotation, transform);
+            CharacterAIController enemy = Instantiate(_enemyPre[Random.Range(0, _enemyPre.Length)], transform.position, transform.rotation, transform);
             enemy.Init(_target);
 
             SetCoolTimer();
