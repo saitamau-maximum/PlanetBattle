@@ -5,17 +5,12 @@ namespace BehaviourTrees
 {
     public class UseWeapon : Node
     {
-        private readonly WeaponBase _weapon;
-        public UseWeapon(WeaponBase weapon) : base("UseWeapon")
-        {
-            _weapon = weapon;
-        }
-
         public override Status Process()
         {
-            _weapon.TryAttack();
+            WeaponBase weapon = _blackboard.GetValue(CharacterKeys.Weapon);
+            weapon.TryAttack();
 
-            if (_weapon.IsAttacking()) return Status.Running;
+            if (weapon.IsAttacking()) return Status.Running;
 
             return Status.Success;
         }

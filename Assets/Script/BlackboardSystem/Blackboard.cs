@@ -22,6 +22,12 @@ namespace BlackboardSystem
 
         public void SetValue<T>(BlackboardKey<T> key, T value)
         {
+            if (value == null)
+            {
+                Debug.Assert(false, $"Value for key '{key}' is null.");
+                return;
+            }
+
             _entries[key.HashedKey] = value;
         }
 

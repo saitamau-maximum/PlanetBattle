@@ -8,7 +8,7 @@ namespace BehaviourTrees
         public override Status Process()
         {
             Rigidbody2D rb = _blackboard.GetValue(CharacterKeys.SelfRigidbody2D);
-            float jumpForce = _blackboard.GetValue(CharacterKeys.JumpForce);
+            float jumpForce = _blackboard.GetValue(CharacterKeys.CharacterContext).JumpForce;
 
             rb.linearVelocityY = jumpForce;
             return Status.Success;

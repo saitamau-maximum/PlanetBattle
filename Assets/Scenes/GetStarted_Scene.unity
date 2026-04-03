@@ -264,6 +264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7128699622607465095, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _maxHealth
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1332481960248737082, guid: ded1171ca88e54419be887a79100a009, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.91
@@ -304,8 +308,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2447270333455950194, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _baseTarget
+      value: 
+      objectReference: {fileID: 608118328}
     - target: {fileID: 6942169592057458539, guid: ded1171ca88e54419be887a79100a009, type: 3}
       propertyPath: _target
+      value: 
+      objectReference: {fileID: 608118328}
+    - target: {fileID: 6942169592057458539, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _baseTarget
       value: 
       objectReference: {fileID: 608118328}
     - target: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
@@ -416,6 +428,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7128699622607465095, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _maxHealth
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1332481960248737082, guid: ded1171ca88e54419be887a79100a009, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.022268
@@ -456,8 +472,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2447270333455950194, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _baseTarget
+      value: 
+      objectReference: {fileID: 608118328}
     - target: {fileID: 6942169592057458539, guid: ded1171ca88e54419be887a79100a009, type: 3}
       propertyPath: _target
+      value: 
+      objectReference: {fileID: 608118328}
+    - target: {fileID: 6942169592057458539, guid: ded1171ca88e54419be887a79100a009, type: 3}
+      propertyPath: _baseTarget
       value: 
       objectReference: {fileID: 608118328}
     - target: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
