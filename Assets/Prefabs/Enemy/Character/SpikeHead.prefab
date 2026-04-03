@@ -281,10 +281,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _context:
-    Speed: 1
+    Speed: 0.4
     JumpForwardSpeed: 1.2
     JumpForce: 5
-    AttackRange: 0.6
+    AttackRange: 0.7
     SearchRange: 2
     BaseTargetLockRange: 0
     TargetTag: Player
@@ -303,7 +303,7 @@ Animator:
   m_GameObject: {fileID: 8437554141696259431}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2d03b9a01d0fb417294b445739a3f17a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 94d585e6a974b426691556141875b3df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
