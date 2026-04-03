@@ -3,9 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Melee : WeaponBase
+public class AnimationWeapon : WeaponBase
 {
-    [SerializeField] private GameObject _hitBox;
     private Animator _animator;
     private SpriteRenderer _renderer;
     readonly int _hashAttack = Animator.StringToHash("Attack");
