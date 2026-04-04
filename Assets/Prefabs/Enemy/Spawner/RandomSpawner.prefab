@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomEnemySpawner
   _enemyPre:
-  - {fileID: 6942169592057458539, guid: ded1171ca88e54419be887a79100a009, type: 3}
+  - {fileID: 2447270333455950194, guid: ded1171ca88e54419be887a79100a009, type: 3}
+  - {fileID: 6942169592057458539, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
   _maxCoolTime: 1
   _minCoolTime: 7
   _maxEnemyCount: 10
