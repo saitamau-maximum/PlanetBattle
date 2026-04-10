@@ -4,7 +4,8 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
-    protected Hitbox[] _hitboxes;
+
+    private SpriteRenderer _renderer;
 
     public enum WeaponState
     {
@@ -19,35 +20,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _hitboxes = GetComponentsInChildren<Hitbox>(true);
-    }
-
-    protected virtual void Start()
-    {
-        foreach (var hitbox in _hitboxes)
-        {
-            hitbox.OnFirstHit += HandleFirstHit;
-            hitbox.OnContinuousHit += HandleContinuousHit;
-        }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        foreach (var hitbox in _hitboxes)
-        {
-            hitbox.OnFirstHit -= HandleFirstHit;
-            hitbox.OnContinuousHit -= HandleContinuousHit;
-        }
-    }
-
-    protected virtual void HandleFirstHit(Health targetHealth)
-    {
-        targetHealth.TakeDamage(_weaponData.DamageAmount);
-    }
-
-    protected virtual void HandleContinuousHit(Health targetHealth)
-    {
-        //TODO:特殊効果付与
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
     public bool TryUseWeapon()
@@ -72,6 +45,13 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected abstract IEnumerator AttackCoroutine();
 
-    public abstract void Equip();
-    public abstract void Unequip();
+    public virtual void Equip()
+    {
+        _renderer.enabled = true;
+    }
+
+    public virtual void Unequip()
+    {
+        _renderer.enabled = false;
+    }
 }
