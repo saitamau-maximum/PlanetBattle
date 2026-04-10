@@ -85,11 +85,13 @@ public class PlayerController : MonoBehaviour
         //攻撃処理
         if (_attackAction.IsPressed())
         {
-            Attack(PlayerWeaponManager.PRIMARY_WEAPON_INDEX);
+            _weaponManager.TryUsePrimaryWeapon();
+            Attack();
         }
         else if (_attackAction2.IsPressed())
         {
-            Attack(PlayerWeaponManager.SECONDARY_WEAPON_INDEX);
+            _weaponManager.TryUseSecondaryWeapon();
+            Attack();
         }
     }
 
@@ -121,13 +123,10 @@ public class PlayerController : MonoBehaviour
         _currentJumpCount++;
     }
 
-    private void Attack(int index)
+    private void Attack()
     {
-        if (_weaponManager.TryUseWeapon(index))
-        {
-            _currentSpeed = 0f;
-            _playerAnimator.AttackAnimation(_weaponManager.GetWeaponName(index));
-        }
+        _currentSpeed = 0f;
+        _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
     }
 }
 

@@ -13,7 +13,7 @@ public abstract class WeaponBase : MonoBehaviour
         CoolingDown
     }
 
-    public WeaponState CurrentState { get; private set; }
+    public WeaponState CurrentState { get; private set; } = WeaponState.Idle;
 
     public string WeaponName => _weaponData.WeaponName;
 

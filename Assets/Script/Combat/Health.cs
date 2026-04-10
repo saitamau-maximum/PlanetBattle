@@ -12,10 +12,8 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         _currentHealth = _maxHealth;
-        NotifyHealthChanged();
     }
 
-#if UNITY_EDITOR
     // インスペクターで値が変更されたときに呼ばれる
     private void OnValidate()
     {
@@ -25,7 +23,6 @@ public class Health : MonoBehaviour
             NotifyHealthChanged();
         }
     }
-#endif
 
     public void TakeDamage(float amount)
     {
