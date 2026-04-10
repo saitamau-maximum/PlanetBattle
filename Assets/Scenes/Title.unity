@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e5c13d1e077ff45bbee7aa1e98224e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitchButton
-  _sceneType: 1
+  _sceneType: 3
 --- !u!1 &479628158
 GameObject:
   m_ObjectHideFlags: 0
