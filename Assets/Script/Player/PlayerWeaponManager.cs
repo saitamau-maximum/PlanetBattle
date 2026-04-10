@@ -6,9 +6,6 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private WeaponBase[] _weapons;
     private int _currentWeaponIndex = 0;
 
-    public const int PRIMARY_WEAPON_INDEX = 0;
-    public const int SECONDARY_WEAPON_INDEX = 1;
-
     public WeaponBase.WeaponState CurrentWeaponState => _weapons[_currentWeaponIndex].CurrentState;
     public string GetCurrentWeaponName => _weapons[_currentWeaponIndex].WeaponName;
 
