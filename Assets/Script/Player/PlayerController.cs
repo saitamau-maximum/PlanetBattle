@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //武器使用中でなければ移動処理を行う
-        if (!_weaponManager.IsAttaking())
+        if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
         {
             _weaponManager.UnequipCurrentWeapon();
 
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
-        if (!_weaponManager.IsAttaking())
+        if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
             _playerAnimator.JumpAnimation();
 
         _currentJumpCount++;

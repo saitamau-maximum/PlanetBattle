@@ -3,26 +3,25 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    [SerializeField] private List<WeaponBase> _weaponPrefabs;
-    private readonly List<WeaponBase> _weapons = new();
+    [SerializeField] private WeaponBase[] _weapons;
     private int _currentWeaponIndex = 0;
 
     public const int PRIMARY_WEAPON_INDEX = 0;
     public const int SECONDARY_WEAPON_INDEX = 1;
 
-    private void Awake()
+    public WeaponBase.WeaponState CurrentWeaponState => _weapons[_currentWeaponIndex].CurrentState;
+
+    private void Start()
     {
-        foreach (var weaponPrefab in _weaponPrefabs)
+        foreach (var weapon in _weapons)
         {
-            WeaponBase weaponInstance = Instantiate(weaponPrefab, transform);
-            weaponInstance.Unequip();
-            _weapons.Add(weaponInstance);
+            weapon.Unequip();
         }
     }
 
     public bool TryUseWeapon(int index)
     {
-        if (IsAttaking() || _weapons[_currentWeaponIndex].IsCoolingDown()) return false;
+        if (CurrentWeaponState != WeaponBase.WeaponState.Idle) return false;
 
         if (_currentWeaponIndex != index)
             _weapons[_currentWeaponIndex].Unequip();
@@ -30,7 +29,7 @@ public class PlayerWeaponManager : MonoBehaviour
         _currentWeaponIndex = index;
 
         _weapons[_currentWeaponIndex].Equip();
-        return _weapons[_currentWeaponIndex].TryAttack();
+        return _weapons[_currentWeaponIndex].TryUseWeapon();
     }
 
     public void UnequipCurrentWeapon()
@@ -38,13 +37,8 @@ public class PlayerWeaponManager : MonoBehaviour
         _weapons[_currentWeaponIndex].Unequip();
     }
 
-    public bool IsAttaking()
-    {
-        return _weapons[_currentWeaponIndex].IsAttacking();
-    }
-
     public string GetWeaponName(int index)
     {
-        return _weapons[index].GetWeaponName();
+        return _weapons[index].WeaponName;
     }
 }

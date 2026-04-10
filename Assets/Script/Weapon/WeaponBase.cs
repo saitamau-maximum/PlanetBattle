@@ -1,20 +1,63 @@
 using System.Collections;
 using UnityEngine;
 
+/*
+ダメージを与える
+特殊効果付与
+クールタイム管理
+*/
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
-    protected bool _isAttacking = false;
-    protected bool _isCoolingDown = false;
+    protected Hitbox[] _hitboxes;
+
+    public enum WeaponState
+    {
+        Idle,
+        Attacking,
+        CoolingDown
+    }
+
+    public WeaponState CurrentState { get; private set; }
+
+    public string WeaponName => _weaponData.WeaponName;
 
     protected virtual void Awake()
     {
-        transform.localPosition = _weaponData.HoldOffset;
+        _hitboxes = GetComponentsInChildren<Hitbox>(true);
     }
 
-    public bool TryAttack()
+    protected virtual void Start()
     {
-        if (_isAttacking || _isCoolingDown) return false;
+        foreach (var hitbox in _hitboxes)
+        {
+            hitbox.OnFirstHit += HandleFirstHit;
+            hitbox.OnContinuousHit += HandleContinuousHit;
+        }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        foreach (var hitbox in _hitboxes)
+        {
+            hitbox.OnFirstHit -= HandleFirstHit;
+            hitbox.OnContinuousHit -= HandleContinuousHit;
+        }
+    }
+
+    protected virtual void HandleFirstHit(Health targetHealth)
+    {
+        targetHealth.TakeDamage(_weaponData.DamageAmount);
+    }
+
+    protected virtual void HandleContinuousHit(Health targetHealth)
+    {
+        //TODO:特殊効果付与
+    }
+
+    public bool TryUseWeapon()
+    {
+        if (CurrentState != WeaponState.Idle) return false;
 
         StartCoroutine(AttackAndCooldown());
 
@@ -23,20 +66,17 @@ public abstract class WeaponBase : MonoBehaviour
 
     private IEnumerator AttackAndCooldown()
     {
-        _isAttacking = true;
+        CurrentState = WeaponState.Attacking;
         yield return StartCoroutine(AttackCoroutine());
-        _isAttacking = false;
 
-        _isCoolingDown = true;
+        CurrentState = WeaponState.CoolingDown;
         yield return new WaitForSeconds(_weaponData.CoolTime);
-        _isCoolingDown = false;
+
+        CurrentState = WeaponState.Idle;
     }
 
     protected abstract IEnumerator AttackCoroutine();
+
     public abstract void Equip();
     public abstract void Unequip();
-
-    public bool IsAttacking() => _isAttacking;
-    public bool IsCoolingDown() => _isCoolingDown;
-    public string GetWeaponName() => _weaponData.WeaponName;
 }

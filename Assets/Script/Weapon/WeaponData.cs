@@ -5,6 +5,6 @@ using UnityEngine;
 public class WeaponData
 {
     public string WeaponName;
+    public float DamageAmount;
     public float CoolTime;
-    public Vector3 HoldOffset;
 }

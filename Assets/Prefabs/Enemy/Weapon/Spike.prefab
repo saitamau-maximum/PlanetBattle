@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: da2176ef0629bfd42958a94b2bf225a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -198,9 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Melee
   _weaponData:
-    WeaponName: Sword
-    CoolTime: 0.4
-    HoldOffset: {x: 0, y: 0, z: 0}
+    WeaponName: Spike
+    DamageAmount: 10
+    CoolTime: 2
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
@@ -247,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3456593500860536911}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 3296932450751681006}
   - component: {fileID: 1362146289782622282}
   m_Layer: 10
-  m_Name: Collider
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc06e9035cb044627ac2064544b0e269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageArea
-  _damageAmount: 10
+  _isAreaAttack: 1
 --- !u!1 &6717655182974550672
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 895142467444723458}
   m_Layer: 10
-  m_Name: Hitbox
+  m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,7 +461,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: da2176ef0629bfd42958a94b2bf225a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -552,7 +552,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: da2176ef0629bfd42958a94b2bf225a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

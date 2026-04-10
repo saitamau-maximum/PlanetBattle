@@ -1,5 +1,4 @@
 using BlackboardSystem;
-using UnityEngine;
 
 namespace BehaviourTrees
 {
@@ -8,9 +7,9 @@ namespace BehaviourTrees
         public override Status Process()
         {
             WeaponBase weapon = _blackboard.GetValue(CharacterKeys.Weapon);
-            weapon.TryAttack();
+            weapon.TryUseWeapon();
 
-            if (weapon.IsAttacking()) return Status.Running;
+            if (weapon.CurrentState == WeaponBase.WeaponState.Attacking) return Status.Running;
 
             return Status.Success;
         }
