@@ -1,11 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/*
-ダメージを与える
-特殊効果付与
-クールタイム管理
-*/
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
