@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
