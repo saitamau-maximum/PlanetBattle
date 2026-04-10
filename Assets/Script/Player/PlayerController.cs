@@ -85,13 +85,13 @@ public class PlayerController : MonoBehaviour
         //攻撃処理
         if (_attackAction.IsPressed())
         {
-            _weaponManager.TryUsePrimaryWeapon();
-            Attack();
+            if (_weaponManager.TryUsePrimaryWeapon())
+                Attack();
         }
         else if (_attackAction2.IsPressed())
         {
-            _weaponManager.TryUseSecondaryWeapon();
-            Attack();
+            if (_weaponManager.TryUseSecondaryWeapon())
+                Attack();
         }
     }
 
