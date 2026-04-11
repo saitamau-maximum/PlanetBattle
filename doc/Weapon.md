@@ -150,9 +150,6 @@ public class ContactWeapon : WeaponBase
         float attackDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(attackDuration);
     }
-
-    public override void Equip() => _renderer.enabled = true;
-    public override void Unequip() => _renderer.enabled = false;
 }
 ```
 
@@ -175,9 +172,6 @@ public class ProjectileWeapon : WeaponBase
         // 発射アニメーション等
         yield return new WaitForSeconds(0.1f);
     }
-
-    public override void Equip() => _renderer.enabled = true;
-    public override void Unequip() => _renderer.enabled = false;
 }
 ```
 
@@ -190,7 +184,6 @@ public class ProjectileWeapon : WeaponBase
 #### 📋 共通（全ての武器）
 - [ ] `WeaponBase` を継承
 - [ ] `AttackCoroutine()` を実装（攻撃演出を定義）
-- [ ] `Equip()` と `Unequip()` を実装
 - [ ] Inspector で **WeaponData をアサイン**
   - [ ] WeaponName（武器名）
   - [ ] DamageAmount（ダメージ量）
