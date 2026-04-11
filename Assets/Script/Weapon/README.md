@@ -34,7 +34,7 @@ public class WeaponData
 
 | メンバー | 説明 | 型 | デフォルト | 用途 |
 |---------|------|-----|-----------|------|
-| `WeaponName` | 武器の名前 | string | - | UI表示・デバッグ用 |
+| `WeaponName` | 武器の名前 | string | - | アニメーション・デバッグ用 |
 | `DamageAmount` | 1回の攻撃ダメージ量 | float | - | Health.TakeDamage() の引数 |
 | `CoolTime` | 攻撃後のクールタイム（秒） | float | - | WeaponBase の状態遷移 |
 
