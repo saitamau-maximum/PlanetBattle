@@ -108,8 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Melee
   _weaponData:
     WeaponName: Sword
+    DamageAmount: 50
     CoolTime: 0
-    HoldOffset: {x: 0, y: -0.3, z: 0}
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
@@ -141,10 +141,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 485712830623775806}
-  - component: {fileID: 3296932450751681006}
   - component: {fileID: 1362146289782622282}
+  - component: {fileID: 2401284647444304296}
+  - component: {fileID: 3296932450751681006}
   m_Layer: 9
-  m_Name: Collider
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,6 +166,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 895142467444723458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1362146289782622282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001645751913811869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc06e9035cb044627ac2064544b0e269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageArea
+  _isAreaAttack: 0
+--- !u!50 &2401284647444304296
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001645751913811869}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &3296932450751681006
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -211,19 +252,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1362146289782622282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6001645751913811869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc06e9035cb044627ac2064544b0e269, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageArea
-  _damageAmount: 50
 --- !u!1 &6717655182974550672
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 895142467444723458}
   m_Layer: 9
-  m_Name: Hitbox
+  m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

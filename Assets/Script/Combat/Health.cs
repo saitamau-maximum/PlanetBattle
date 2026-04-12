@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth = 100;
-    [SerializeField] private int _currentHealth;
+    [SerializeField] private float _maxHealth = 100;
+    [SerializeField] private float _currentHealth;
     public float HealthRatio => _maxHealth == 0 ? 0 : Mathf.Clamp01((float)_currentHealth / _maxHealth);
 
     public event Action<float> OnHealthChanged;
@@ -12,10 +12,8 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         _currentHealth = _maxHealth;
-        NotifyHealthChanged();
     }
 
-#if UNITY_EDITOR
     // インスペクターで値が変更されたときに呼ばれる
     private void OnValidate()
     {
@@ -25,9 +23,8 @@ public class Health : MonoBehaviour
             NotifyHealthChanged();
         }
     }
-#endif
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0) return;
 

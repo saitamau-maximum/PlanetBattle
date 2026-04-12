@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //武器使用中でなければ移動処理を行う
-        if (!_weaponManager.IsAttaking())
+        if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
         {
             _weaponManager.UnequipCurrentWeapon();
 
@@ -85,11 +85,13 @@ public class PlayerController : MonoBehaviour
         //攻撃処理
         if (_attackAction.IsPressed())
         {
-            Attack(PlayerWeaponManager.PRIMARY_WEAPON_INDEX);
+            if (_weaponManager.TryUsePrimaryWeapon())
+                Attack();
         }
         else if (_attackAction2.IsPressed())
         {
-            Attack(PlayerWeaponManager.SECONDARY_WEAPON_INDEX);
+            if (_weaponManager.TryUseSecondaryWeapon())
+                Attack();
         }
     }
 
@@ -115,19 +117,16 @@ public class PlayerController : MonoBehaviour
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
-        if (!_weaponManager.IsAttaking())
+        if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
             _playerAnimator.JumpAnimation();
 
         _currentJumpCount++;
     }
 
-    private void Attack(int index)
+    private void Attack()
     {
-        if (_weaponManager.TryUseWeapon(index))
-        {
-            _currentSpeed = 0f;
-            _playerAnimator.AttackAnimation(_weaponManager.GetWeaponName(index));
-        }
+        _currentSpeed = 0f;
+        _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
     }
 }
 

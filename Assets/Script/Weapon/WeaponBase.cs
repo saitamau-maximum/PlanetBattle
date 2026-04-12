@@ -1,20 +1,32 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
-    protected bool _isAttacking = false;
-    protected bool _isCoolingDown = false;
+
+    private SpriteRenderer _renderer;
+
+    public enum WeaponState
+    {
+        Idle,
+        Attacking,
+        CoolingDown
+    }
+
+    public WeaponState CurrentState { get; private set; } = WeaponState.Idle;
+
+    public string WeaponName => _weaponData.WeaponName;
 
     protected virtual void Awake()
     {
-        transform.localPosition = _weaponData.HoldOffset;
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
-    public bool TryAttack()
+    public bool TryUseWeapon()
     {
-        if (_isAttacking || _isCoolingDown) return false;
+        if (CurrentState != WeaponState.Idle) return false;
 
         StartCoroutine(AttackAndCooldown());
 
@@ -23,20 +35,24 @@ public abstract class WeaponBase : MonoBehaviour
 
     private IEnumerator AttackAndCooldown()
     {
-        _isAttacking = true;
+        CurrentState = WeaponState.Attacking;
         yield return StartCoroutine(AttackCoroutine());
-        _isAttacking = false;
 
-        _isCoolingDown = true;
+        CurrentState = WeaponState.CoolingDown;
         yield return new WaitForSeconds(_weaponData.CoolTime);
-        _isCoolingDown = false;
+
+        CurrentState = WeaponState.Idle;
     }
 
     protected abstract IEnumerator AttackCoroutine();
-    public abstract void Equip();
-    public abstract void Unequip();
 
-    public bool IsAttacking() => _isAttacking;
-    public bool IsCoolingDown() => _isCoolingDown;
-    public string GetWeaponName() => _weaponData.WeaponName;
+    public virtual void Equip()
+    {
+        _renderer.enabled = true;
+    }
+
+    public virtual void Unequip()
+    {
+        _renderer.enabled = false;
+    }
 }

@@ -536,36 +536,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1332481960248737082}
     m_Modifications:
     - target: {fileID: 1207306381360032749, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.09
+      propertyPath: m_LocalPosition.y
+      value: -0.079
       objectReference: {fileID: 0}
-    - target: {fileID: 1362146289782622282, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _damageAmount
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2015999781960853952, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_SortingOrder
-      value: 12
+    - target: {fileID: 1949515359597075477, guid: f168ac94d40f2452eab210330c21c279, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3136778619705771243, guid: f168ac94d40f2452eab210330c21c279, type: 3}
       propertyPath: m_Name
       value: Spike
       objectReference: {fileID: 0}
     - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.392
       objectReference: {fileID: 0}
     - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.247
       objectReference: {fileID: 0}
     - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
       propertyPath: m_LocalPosition.z
@@ -599,37 +587,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3136778619705771244, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_ConstrainProportionsScale
+    - target: {fileID: 3456593500860536911, guid: f168ac94d40f2452eab210330c21c279, type: 3}
+      propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577305756939457091, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _weaponData.CoolTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577305756939457091, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _weaponData.WeaponName
-      value: Spike
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577305756939457091, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _weaponData.DamageAmount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577305756939457091, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _weaponData.HoldOffset.x
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577305756939457091, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: _weaponData.HoldOffset.y
-      value: -0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7052278814465109128, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_SortingOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7430528380538040819, guid: f168ac94d40f2452eab210330c21c279, type: 3}
-      propertyPath: m_SortingOrder
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

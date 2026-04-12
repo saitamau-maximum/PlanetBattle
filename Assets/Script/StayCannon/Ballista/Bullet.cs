@@ -7,9 +7,26 @@ public class Projectile : MonoBehaviour
     public float lifeTime = 5f;
 
     [Header("Hit")]
+    public float damageAmount;
     public bool destroyOnHit = true;
 
-    private bool hasHit = false;   // ★ 多重ヒット防止
+    private Hitbox[] _hitbox;
+
+    void Awake()
+    {
+        _hitbox = GetComponentsInChildren<Hitbox>(true);
+        foreach (var hitbox in _hitbox)
+        {
+            hitbox.OnFirstHit += OnHit;
+        }
+    }
+    void OnDestroy()
+    {
+        foreach (var hitbox in _hitbox)
+        {
+            hitbox.OnFirstHit -= OnHit;
+        }
+    }
 
     void Start()
     {
@@ -22,23 +39,14 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnHit(Health targetHealth)
     {
-        // 既にヒット済みなら何もしない
-        if (hasHit) return;
+        // ヒットした相手にダメージを与える
+        targetHealth.TakeDamage(damageAmount);
 
-        if (other.CompareTag("Enemy"))
+        // ヒット後の処理
+        if (destroyOnHit)
         {
-            hasHit = true;
-
-            // Enemy 側がダメージ処理を担当
-
-            if (destroyOnHit)
-                Destroy(gameObject);
-        }
-        else if (other.CompareTag("Ground"))
-        {
-            hasHit = true;
             Destroy(gameObject);
         }
     }
