@@ -9,6 +9,7 @@ public class Hitbox : MonoBehaviour //ダメージを与えるのは武器に任
     public Action<Health> OnContinuousHit;
 
     private Health _singleHitTarget; // 単体攻撃のヒット対象
+    private float _exitTime;
 
     private void OnEnable()
     {
@@ -22,7 +23,9 @@ public class Hitbox : MonoBehaviour //ダメージを与えるのは武器に任
         if (!_isAreaAttack)
         {
             // 単体攻撃の場合、最初のヒット対象を記録する            
-            if (_singleHitTarget == null)
+            // 前回のヒットから少し時間が経過している場合のみ新しい対象を記録する（2回ヒットを防止）
+            const float HIT_COOLDOWN = 0.1f;
+            if (_singleHitTarget == null && Time.time - _exitTime > HIT_COOLDOWN)
             {
                 _singleHitTarget = health;
                 OnFirstHit?.Invoke(_singleHitTarget);
@@ -52,6 +55,7 @@ public class Hitbox : MonoBehaviour //ダメージを与えるのは武器に任
         if (!_isAreaAttack && _singleHitTarget == health)
         {
             _singleHitTarget = null;
+            _exitTime = Time.time;
         }
     }
 }
