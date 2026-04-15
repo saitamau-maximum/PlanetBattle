@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerWeaponManager))]
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] private InputActionAsset _inputActions;
     [SerializeField] private float _firstSpeed;
     [SerializeField] private float _maxSpeed;
@@ -26,15 +25,6 @@ public class PlayerController : MonoBehaviour
     private float _currentSpeed;
     private int _currentJumpCount = 0;
 
-    private void OnEnable()
-    {
-        _inputActions.FindActionMap("Player").Enable();
-    }
-    private void OnDisable()
-    {
-        _inputActions.FindActionMap("Player").Disable();
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -45,6 +35,23 @@ public class PlayerController : MonoBehaviour
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
+    }
+
+    private void OnEnable()
+    {
+        _inputActions.FindActionMap("Player").Enable();
+
+        _attackAction.performed += OnPrimaryWeaponAttack;
+        _attackAction2.performed += OnSecondaryWeaponAttack;
+        _jumpAction.performed += Jump;
+    }
+    private void OnDisable()
+    {
+        _inputActions.FindActionMap("Player").Disable();
+
+        _attackAction.performed -= OnPrimaryWeaponAttack;
+        _attackAction2.performed -= OnSecondaryWeaponAttack;
+        _jumpAction.performed -= Jump;
     }
 
     private void Update()
@@ -71,27 +78,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //ジャンプ処理
         const float EPILISON = 0.01f;
-        if (_jumpAction.WasPerformedThisFrame() && _currentJumpCount < _maxMultiJumpCount)
-        {
-            Jump();
-        }
-        else if (Mathf.Abs(_rigidbody.linearVelocityY) < EPILISON)
+        if (Mathf.Abs(_rigidbody.linearVelocityY) < EPILISON)
         {
             _currentJumpCount = 0;
-        }
-
-        //攻撃処理
-        if (_attackAction.IsPressed())
-        {
-            if (_weaponManager.TryUsePrimaryWeapon())
-                Attack();
-        }
-        else if (_attackAction2.IsPressed())
-        {
-            if (_weaponManager.TryUseSecondaryWeapon())
-                Attack();
         }
     }
 
@@ -111,9 +101,18 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+
+        if (_moveInputX * _currentSpeed < 0)
+        {
+            _currentSpeed = 0f;
+        }
+
     }
-    private void Jump()
+
+    private void Jump(InputAction.CallbackContext callbackContext)
     {
+        if (_currentJumpCount >= _maxMultiJumpCount) return;
+
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
@@ -123,7 +122,18 @@ public class PlayerController : MonoBehaviour
         _currentJumpCount++;
     }
 
-    private void Attack()
+    private void OnPrimaryWeaponAttack(InputAction.CallbackContext callbackContext)
+    {
+        if (_weaponManager.TryUsePrimaryWeapon())
+            PlayWeaponAnimation();
+    }
+
+    private void OnSecondaryWeaponAttack(InputAction.CallbackContext callbackContext)
+    {
+        if (_weaponManager.TryUseSecondaryWeapon())
+            PlayWeaponAnimation();
+    }
+    private void PlayWeaponAnimation()
     {
         _currentSpeed = 0f;
         _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
