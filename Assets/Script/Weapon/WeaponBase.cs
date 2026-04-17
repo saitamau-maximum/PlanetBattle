@@ -36,7 +36,7 @@ public abstract class WeaponBase : MonoBehaviour
     private IEnumerator AttackAndCooldown()
     {
         CurrentState = WeaponState.Attacking;
-        yield return StartCoroutine(AttackCoroutine());
+        yield return AttackCoroutine();
 
         CurrentState = WeaponState.CoolingDown;
         yield return new WaitForSeconds(_weaponData.CoolTime);
