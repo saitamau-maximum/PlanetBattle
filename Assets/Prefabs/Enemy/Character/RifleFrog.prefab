@@ -167,7 +167,7 @@ MonoBehaviour:
   _weapon: {fileID: 4882076386516442205}
   _environmentSensor: {fileID: 4758019262235019534}
   _baseTarget: {fileID: 0}
-  _behaviourTreeBuilder: {fileID: 11400000, guid: be113ae93cdbd4f65829b06499b6e911, type: 2}
+  _behaviourTreeBuilder: {fileID: 11400000, guid: 1a6b5f308c34349cf84418cd8d2e99fd, type: 2}
   _isChasing: 1
 --- !u!95 &8415900586108805001
 Animator:
