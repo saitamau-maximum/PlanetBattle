@@ -3412,17 +3412,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.699999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.65658087
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.75425565
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189913995136535201, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -97.921
+      objectReference: {fileID: 0}
     - target: {fileID: 6165980054756837820, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
       propertyPath: _maxHealth
       value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9060961836056297991, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.037162
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 9060961836056297991, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 9060961836056297991, guid: 9c49621f2737246ce8125e1b43aa7a39, type: 3}
       propertyPath: m_LocalPosition.z
