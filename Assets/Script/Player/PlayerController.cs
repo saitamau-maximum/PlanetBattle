@@ -26,15 +26,6 @@ public class PlayerController : MonoBehaviour
     private float _currentSpeed;
     private int _currentJumpCount = 0;
 
-    private void OnEnable()
-    {
-        _inputActions.FindActionMap("Player").Enable();
-    }
-    private void OnDisable()
-    {
-        _inputActions.FindActionMap("Player").Disable();
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -47,19 +38,35 @@ public class PlayerController : MonoBehaviour
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
     }
 
+    private void OnEnable()
+    {
+        _inputActions.FindActionMap("Player").Enable();
+        _jumpAction.performed += Jump;
+        _attackAction.performed += PrimaryAttack;
+        _attackAction2.performed += SecondaryAttack;
+    }
+    private void OnDisable()
+    {
+        _inputActions.FindActionMap("Player").Disable();
+        _jumpAction.performed -= Jump;
+        _attackAction.performed -= PrimaryAttack;
+        _attackAction2.performed -= SecondaryAttack;
+    }
+
     private void Update()
     {
+        UpdateRotation();
+
+        _moveInputX = _moveAction.ReadValue<Vector2>().x;
+
         //武器使用中でなければ移動処理を行う
         if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
         {
             _weaponManager.UnequipCurrentWeapon();
 
-            //移動処理
-            _moveInputX = _moveAction.ReadValue<Vector2>().x;
+            //移動処理            
             if (_moveInputX != 0)
             {
-                Rotate();
-
                 // 加速
                 if (Mathf.Abs(_currentSpeed) < _firstSpeed)
                     _currentSpeed = _moveInputX * _firstSpeed;
@@ -71,27 +78,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //ジャンプ処理
-        const float EPILISON = 0.01f;
-        if (_jumpAction.WasPerformedThisFrame() && _currentJumpCount < _maxMultiJumpCount)
-        {
-            Jump();
-        }
-        else if (Mathf.Abs(_rigidbody.linearVelocityY) < EPILISON)
+        //着地処理
+        const float MIN_VELOCITY_Y = 0.01f;
+        if (Mathf.Abs(_rigidbody.linearVelocityY) < MIN_VELOCITY_Y)
         {
             _currentJumpCount = 0;
-        }
-
-        //攻撃処理
-        if (_attackAction.IsPressed())
-        {
-            if (_weaponManager.TryUsePrimaryWeapon())
-                Attack();
-        }
-        else if (_attackAction2.IsPressed())
-        {
-            if (_weaponManager.TryUseSecondaryWeapon())
-                Attack();
         }
     }
 
@@ -100,7 +91,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.linearVelocityX = _currentSpeed;
     }
 
-    private void Rotate()
+    private void UpdateRotation()
     {
         //移動する向きによってキャラクターを反転させる
         if (_moveInputX > 0)
@@ -112,8 +103,11 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-    private void Jump()
+
+    private void Jump(InputAction.CallbackContext context)
     {
+        if (_currentJumpCount >= _maxMultiJumpCount) return;
+
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
@@ -123,7 +117,19 @@ public class PlayerController : MonoBehaviour
         _currentJumpCount++;
     }
 
-    private void Attack()
+    private void PrimaryAttack(InputAction.CallbackContext context)
+    {
+        if (_weaponManager.TryUsePrimaryWeapon())
+            AttackAnimation();
+    }
+
+    private void SecondaryAttack(InputAction.CallbackContext context)
+    {
+        if (_weaponManager.TryUseSecondaryWeapon())
+            AttackAnimation();
+    }
+
+    private void AttackAnimation()
     {
         _currentSpeed = 0f;
         _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
