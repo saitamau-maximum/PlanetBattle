@@ -55,21 +55,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        UpdateRotation();
 
         _moveInputX = _moveAction.ReadValue<Vector2>().x;
 
         //武器使用中でなければ移動処理を行う
         if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
         {
+            UpdateRotation();
             _weaponManager.UnequipCurrentWeapon();
 
             //移動処理            
             if (_moveInputX != 0)
             {
+                if (Mathf.Sign(_moveInputX) != Mathf.Sign(_currentSpeed))
+                {
+                    _currentSpeed = 0;
+                }
+
                 // 加速
                 if (Mathf.Abs(_currentSpeed) < _firstSpeed)
                     _currentSpeed = _moveInputX * _firstSpeed;
+
                 _currentSpeed = Mathf.MoveTowards(_currentSpeed, _moveInputX * _maxSpeed, _acceleration * Time.deltaTime);
             }
             else
