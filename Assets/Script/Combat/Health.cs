@@ -8,10 +8,21 @@ public class Health : MonoBehaviour
     public float HealthRatio => _maxHealth == 0 ? 0 : Mathf.Clamp01((float)_currentHealth / _maxHealth);
 
     public event Action<float> OnHealthChanged;
+    public event Action OnDied;
 
     private void Awake()
     {
         _currentHealth = _maxHealth;
+    }
+
+    private void Start()
+    {
+        OnDied += Die;
+    }
+
+    private void OnDestroy()
+    {
+        OnDied -= Die;
     }
 
     // インスペクターで値が変更されたときに呼ばれる
@@ -26,7 +37,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (amount <= 0) return;
+        if (amount <= 0 || _currentHealth <= 0) return;
 
         _currentHealth -= amount;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
@@ -34,9 +45,9 @@ public class Health : MonoBehaviour
         NotifyHealthChanged();
         Debug.Log($"{gameObject.name} が{amount}ダメージを受けた");
 
-        if (_currentHealth <= 0)
+        if (_currentHealth == 0)
         {
-            Die();
+            OnDied?.Invoke();
         }
     }
 
