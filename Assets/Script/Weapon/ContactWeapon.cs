@@ -4,8 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class ContactWeapon : WeaponBase
 {
+    [SerializeField] private string _attackAnimationClipName = "Attack";
     private Animator _animator;
     private Hitbox[] _hitboxes;
+    private float _attackDuration;
     readonly int _hashAttack = Animator.StringToHash("Attack");
 
     protected override void Awake()
@@ -21,6 +23,12 @@ public class ContactWeapon : WeaponBase
         {
             hitbox.OnFirstHit += HandleFirstHit;
             hitbox.OnContinuousHit += HandleContinuousHit;
+        }
+
+        int animationHash = Animator.StringToHash(_attackAnimationClipName);
+        foreach (var clip in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (Animator.StringToHash(clip.name) == animationHash) _attackDuration = clip.length;
         }
     }
 
@@ -46,8 +54,7 @@ public class ContactWeapon : WeaponBase
     {
         _animator.SetTrigger(_hashAttack);
 
-        int layerIndex = 0;
-        float attackDuration = _animator.GetCurrentAnimatorStateInfo(layerIndex).length;
-        yield return new WaitForSeconds(attackDuration);
+        Debug.Log(_attackDuration);
+        yield return new WaitForSeconds(_attackDuration);
     }
 }

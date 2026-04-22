@@ -6,7 +6,9 @@ public class ProjectileWeapon : WeaponBase
 {
     [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private Transform _muzzle;
+    [SerializeField] private string _attackAnimationClipName = "Attack";
     private Animator _animator;
+    private float _attackDuration;
     readonly int _hashAttack = Animator.StringToHash("Attack");
 
     protected override void Awake()
@@ -14,14 +16,22 @@ public class ProjectileWeapon : WeaponBase
         base.Awake();
         _animator = GetComponent<Animator>();
     }
+
+    protected void Start()
+    {
+        int animationHash = Animator.StringToHash(_attackAnimationClipName);
+        foreach (var clip in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (Animator.StringToHash(clip.name) == animationHash) _attackDuration = clip.length;
+        }
+    }
+
     protected override IEnumerator AttackCoroutine()
     {
         Projectile projectile = Instantiate(_projectilePrefab, _muzzle.position, _muzzle.rotation);
         projectile.Init(_weaponData.DamageAmount);
 
-        _animator.SetTrigger(_hashAttack);
-        int layerIndex = 0;
-        float attackDuration = _animator.GetCurrentAnimatorStateInfo(layerIndex).length;
-        yield return new WaitForSeconds(attackDuration);
+        _animator.SetTrigger(_hashAttack);        
+        yield return new WaitForSeconds(_attackDuration);
     }
 }
