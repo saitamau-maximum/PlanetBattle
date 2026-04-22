@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerWeaponManager))]
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] private InputActionAsset _inputActions;
     [SerializeField] private float _firstSpeed;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _acceleration;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private int _maxMultiJumpCount;
+    [SerializeField] private int _maxMultiJumpCount; //多段ジャンプできる最大回数
+    [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)
 
     private Rigidbody2D _rigidbody;
     private PlayerAnimator _playerAnimator;
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputActions.FindActionMap("Player").Enable();
         _jumpAction.performed += Jump;
+        _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
     }
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputActions.FindActionMap("Player").Disable();
         _jumpAction.performed -= Jump;
+        _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
     }
@@ -116,10 +118,20 @@ public class PlayerController : MonoBehaviour
         _rigidbody.linearVelocityY = 0;
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
+
         if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
             _playerAnimator.JumpAnimation();
 
         _currentJumpCount++;
+    }
+
+    private void JumpCanceled(InputAction.CallbackContext context)
+    {
+        //ジャンプボタンが離されたときに上方向の速度を半減させることで小ジャンプを再現
+        if (_rigidbody.linearVelocityY > 0)
+        {
+            _rigidbody.linearVelocityY = _rigidbody.linearVelocityY * _jumpCutMultiplier; 
+        }
     }
 
     private void PrimaryAttack(InputAction.CallbackContext context)
