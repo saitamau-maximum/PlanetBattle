@@ -109,7 +109,7 @@ MonoBehaviour:
   _weaponData:
     WeaponName: Sword
     DamageAmount: 50
-    CoolTime: 0
+    CoolTime: 0.15
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
