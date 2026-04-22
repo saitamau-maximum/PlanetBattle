@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
         _moveInputX = _moveAction.ReadValue<Vector2>().x;
 
         //武器使用中でなければ移動処理を行う
