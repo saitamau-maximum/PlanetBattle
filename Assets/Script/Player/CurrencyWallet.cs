@@ -1,17 +1,20 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class CoinWallet : MonoBehaviour
+public class CurrencyWallet : MonoBehaviour
 {
-    public int CoinCount { get; private set; }
+    [SerializeField] private int _maxCoinCount = 200;
 
+
+    public int CoinCount { get; private set; }
     public Action<int> OnCoinCountChanged;
 
     public void AddCoins(int amount)
     {
         if (amount <= 0) return;
 
-        CoinCount += amount;
+        CoinCount = math.clamp(CoinCount + amount, 0, _maxCoinCount);
         OnCoinCountChanged?.Invoke(CoinCount);
         Debug.Log($"コインを{amount}枚獲得！ 現在のコイン数: {CoinCount}");
     }

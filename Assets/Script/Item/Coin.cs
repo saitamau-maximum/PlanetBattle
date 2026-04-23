@@ -1,21 +1,15 @@
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : Item
 {
     [SerializeField] private int _cost = 1;
-    [SerializeField] private float _lifetime = 10f;
 
-    private void Start()
+    protected override void ApplyTo(GameObject target)
     {
-        Destroy(gameObject, _lifetime);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out CoinWallet wallet))
+        // コインを獲得する処理
+        if (target.TryGetComponent(out CurrencyWallet wallet))
         {
             wallet.AddCoins(_cost);
-            Destroy(gameObject);
         }
     }
 }
