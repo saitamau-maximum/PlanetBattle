@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     [SerializeField] private float _lifetime = 10f;
-    [SerializeField] private float _invincibilityDuration = 0.3f;
+    [SerializeField] private float _invincibilityDuration = 0.1f;
 
     private Collider2D _collider;
 
