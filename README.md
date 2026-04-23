@@ -8,6 +8,7 @@
 -shigeru
 -mototashi
 -sgok
+-EvenOdd
 
 # 開発方針
 

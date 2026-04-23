@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 8437554141696259431}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 2.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -309,6 +309,7 @@ MonoBehaviour:
   _dropTable: {fileID: 11400000, guid: b03e55d4119bc4265a7caecefb539ea9, type: 2}
   _spawnForceMax: 3
   _spawnForceMin: 1
+  _spawnOffset: {x: 0, y: 0.4}
 --- !u!95 &206231485295626653
 Animator:
   serializedVersion: 7

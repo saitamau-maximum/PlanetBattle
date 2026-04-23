@@ -153,7 +153,7 @@ public class ContactWeapon : WeaponBase
 }
 ```
 
-#### 2. ProjectileWeapon（弾発射武器 TODO:これから作る予定）
+#### 2. ProjectileWeapon
 銃、弓など、プロジェクタイルを発射する武器。(**Hitbox を使用しない**,ダメージは弾側で処理)
 
 ```csharp

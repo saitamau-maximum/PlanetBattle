@@ -15,22 +15,28 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         _hitbox = GetComponentsInChildren<Hitbox>(true);
+    }
+
+    public void Init(float damage)
+    {
+        damageAmount = damage;
+    }
+
+    void Start()
+    {
+        Destroy(gameObject, lifeTime);
         foreach (var hitbox in _hitbox)
         {
             hitbox.OnFirstHit += OnHit;
         }
     }
+
     void OnDestroy()
     {
         foreach (var hitbox in _hitbox)
         {
             hitbox.OnFirstHit -= OnHit;
         }
-    }
-
-    void Start()
-    {
-        Destroy(gameObject, lifeTime);
     }
 
     void Update()

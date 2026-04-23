@@ -309,6 +309,7 @@ MonoBehaviour:
   _dropTable: {fileID: 11400000, guid: 3aaef452b359a4d9687b950ea4dbe4a6, type: 2}
   _spawnForceMax: 3
   _spawnForceMin: 1
+  _spawnOffset: {x: 0, y: 0.4}
 --- !u!95 &206231485295626653
 Animator:
   serializedVersion: 7
