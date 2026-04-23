@@ -17,3 +17,7 @@ MonoBehaviour:
     Probability: 0.8
     MinCount: 5
     MaxCount: 7
+  - Prefab: {fileID: 4619581420056894063, guid: c808f9144acc6440699f1051acb8750b, type: 3}
+    Probability: 0.5
+    MinCount: 2
+    MaxCount: 1
