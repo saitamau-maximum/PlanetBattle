@@ -31,7 +31,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sword
+  m_Name: SwordShort
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -99,7 +99,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a762afd716bf401eb1045cbea8dafecb, type: 2}
+  m_Motion: {fileID: 7400000, guid: 918714b462bd79945a6035814b59fb18, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
