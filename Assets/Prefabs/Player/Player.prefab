@@ -220,7 +220,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2a02bf329f5439388c43015d596bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinWallet
-  _maxCoinCount: 200
+  _currencies:
+  - Type: 0
+    MaxAmount: 200
+    Amount: 50
+  - Type: 1
+    MaxAmount: 500
+    Amount: 0
 --- !u!95 &2496341395458143598
 Animator:
   serializedVersion: 7

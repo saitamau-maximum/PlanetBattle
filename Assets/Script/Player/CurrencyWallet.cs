@@ -1,20 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
 public class CurrencyData
-{
-    [SerializeField] private int _max = 1000;
-    private int _value = 0;
-    public int Value
-    {
-        get { return _value; }
-        set { _value = Mathf.Clamp(value, 0, _max); }
-    }
-}
-
-public class CurrencyWallet : MonoBehaviour
 {
     public enum CurrencyType
     {
@@ -22,16 +12,34 @@ public class CurrencyWallet : MonoBehaviour
         Gem
     }
 
-    public Dictionary<CurrencyType, CurrencyData> Currencies { get; private set; }
+    public CurrencyType Type;
+    public int MaxAmount;
+    public int Amount;
+}
 
-    public Action<CurrencyType, int> OnCurrencyChanged;
+public class CurrencyWallet : MonoBehaviour
+{
+    [SerializeField] private List<CurrencyData> _currencies;
 
-    public void AddCurrency(CurrencyType type, int amount)
+    public Action<CurrencyData.CurrencyType, int> OnCurrencyChanged;
+
+    public int GetCurrency(CurrencyData.CurrencyType type)
     {
-        if (Currencies.TryGetValue(type, out CurrencyData data))
+        CurrencyData data = _currencies.FirstOrDefault(c => c.Type == type);
+        if (data != null)
         {
-            data.Value += amount;
-            OnCurrencyChanged?.Invoke(type, data.Value);
+            return data.Amount;
+        }
+        return 0;
+    }
+
+    public void AddCurrency(CurrencyData.CurrencyType type, int amount)
+    {
+        CurrencyData data = _currencies.FirstOrDefault(c => c.Type == type);
+        if (data != null)
+        {
+            data.Amount += amount;
+            OnCurrencyChanged?.Invoke(type, data.Amount);
         }
     }
 }

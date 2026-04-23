@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gem
   _lifetime: 30
-  _invincibilityDuration: 0.1
+  _invincibilityDuration: 0.15
   _cost: 1
 --- !u!50 &9000271652868964001
 Rigidbody2D:

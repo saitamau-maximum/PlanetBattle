@@ -9,7 +9,7 @@ public class Coin : Item
         // コインを獲得する処理
         if (target.TryGetComponent(out CurrencyWallet wallet))
         {
-            wallet.AddCurrency(CurrencyWallet.CurrencyType.Coin, _cost);
+            wallet.AddCurrency(CurrencyData.CurrencyType.Coin, _cost);
         }
     }
 }
