@@ -6,7 +6,7 @@ public class ItemCollector : MonoBehaviour
     {
         if (collision.TryGetComponent(out Item item))
         {
-            item.Collect(gameObject);
+            item.Consume(gameObject);
         }
     }
 }

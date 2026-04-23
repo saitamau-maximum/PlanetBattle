@@ -26,11 +26,17 @@ public abstract class Item : MonoBehaviour
         _collider.enabled = true;
     }
 
-    public void Collect(GameObject collector)
+    public void Consume(GameObject collector)
     {
-        ApplyTo(collector);
+        Execute(collector);
+        Dispose();
+
+    }
+
+    protected virtual void Dispose()
+    {
         Destroy(gameObject);
     }
 
-    protected abstract void ApplyTo(GameObject target);
+    protected abstract void Execute(GameObject target);
 }
