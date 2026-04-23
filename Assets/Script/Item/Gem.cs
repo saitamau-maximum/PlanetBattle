@@ -9,7 +9,7 @@ public class Gem : Item
         // ジェムを獲得する処理
         if (target.TryGetComponent(out CurrencyWallet wallet))
         {
-            wallet.AddGems(_cost);
+            wallet.AddCurrency(CurrencyWallet.CurrencyType.Gem, _cost);
         }
     }
 }

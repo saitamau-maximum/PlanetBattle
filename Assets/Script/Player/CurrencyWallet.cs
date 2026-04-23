@@ -1,30 +1,37 @@
 using System;
-using Unity.Mathematics;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class CurrencyData
+{
+    [SerializeField] private int _max = 1000;
+    private int _value = 0;
+    public int Value
+    {
+        get { return _value; }
+        set { _value = Mathf.Clamp(value, 0, _max); }
+    }
+}
 
 public class CurrencyWallet : MonoBehaviour
 {
-    [SerializeField] private int _maxCoinCount = 200;
-
-    public int CoinCount { get; private set; }
-    public int GemCount { get; private set; }
-
-    public Action<int> OnCoinCountChanged;
-
-    public void AddCoins(int amount)
+    public enum CurrencyType
     {
-        if (amount <= 0) return;
-
-        CoinCount = math.clamp(CoinCount + amount, 0, _maxCoinCount);
-        OnCoinCountChanged?.Invoke(CoinCount);
-        Debug.Log($"コインを{amount}枚獲得！ 現在のコイン数: {CoinCount}");
+        Coin,
+        Gem
     }
 
-    public void AddGems(int amount)
-    {
-        if (amount <= 0) return;
+    public Dictionary<CurrencyType, CurrencyData> Currencies { get; private set; }
 
-        GemCount += amount;
-        Debug.Log($"ジェムを{amount}個獲得！ 現在のジェム数: {GemCount}");
+    public Action<CurrencyType, int> OnCurrencyChanged;
+
+    public void AddCurrency(CurrencyType type, int amount)
+    {
+        if (Currencies.TryGetValue(type, out CurrencyData data))
+        {
+            data.Value += amount;
+            OnCurrencyChanged?.Invoke(type, data.Value);
+        }
     }
 }
