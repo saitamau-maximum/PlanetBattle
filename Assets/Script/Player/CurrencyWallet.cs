@@ -38,7 +38,7 @@ public class CurrencyWallet : MonoBehaviour
         CurrencyData data = _currencies.FirstOrDefault(c => c.Type == type);
         if (data != null)
         {
-            data.Amount += Mathf.Clamp(data.Amount + amount, 0, data.MaxAmount);
+            data.Amount = Mathf.Clamp(data.Amount + amount, 0, data.MaxAmount);
             OnCurrencyChanged?.Invoke(type, data.Amount);
         }
     }
