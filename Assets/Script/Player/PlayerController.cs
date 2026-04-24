@@ -12,30 +12,42 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _acceleration;
     [SerializeField] private float _jumpForce;
     [SerializeField] private int _maxMultiJumpCount; //多段ジャンプできる最大回数
-    [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)
+    [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)       
 
     private Rigidbody2D _rigidbody;
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
+    private PlayerBuildingManager _structureManager;
+
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _attackAction2;
+    private InputAction _modeChange;
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
+
+    private enum Mode
+    {
+        Attack,
+        Building
+    }
+    private Mode _currentMode = Mode.Attack;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
+        _structureManager = GetComponent<PlayerBuildingManager>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
+        _modeChange = InputSystem.actions.FindAction("ModeChange");
     }
 
     private void OnEnable()
@@ -45,6 +57,7 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
+        _modeChange.performed += ChangeMode;
     }
     private void OnDisable()
     {
@@ -53,6 +66,7 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
+        _modeChange.performed -= ChangeMode;
     }
 
     private void Update()
@@ -142,14 +156,41 @@ public class PlayerController : MonoBehaviour
 
     private void PrimaryAttack(InputAction.CallbackContext context)
     {
-        if (_weaponManager.TryUsePrimaryWeapon())
-            AttackAnimation();
+        if (_currentMode == Mode.Attack)
+        {
+            if (_weaponManager.TryUsePrimaryWeapon())
+                AttackAnimation();
+        }
+        else if (_currentMode == Mode.Building)
+        {
+            //建築モードのときは攻撃ボタンで建築配置
+            _structureManager.TryPlaceStructure();
+
+        }
     }
 
     private void SecondaryAttack(InputAction.CallbackContext context)
     {
-        if (_weaponManager.TryUseSecondaryWeapon())
-            AttackAnimation();
+        if (_currentMode == Mode.Attack)
+        {
+            if (_weaponManager.TryUseSecondaryWeapon())
+                AttackAnimation();
+        }
+    }
+
+    private void ChangeMode(InputAction.CallbackContext context)
+    {
+        Debug.Log("Mode Change");
+        if (_currentMode == Mode.Attack)
+        {
+            _currentMode = Mode.Building;
+            _structureManager.EnterBuildingMode();
+        }
+        else if (_currentMode == Mode.Building)
+        {
+            _currentMode = Mode.Attack;
+            _structureManager.ExitBuildingMode();
+        }
     }
 
     private void AttackAnimation()

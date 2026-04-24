@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 3987682353718767890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.82, y: -0.78, z: 0}
+  m_LocalPosition: {x: -1.82, y: -0.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -142,10 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingPlacer
   _placementPreview: {fileID: 7236944767336689902}
   _cellSize: {x: 0.333, y: 0.333}
-  _buildingGridSize: {x: 2, y: 2}
-  _previewValidColor: {r: 1, g: 1, b: 1, a: 0.3137255}
-  _previewErrorColor: {r: 0.745283, g: 0, b: 0.05553111, a: 0.39215687}
-  _buildingPrefab: {fileID: 5832382787022827370, guid: f534569c443a44517a94b4f12fb41d10, type: 3}
+  _structureGridSize: {x: 0, y: 0}
+  _structurePrefab: {fileID: 0}
 --- !u!1 &5792236778970836163
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +156,7 @@ GameObject:
   - component: {fileID: 8416665651624058623}
   - component: {fileID: 2657262360820082321}
   - component: {fileID: 53369434894549803}
+  - component: {fileID: 6808467293976408606}
   - component: {fileID: 6304543317347794888}
   - component: {fileID: 2661061160532804966}
   - component: {fileID: 7320677745884557263}
@@ -283,6 +282,21 @@ MonoBehaviour:
   _weapons:
   - {fileID: 739741552655628590}
   - {fileID: 145938408264576089}
+--- !u!114 &6808467293976408606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792236778970836163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e083ab67f585b4ed68336d0df7687788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildingManager
+  _structures:
+  - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
+  _structurePlacer: {fileID: 8402689786591051511}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526ccb3360030402383f914f310ba31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundChecker
+  _previewValidColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+  _previewErrorColor: {r: 0.74509805, g: 0, b: 0.05490196, a: 0.39215687}
   _groundCheckPoints:
   - {fileID: 7992701315017598701}
   - {fileID: 1128365640673788164}
@@ -710,7 +726,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!50 &2926877744314278223
 Rigidbody2D:

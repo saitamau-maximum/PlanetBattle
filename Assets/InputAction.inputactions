@@ -43,19 +43,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "ModeChange",
                     "type": "Button",
                     "id": "f55df37e-d491-47c9-ae2c-d86f55fcb0a0",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "3efc550a-6b90-43da-9d2f-0c9f2a5e488e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -431,22 +431,11 @@
                 {
                     "name": "",
                     "id": "792ea2f0-e9a8-4bc0-b9a9-9e1aba5f39bc",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50825ff0-e3c4-48e2-913e-c081617a70c2",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
+                    "action": "ModeChange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
