@@ -25,6 +25,7 @@ TagManager:
   - PlayerAttack
   - EnemyAttack
   - PlayerBuilding
+  - Item
   - 
   - 
   - 

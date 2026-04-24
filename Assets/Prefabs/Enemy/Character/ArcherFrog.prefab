@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 1395052655882912472}
   - component: {fileID: 8353433035077783825}
   - component: {fileID: 3799422853901950393}
+  - component: {fileID: 8555379476024322018}
   - component: {fileID: 1152729703471813369}
   - component: {fileID: 4013208373582707418}
   - component: {fileID: 5225160546783576422}
@@ -231,6 +232,21 @@ MonoBehaviour:
   _baseTarget: {fileID: 0}
   _behaviourTreeBuilder: {fileID: 11400000, guid: 1a6b5f308c34349cf84418cd8d2e99fd, type: 2}
   _isChasing: 1
+--- !u!114 &8555379476024322018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412631041521350378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e927d30d692044dff832e788a8e58c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathDropSpawner
+  _dropTable: {fileID: 11400000, guid: 3aaef452b359a4d9687b950ea4dbe4a6, type: 2}
+  _spawnForceMax: 3
+  _spawnForceMin: 1
 --- !u!95 &1152729703471813369
 Animator:
   serializedVersion: 7
