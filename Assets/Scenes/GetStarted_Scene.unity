@@ -3345,7 +3345,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5524093445840077495, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
       propertyPath: _currencies.Array.data[0].Amount
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5524093445840077495, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
       propertyPath: _currencies.Array.data[0].MaxAmount
