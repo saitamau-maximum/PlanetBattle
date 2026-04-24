@@ -9,7 +9,9 @@
 1. [WeaponData](#weapondata) — 武器パラメータ管理
 2. [WeaponBase](#weaponbase抽象基底クラス) — 攻撃フロー管理・状態制御
 3. [ContactWeapon](#contactweapon) — 接触判定型武器の実装
-4. [参考：クラス依存関係](#参考クラス依存関係)
+4. [ProjectileWeapon](#projectileweapon) — 投射物型武器の実装
+5. [BurstProjectileWeapon](#burstprojectileweapon) — 連射投射物型武器の実装
+6. [参考：クラス依存関係](#参考クラス依存関係)
 
 ---
 
@@ -325,6 +327,147 @@ Sword (GameObject)
 
 ---
 
+## ProjectileWeapon
+
+### 役割
+**投射物型の武器**。弾丸やミサイルなどのプロジェクタイルを発射します。  
+例：銃、弓、魔法などの遠距離武器
+
+### 設計方針
+- Projectile プレハブをインスタンス化して発射
+- Muzzle (銃口) から発射方向を決定
+- アニメーションで発射演出を実行
+
+### プロパティ
+
+| メンバー | 説明 | 型 | 役割 |
+|---------|------|-----|------|
+| `_projectilePrefab` | 発射する投射物のプレハブ | Projectile | インスタンス化して発射 |
+| `_muzzle` | 銃口の Transform（発射位置・方向） | Transform | 投射物の生成位置・回転 |
+| `_animator` | アニメーション制御 | Animator | 発射演出実行 |
+| `_hashAttack` | "Attack" パラメータのハッシュ | int | アニメーション制御 |
+
+### メソッド
+
+#### protected override void Awake()
+
+**役割** — コンポーネント初期化。
+
+```csharp
+protected override void Awake()
+{
+    base.Awake();  // WeaponBase の初期化（_renderer取得）
+    _animator = GetComponent<Animator>();
+}
+```
+
+#### protected override IEnumerator AttackCoroutine()
+
+**役割** — 投射物発射の演出。
+
+```csharp
+protected override IEnumerator AttackCoroutine()
+{
+    Projectile projectile = Instantiate(_projectilePrefab, _muzzle.position, _muzzle.rotation);
+    projectile.Init(_weaponData.DamageAmount);
+
+    _animator.SetTrigger(_hashAttack);
+    int layerIndex = 0;
+    float attackDuration = _animator.GetCurrentAnimatorStateInfo(layerIndex).length;
+    yield return new WaitForSeconds(attackDuration);
+}
+```
+
+**処理フロー**
+1. Projectile をインスタンス化（muzzle 位置・回転）
+2. Projectile に ダメージ量を初期化
+3. "Attack" アニメーションをトリガー
+4. アニメーション長だけ待機
+5. 完了したら WeaponBase が状態遷移
+
+### セットアップ例
+
+```
+Gun (GameObject)
+├── ProjectileWeapon (Component)
+│   ├── Projectile Prefab: [Bullet.prefab]
+│   └── Muzzle: [Muzzle Transform]
+├── Animator
+├── SpriteRenderer
+└── Muzzle (子オブジェクト)
+    └── Transform（発射位置・方向の基準点）
+```
+
+---
+
+## BurstProjectileWeapon
+
+### 役割
+**連射投射物型の武器**。ProjectileWeapon を継承し、複数回の連射を実現します。  
+例：マシンガン、連射弓、連続魔法など
+
+### 設計方針
+- ProjectileWeapon の AttackCoroutine を複数回ループ
+- 各射撃間に指定時間のインターバルを設定
+- 親クラスの状態管理を活用
+
+### プロパティ
+
+| メンバー | 説明 | 型 | 役割 |
+|---------|------|-----|------|
+| `_burstShotCount` | 連射する回数 | int | 発射回数を制御 |
+| `_burstShotInterval` | 各射撃間のインターバル（秒） | float | 射撃間の時間待機 |
+
+### メソッド
+
+#### protected override IEnumerator AttackCoroutine()
+
+**役割** — 連射の実行。
+
+```csharp
+protected override IEnumerator AttackCoroutine()
+{
+    for (int i = 0; i < _burstShotCount; i++)
+    {
+        yield return base.AttackCoroutine();
+        yield return new WaitForSeconds(_burstShotInterval);
+    }
+}
+```
+
+**処理フロー**
+1. `_burstShotCount` 回ループ
+2. 各ループで `base.AttackCoroutine()` 実行（親クラスの発射処理）
+3. インターバル待機
+4. 次の射撃へ
+5. すべて完了したら WeaponBase が状態遷移
+
+### 使用例
+
+```csharp
+// Inspector での設定
+_burstShotCount = 3        // 3回連射
+_burstShotInterval = 0.2f  // 各射撃間 0.2 秒
+```
+
+結果: 0秒目に1発 → 0.2秒後に2発 → 0.2秒後に3発
+
+### セットアップ例
+
+```
+MachineGun (GameObject)
+├── BurstProjectileWeapon (Component)
+│   ├── Burst Shot Count: 3
+│   ├── Burst Shot Interval: 0.2
+│   ├── Projectile Prefab: [Bullet.prefab]
+│   └── Muzzle: [Muzzle Transform]
+├── Animator
+├── SpriteRenderer
+└── Muzzle (子オブジェクト)
+```
+
+---
+
 ## 参考：クラス依存関係
 
 ```
@@ -335,11 +478,16 @@ WeaponData
 WeaponBase
     ↑
     │ 継承
+    ├─→ ContactWeapon
+    │       │
+    │       └─ Hitbox[] を管理
+    │           └─ Health イベント受信
     │
-ContactWeapon
-    │
-    └─ Hitbox[] を管理
-        └─ Health イベント受信
+    └─→ ProjectileWeapon
+            │
+            └─→ BurstProjectileWeapon
+                    │
+                    └─ Projectile[] を発射
 ```
 
 ---

@@ -63,8 +63,8 @@ public class NormalAIBuilder : BehaviourTreeBuilder
             new IsTargetInAttackRange(),
             new StopVelocityX(),
             new BehaviourTrees.WaitForSeconds(0.3f),
-            new UseWeapon()
-        //new ChangeDirectionToTarget()
+            new UseWeapon(),
+            new ChangeDirectionToTarget()
         );
     }
 }

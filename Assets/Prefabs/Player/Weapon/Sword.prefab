@@ -109,7 +109,7 @@ MonoBehaviour:
   _weaponData:
     WeaponName: Sword
     DamageAmount: 50
-    CoolTime: 0
+    CoolTime: 0.15
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
@@ -120,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 3136778619705771243}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f0657b59648d44b79f898558463be768, type: 2}
+  m_Controller: {fileID: 9100000, guid: b8c1a4c016d803441b738220f693e19e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
