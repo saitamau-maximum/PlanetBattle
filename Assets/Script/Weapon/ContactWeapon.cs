@@ -54,7 +54,6 @@ public class ContactWeapon : WeaponBase
     {
         _animator.SetTrigger(_hashAttack);
 
-        Debug.Log(_attackDuration);
         yield return new WaitForSeconds(_attackDuration);
     }
 }
