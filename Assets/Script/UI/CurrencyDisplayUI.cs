@@ -9,7 +9,7 @@ public class CurrencyDisplayUI : MonoBehaviour
     private void Start()
     {
         // 初期表示
-        int current = _playerWallet.GetCurrency(CurrencyData.CurrencyType.Coin);
+        int current = _playerWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin);
         _numberText.text = current.ToString();
 
         // イベント購読
