@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 1383479446387519886}
   - component: {fileID: 8402689786591051511}
   m_Layer: 7
-  m_Name: BuldingPlacer
+  m_Name: StructurePlacementController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,10 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d88ba96e105e4aaa98f1c5a696ae5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingPlacer
-  _placementPreview: {fileID: 7236944767336689902}
+  _placementPreview: {fileID: 6276012722504463757}
+  _validator: {fileID: 5797990901854612916}
   _cellSize: {x: 0.333, y: 0.333}
-  _structureGridSize: {x: 0, y: 0}
-  _structureData: {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
   _buildingBox: {fileID: -4623445184215560509, guid: 2fc959b6ef5f34a93bf6c554318f2cbf, type: 3}
 --- !u!1 &5792236778970836163
 GameObject:
@@ -297,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildingManager
   _structures:
   - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
-  _structurePlacer: {fileID: 8402689786591051511}
+  _structurePlacement: {fileID: 8402689786591051511}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,11 +574,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5979948386132242353}
   - component: {fileID: 5818268798688018588}
+  - component: {fileID: 6276012722504463757}
   - component: {fileID: 5797990901854612916}
   - component: {fileID: 5701187953513117496}
   - component: {fileID: 2926877744314278223}
   m_Layer: 11
-  m_Name: Placement
+  m_Name: StructurePreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -661,6 +661,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6276012722504463757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7236944767336689902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537061091a5754c17adc99b08b8f53fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructurePreview
+  _previewValidColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+  _previewInvalidColor: {r: 1, g: 0, b: 0.17789984, a: 0.3137255}
 --- !u!114 &5797990901854612916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,8 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526ccb3360030402383f914f310ba31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundChecker
-  _previewValidColor: {r: 1, g: 1, b: 1, a: 0.3137255}
-  _previewErrorColor: {r: 0.74509805, g: 0, b: 0.05490196, a: 0.39215687}
   _groundCheckPoints:
   - {fileID: 7992701315017598701}
   - {fileID: 1128365640673788164}
@@ -682,7 +694,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _overlappingCount: 0
 --- !u!61 &5701187953513117496
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerBuildingManager : MonoBehaviour
 {
     [SerializeField] private StructureData[] _structures;
-    [SerializeField] private StructurePlacer _structurePlacer;
+    [SerializeField] private StructurePlacementController _structurePlacement;
 
     private CurrencyWallet _currencyWallet;
 
@@ -21,24 +21,24 @@ public class PlayerBuildingManager : MonoBehaviour
 
     public void EnterBuildingMode()
     {
-        _structurePlacer.gameObject.SetActive(true);
+        _structurePlacement.gameObject.SetActive(true);
     }
 
     public void ExitBuildingMode()
     {
-        _structurePlacer.gameObject.SetActive(false);
+        _structurePlacement.gameObject.SetActive(false);
     }
 
     public void SelectStructure(int index)
     {
         if (index < 0 || index >= _structures.Length) return;
 
-        _structurePlacer.SetStructure(_structures[index]);
+        _structurePlacement.SetStructure(_structures[index]);
     }
 
     public void TryPlaceStructure()
     {
         if (_currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, _structures[0].Cost))
-            _structurePlacer.PlaceStructure();
+            _structurePlacement.PlaceStructure();
     }
 }

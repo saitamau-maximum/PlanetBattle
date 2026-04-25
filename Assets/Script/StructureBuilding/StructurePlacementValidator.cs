@@ -2,47 +2,14 @@ using UnityEngine;
 
 /**
  * 建造物の配置が可能かどうか判断するクラス
- * 建造物のプレビューを表示し、配置できるか判定する
  */
-
-[RequireComponent(typeof(SpriteRenderer))]
 public class StructurePlacementValidator : MonoBehaviour
 {
-    [SerializeField] private Color _previewValidColor;
-    [SerializeField] private Color _previewErrorColor;
     [SerializeField] private Transform[] _groundCheckPoints;
     [SerializeField] private float _raycastDistance = 0.3f;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private int _overlappingCount = 0;
 
-    private SpriteRenderer _previewRenderer;
-    private Vector2 _initialScale;
-
-    private void Awake()
-    {
-        _previewRenderer = GetComponent<SpriteRenderer>();
-        _initialScale = transform.localScale;
-    }
-
-    private void Update()
-    {
-        if (CanPlaceStructure())
-        {
-            _previewRenderer.color = _previewValidColor;
-        }
-        else
-        {
-            _previewRenderer.color = _previewErrorColor;
-        }
-    }
-
-    public void SetStructureSize(Vector2 structureGridSize)
-    {
-        transform.localScale = new Vector2(
-           _initialScale.x * structureGridSize.x,
-           _initialScale.y * structureGridSize.y
-       );
-    }
+    private int _overlappingCount = 0;
 
     public bool CanPlaceStructure()
     {
