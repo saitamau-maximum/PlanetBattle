@@ -9,9 +9,11 @@ public class StructurePlacer : MonoBehaviour
 {
     [SerializeField] private GameObject _placementPreview;
     [SerializeField] private Vector2 _cellSize;
-    [SerializeField] private Vector2 _structureGridSize;
-    [SerializeField] private GameObject _structurePrefab;
 
+    [SerializeField] private BuildingBox _buildingBox;
+
+    private StructureData _structureData;
+    private Vector2 _structureGridSize;
     private StructurePlacementValidator _validator;
     private Vector2 _gridOffset;
 
@@ -43,7 +45,7 @@ public class StructurePlacer : MonoBehaviour
 
     public void SetStructure(StructureData data)
     {
-        _structurePrefab = data.Prefab;
+        _structureData = data;
         _structureGridSize = data.GridSize;
         _validator.SetStructureSize(_structureGridSize);
     }
@@ -52,6 +54,7 @@ public class StructurePlacer : MonoBehaviour
     {
         //建造物の配置処理
         if (!_validator.CanPlaceStructure()) return;
-        Instantiate(_structurePrefab, _placementPreview.transform.position, Quaternion.identity);
+        BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
+        buildingBox.Init(_structureData);
     }
 }

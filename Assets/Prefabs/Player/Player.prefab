@@ -143,7 +143,8 @@ MonoBehaviour:
   _placementPreview: {fileID: 7236944767336689902}
   _cellSize: {x: 0.333, y: 0.333}
   _structureGridSize: {x: 0, y: 0}
-  _structurePrefab: {fileID: 0}
+  _structureData: {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
+  _buildingBox: {fileID: -4623445184215560509, guid: 2fc959b6ef5f34a93bf6c554318f2cbf, type: 3}
 --- !u!1 &5792236778970836163
 GameObject:
   m_ObjectHideFlags: 0
