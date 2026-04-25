@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a371534bad74d3eaa6e2058122892e, type: 3}
   m_Name: Ballista
   m_EditorClassIdentifier: Assembly-CSharp::StructureData
-  Prefab: {fileID: 0}
-  Cost: 0
-  GridSize: {x: 0, y: 0}
+  Prefab: {fileID: 5832382787022827370, guid: f534569c443a44517a94b4f12fb41d10, type: 3}
+  Cost: 30
+  BuildTime: 3
+  GridSize: {x: 2, y: 2}
