@@ -18,6 +18,7 @@ public class ScreenManager : MonoBehaviour
         Title,
         GetStarted_Scene,
         Config,
+        StageSelect,
     }
 
     private void Awake()
