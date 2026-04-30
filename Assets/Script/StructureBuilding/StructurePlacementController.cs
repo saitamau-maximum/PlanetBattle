@@ -34,7 +34,6 @@ public class StructurePlacementController : MonoBehaviour
     public void SetBuildingAllowed(bool allowed)
     {
         _isBuildAllowed = allowed;
-        _placementPreview.UpdateState(CanBuild);
     }
 
     public void SetStructure(StructureData data)
