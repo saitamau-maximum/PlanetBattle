@@ -10,7 +10,10 @@ public class StructurePlacementController : MonoBehaviour
     private StructurePlacementValidator _validator;
     private GridSnapper _gridSnapper;
     private StructureData _structureData;
-    private bool _canPlace = false;
+    private bool _isPlacementValid = false;
+    private bool _isBuildAllowed = true;
+
+    public bool CanBuild => _isBuildAllowed && _isPlacementValid;
 
     private void Awake()
     {
@@ -24,22 +27,33 @@ public class StructurePlacementController : MonoBehaviour
     {
         if (_structureData == null) return;
 
-        _canPlace = _validator.CanPlaceStructure();
-        _placementPreview.UpdateState(_canPlace);
+        _isPlacementValid = _validator.CanPlaceStructure();
+        _placementPreview.UpdateState(CanBuild);
+    }
+
+    public void SetBuildingAllowed(bool allowed)
+    {
+        _isBuildAllowed = allowed;
+        _placementPreview.UpdateState(CanBuild);
     }
 
     public void SetStructure(StructureData data)
     {
-        _structureData = data; ;
+        _structureData = data;
         _placementPreview.SetStructure(_structureData);
         _gridSnapper.SetGridSize(_structureData.GridSize);
     }
 
-    public void PlaceStructure()
+    public bool TryPlaceStructure()
     {
         //建造物の配置処理
-        if (!_canPlace) return;
-        BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
-        buildingBox.Init(_structureData);
+        if (CanBuild)
+        {
+            BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
+            buildingBox.Init(_structureData);
+            return true;
+        }
+
+        return false;
     }
 }
