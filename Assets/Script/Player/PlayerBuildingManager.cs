@@ -1,4 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+public class StructureEntry
+{
+    private bool _canAfford = false;
+    public readonly StructureData StructureData;
+    public bool IsAvailable => _canAfford;
+
+    public StructureEntry(StructureData structureData)
+    {
+
+        StructureData = structureData;
+    }
+
+    public void UpdateAfford(int amount)
+    {
+        _canAfford = amount >= StructureData.Cost;
+    }
+}
 
 [RequireComponent(typeof(CurrencyWallet))]
 public class PlayerBuildingManager : MonoBehaviour
@@ -9,22 +28,29 @@ public class PlayerBuildingManager : MonoBehaviour
     private CurrencyWallet _currencyWallet;
     private int _selectedStructureIndex = 0;
 
+    public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
+
     private void Awake()
     {
         _currencyWallet = GetComponent<CurrencyWallet>();
+        foreach (var structure in _structures)
+        {
+            StructureEntry entry = new StructureEntry(structure);
+            entry.UpdateAfford(_currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin));
+            Entries.Add(entry);
+        }
     }
 
     private void Start()
     {
-        SelectStructure(0); //最初の建造物を選択しておく
+        SelectStructure(0); //最初の建造物を選択しておく        
         ExitBuildingMode();
-
-        _currencyWallet.OnCurrencyChanged += OnCoinAmountChanged;
+        _currencyWallet.OnCurrencyChanged += OnCoinChanged;
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
-        _currencyWallet.OnCurrencyChanged -= OnCoinAmountChanged;
+        _currencyWallet.OnCurrencyChanged -= OnCoinChanged;
     }
 
     public void EnterBuildingMode()
@@ -37,31 +63,27 @@ public class PlayerBuildingManager : MonoBehaviour
         _structurePlacement.gameObject.SetActive(false);
     }
 
-    private void OnCoinAmountChanged(CurrencyData.CurrencyType type, int amount)
-    {
-        if (type == CurrencyData.CurrencyType.Coin)
-        {
-            bool canAfford = amount >= _structures[_selectedStructureIndex].Cost;
-            _structurePlacement.SetBuildingAllowed(canAfford);
-        }
-    }
-
     public void SelectStructure(int index)
     {
-        if (index < 0 || index >= _structures.Length) return;
+        if (index < 0 || index >= Entries.Count) return;
 
         _selectedStructureIndex = index;
-        _structurePlacement.SetStructure(_structures[_selectedStructureIndex]);
+        _structurePlacement.SetStructureEntry(Entries[_selectedStructureIndex]);
+    }
 
-        bool canAfford = _currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin) >= _structures[_selectedStructureIndex].Cost;
-        _structurePlacement.SetBuildingAllowed(canAfford);
+    private void OnCoinChanged(CurrencyData.CurrencyType type, int amount)
+    {
+        if (type != CurrencyData.CurrencyType.Coin) return;
+
+        foreach (var e in Entries)
+            e.UpdateAfford(amount);
     }
 
     public void TryPlaceStructure()
     {
         if (_structurePlacement.TryPlaceStructure())
         {
-            _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, _structures[_selectedStructureIndex].Cost);
+            _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, Entries[_selectedStructureIndex].StructureData.Cost);
         }
     }
 }

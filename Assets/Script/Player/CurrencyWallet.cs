@@ -21,7 +21,7 @@ public class CurrencyWallet : MonoBehaviour
 {
     [SerializeField] private List<CurrencyData> _currencies;
 
-    public Action<CurrencyData.CurrencyType, int> OnCurrencyChanged;
+    public event Action<CurrencyData.CurrencyType, int> OnCurrencyChanged;
 
     public int GetCurrencyAmount(CurrencyData.CurrencyType type)
     {

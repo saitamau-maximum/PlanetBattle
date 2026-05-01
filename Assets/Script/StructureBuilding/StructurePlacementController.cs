@@ -7,49 +7,40 @@ public class StructurePlacementController : MonoBehaviour
     [SerializeField] private BuildingBox _buildingBox;
 
     private StructurePreview _placementPreview;
-    private StructurePlacementValidator _validator;
+    private StructurePlacementValidator _placementValidator;
     private GridSnapper _gridSnapper;
-    private StructureData _structureData;
-    private bool _isPlacementValid = false;
-    private bool _isBuildAllowed = true;
-
-    public bool CanBuild => _isBuildAllowed && _isPlacementValid;
+    private StructureEntry _structureEntry;
+    private bool _canBuild => _structureEntry != null && _structureEntry.IsAvailable && _placementValidator.CanPlace();
 
     private void Awake()
     {
         _placementPreview = _placementPreviewObject.GetComponent<StructurePreview>();
-        _validator = _placementPreviewObject.GetComponent<StructurePlacementValidator>();
+        _placementValidator = _placementPreviewObject.GetComponent<StructurePlacementValidator>();
         _gridSnapper = _placementPreviewObject.GetComponent<GridSnapper>();
         _gridSnapper.GridSetup(_cellSize);
     }
 
     private void Update()
     {
-        if (_structureData == null) return;
+        if (_structureEntry == null) return;
 
-        _isPlacementValid = _validator.CanPlaceStructure();
-        _placementPreview.UpdateState(CanBuild);
+        _placementPreview.UpdateState(_canBuild);
     }
 
-    public void SetBuildingAllowed(bool allowed)
+    public void SetStructureEntry(StructureEntry entry)
     {
-        _isBuildAllowed = allowed;
-    }
-
-    public void SetStructure(StructureData data)
-    {
-        _structureData = data;
-        _placementPreview.SetStructure(_structureData);
-        _gridSnapper.SetGridSize(_structureData.GridSize);
+        _structureEntry = entry;
+        _placementPreview.SetStructure(_structureEntry.StructureData);
+        _gridSnapper.SetGridSize(_structureEntry.StructureData.GridSize);
     }
 
     public bool TryPlaceStructure()
     {
         //建造物の配置処理
-        if (CanBuild)
+        if (_canBuild)
         {
             BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
-            buildingBox.Init(_structureData);
+            buildingBox.Init(_structureEntry.StructureData);
             return true;
         }
 

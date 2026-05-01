@@ -11,7 +11,7 @@ public class StructurePlacementValidator : MonoBehaviour
 
     private int _overlappingCount = 0;
 
-    public bool CanPlaceStructure()
+    public bool CanPlace()
     {
         if (_overlappingCount > 0 || !IsGrounded()) return false;
 
