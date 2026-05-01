@@ -19,15 +19,17 @@ public class PlayerController : MonoBehaviour
     private PlayerWeaponManager _weaponManager;
     private PlayerBuildingManager _structureManager;
 
-
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _attackAction2;
     private InputAction _modeChange;
+    private InputAction[] _slotSelectActions;
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
+
+    private const int MAX_SLOT_COUNT = 4;
 
     private enum Mode
     {
@@ -48,6 +50,11 @@ public class PlayerController : MonoBehaviour
         _attackAction = InputSystem.actions.FindAction("Attack");
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
         _modeChange = InputSystem.actions.FindAction("ModeChange");
+        _slotSelectActions = new InputAction[MAX_SLOT_COUNT];
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i] = InputSystem.actions.FindAction($"Slot{i + 1}");
+        }
     }
 
     private void OnEnable()
@@ -58,6 +65,10 @@ public class PlayerController : MonoBehaviour
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
         _modeChange.performed += ChangeMode;
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i].performed += SelectSlot;
+        }
     }
     private void OnDisable()
     {
@@ -67,6 +78,10 @@ public class PlayerController : MonoBehaviour
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
         _modeChange.performed -= ChangeMode;
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i].performed -= SelectSlot;
+        }
     }
 
     private void Update()
@@ -191,6 +206,19 @@ public class PlayerController : MonoBehaviour
             _currentMode = Mode.Attack;
             _structureManager.ExitBuildingMode();
         }
+    }
+
+    private void SelectSlot(InputAction.CallbackContext context)
+    {
+        int slotIndex = context.action.name switch
+        {
+            "Slot1" => 0,
+            "Slot2" => 1,
+            "Slot3" => 2,
+            "Slot4" => 3,
+            _ => throw new System.NotImplementedException()
+        };
+        _structureManager.SelectStructure(slotIndex);
     }
 
     private void AttackAnimation()

@@ -52,15 +52,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "3efc550a-6b90-43da-9d2f-0c9f2a5e488e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "0ac6c8c8-3352-4d3a-a0c6-bd8d0d0e51db",
@@ -70,28 +61,46 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Previous",
+                    "name": "Sprint",
                     "type": "Button",
-                    "id": "e82e69ab-360e-4f9f-8b94-4a0dcc1376f7",
+                    "id": "ca7f265a-fd34-4479-a22c-78e0a2df42e2",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Next",
+                    "name": "Slot1",
                     "type": "Button",
-                    "id": "6f3c3795-9a51-4bc6-960c-04156ec73301",
-                    "expectedControlType": "Button",
+                    "id": "ea653c95-1568-4b44-b53c-9072166130f7",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
+                    "name": "Slot2",
                     "type": "Button",
-                    "id": "ca7f265a-fd34-4479-a22c-78e0a2df42e2",
-                    "expectedControlType": "Button",
+                    "id": "384dc88c-846e-4084-92e8-e9632900af48",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Slot3",
+                    "type": "Button",
+                    "id": "0a136789-ac81-4a3a-bcaa-a05ade16a3c2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Slot4",
+                    "type": "Button",
+                    "id": "f8616dae-f9cf-4e3b-9069-f4eb5233f6c9",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -309,28 +318,6 @@
                 },
                 {
                     "name": "",
-                    "id": "cb83b427-138e-4c4d-97ec-1dcf3a89aaee",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b584e259-5338-493f-a0c0-2f5ec253c054",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b316397c-08a4-491d-98ba-26a15cd7c4d8",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -408,28 +395,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4f7649ca-04b7-4898-8c11-94dc100f1d3b",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Previous",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7d5e56a6-8512-48f9-84e4-6cdd3869a5a5",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Previous",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "792ea2f0-e9a8-4bc0-b9a9-9e1aba5f39bc",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -441,23 +406,45 @@
                 },
                 {
                     "name": "",
-                    "id": "8ce7a8b2-8449-458a-bc59-896437e55ff1",
-                    "path": "<Gamepad>/buttonEast",
+                    "id": "b7ebf702-c6a5-42b2-b904-9f39dae55b1e",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Crouch",
+                    "groups": "",
+                    "action": "Slot1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "abf8e37c-6896-4faf-bca3-d7a6a19d73f4",
-                    "path": "<Keyboard>/c",
+                    "id": "88ed19a5-2d9d-48c3-952b-44c60d510b74",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Crouch",
+                    "groups": "",
+                    "action": "Slot2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09a1fe00-a4c6-4fe3-a82b-8e2d3d770392",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slot3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5b6eaee-b23d-45f8-af5c-ea5f97b752cf",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slot4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
