@@ -3,6 +3,7 @@ using UnityEngine;
 public class StructurePlacementController : MonoBehaviour
 {
     [SerializeField] private GameObject _placementPreviewObject;
+    [SerializeField] private BuildingIconUI _iconUI;
     [SerializeField] private Vector2 _cellSize;
     [SerializeField] private BuildingBox _buildingBox;
 
@@ -24,7 +25,11 @@ public class StructurePlacementController : MonoBehaviour
     {
         if (_structureEntry == null) return;
 
-        _placementPreview.UpdateState(_canBuild);
+        bool canPlace = _placementValidator.CanPlace();
+        bool entryAvailable = _structureEntry.IsAvailable;
+        _iconUI.SetCoinIconActive(!entryAvailable);
+        _iconUI.SetGroundIconActive(!canPlace);
+        _placementPreview.UpdateState(canPlace && entryAvailable);
     }
 
     public void SetStructureEntry(StructureEntry entry)

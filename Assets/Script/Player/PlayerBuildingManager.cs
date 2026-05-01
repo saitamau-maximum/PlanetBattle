@@ -9,7 +9,6 @@ public class StructureEntry
 
     public StructureEntry(StructureData structureData)
     {
-
         StructureData = structureData;
     }
 
