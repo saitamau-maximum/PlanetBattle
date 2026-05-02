@@ -141,7 +141,7 @@ MonoBehaviour:
   _groundHitStop: 1
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &5189505191137795866
 MonoBehaviour:
   m_ObjectHideFlags: 0

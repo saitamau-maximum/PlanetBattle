@@ -1,10 +1,16 @@
 using Utility;
 using UnityEngine;
 
-public class BuildingBox : Structure
+public class BuildingBox : MonoBehaviour
 {
     private GameObject _structure;
+    private Health _health;
     private CountdownTimer _countdownTimer;
+
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+    }
 
     public void Init(StructureData data)
     {
@@ -18,13 +24,28 @@ public class BuildingBox : Structure
         );
     }
 
+    protected void Start()
+    {
+        _health.OnDied += Die;
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnDied -= Die;
+    }
+
     private void Update()
     {
         _countdownTimer.Tick();
         if (_countdownTimer.IsFinished())
         {
             Instantiate(_structure, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

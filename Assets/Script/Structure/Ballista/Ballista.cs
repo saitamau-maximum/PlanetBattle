@@ -9,7 +9,6 @@ public class Ballista : Structure
     [Header("Fire")]
     public Transform firePoint;
     public GameObject projectilePrefab;
-    public float fireInterval = 1.5f;
 
     [Header("Rotation")]
     public Transform muzzle;
@@ -23,33 +22,35 @@ public class Ballista : Structure
     [Tooltip("見た目補正用の角度（バリスタは -32.74）")]
     public float angleOffset = -32.74f;
 
-    protected float fireTimer;
-    protected bool isTargetInAngle = false; // ターゲットが射程角度内にいるか
+    private Transform _currentTarget;
+    private bool _isTargetInAngle = false;
 
-    protected virtual void Update()
+    protected override void Update()
     {
-        Transform target = FindNearestTarget();
+        base.Update(); // Structure のタイマー処理（Execute の呼び出し）
 
-        // 1. ターゲットがいない場合は初期位置に戻して終了
-        if (target == null)
+        _currentTarget = FindNearestTarget();
+
+        if (_currentTarget == null)
         {
-            isTargetInAngle = false;
+            _isTargetInAngle = false;
             ReturnToDefaultRotation();
             return;
         }
 
-        // 2. ターゲットの方向を計算・判定
-        AimAt(target);
+        AimAt(_currentTarget);
 
-        // 3. 角度内にいる場合のみ発射を試みる
-        if (isTargetInAngle)
+        if (!_isTargetInAngle)
         {
-            TryFire(target);
-        }
-        else
-        {
-            // 角度外に逃げられたら初期位置に戻る
             ReturnToDefaultRotation();
+        }
+    }
+
+    protected override void Execute()
+    {
+        if (_isTargetInAngle && _currentTarget != null)
+        {
+            Fire(_currentTarget);
         }
     }
 
@@ -63,8 +64,9 @@ public class Ballista : Structure
 
         foreach (Collider2D t in targets)
         {
+            if (!t.CompareTag(targetTag)) continue;
             float dist = Vector2.Distance(transform.position, t.transform.position);
-            if (dist < minDist && t.CompareTag(targetTag))
+            if (dist < minDist)
             {
                 minDist = dist;
                 nearest = t.transform;
@@ -76,51 +78,33 @@ public class Ballista : Structure
     protected virtual void AimAt(Transform target)
     {
         Vector2 dir = target.position - transform.position;
-
-        // 敵の方向（純粋な角度）を計算
         float rawAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         float fireAngle = Mathf.DeltaAngle(0f, rawAngle);
 
-        // 設定した角度の範囲内かどうかをチェック
         if (fireAngle >= minAngle && fireAngle <= maxAngle)
         {
-            isTargetInAngle = true;
-
-            // 範囲内の場合はその方向を向く（補正込み）
-            float finalAngle = fireAngle + angleOffset;
-            ApplyRotation(finalAngle);
+            _isTargetInAngle = true;
+            ApplyRotation(fireAngle + angleOffset);
         }
         else
         {
-            isTargetInAngle = false;
+            _isTargetInAngle = false;
         }
     }
 
-    // 初期位置（0度 + オフセット）に戻る
     protected virtual void ReturnToDefaultRotation()
     {
-        ApplyRotation(0f + angleOffset);
+        ApplyRotation(angleOffset);
     }
 
-    // 共通の回転処理
     private void ApplyRotation(float targetZAngle)
     {
         Quaternion targetRot = Quaternion.Euler(0f, 0f, targetZAngle);
-        muzzle.transform.rotation = Quaternion.Lerp(
-            muzzle.transform.rotation,
+        muzzle.rotation = Quaternion.Lerp(
+            muzzle.rotation,
             targetRot,
             rotateSpeed * Time.deltaTime
         );
-    }
-
-    protected virtual void TryFire(Transform target)
-    {
-        fireTimer += Time.deltaTime;
-        if (fireTimer >= fireInterval)
-        {
-            Fire(target);
-            fireTimer = 0f;
-        }
     }
 
     protected virtual void Fire(Transform target)
