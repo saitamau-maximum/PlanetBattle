@@ -54,16 +54,16 @@ public class AutoTurret : MonoBehaviour
 
     protected virtual Transform FindNearestTarget()
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+        Collider2D[] targets = Physics2D.OverlapCircleAll(firePoint.position, maxRange);
         if (targets.Length == 0) return null;
 
         Transform nearest = null;
         float minDist = float.MaxValue;
 
-        foreach (GameObject t in targets)
+        foreach (Collider2D t in targets)
         {
             float dist = Vector2.Distance(transform.position, t.transform.position);
-            if (dist < minDist && dist <= maxRange)
+            if (dist < minDist && t.CompareTag(targetTag))
             {
                 minDist = dist;
                 nearest = t.transform;
@@ -84,7 +84,7 @@ public class AutoTurret : MonoBehaviour
         if (fireAngle >= minAngle && fireAngle <= maxAngle)
         {
             isTargetInAngle = true;
-            
+
             // 範囲内の場合はその方向を向く（補正込み）
             float finalAngle = fireAngle + angleOffset;
             ApplyRotation(finalAngle);
