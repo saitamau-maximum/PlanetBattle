@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 7984473800089567412}
   - component: {fileID: 5345494769509504891}
   - component: {fileID: 5805633475131540375}
+  - component: {fileID: 4119258697218591152}
   - component: {fileID: 8278164379846022853}
   m_Layer: 11
   m_Name: Ballista
@@ -231,6 +232,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 50
   _currentHealth: 0
+--- !u!114 &4119258697218591152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832382787022827370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb3d3d099a45c448864b3838abea55c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoTurret
+  targetTag: Enemy
+  maxRange: 100
+  firePoint: {fileID: 3143680211768704691}
+  projectilePrefab: {fileID: 3903467889774677732, guid: dbf8569820cd2f7468dce360c7b2d960, type: 3}
+  fireInterval: 1.5
+  muzzle: {fileID: 194651220801229419}
+  rotateSpeed: 5
+  minAngle: -90
+  maxAngle: 90
+  angleOffset: -37.24
 --- !u!61 &8278164379846022853
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -286,7 +309,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 194651220801229419}
-  - component: {fileID: 650378040524793261}
   - component: {fileID: 6183054197065230480}
   m_Layer: 11
   m_Name: TurretRoot
@@ -311,27 +333,6 @@ Transform:
   - {fileID: 3143680211768704691}
   m_Father: {fileID: 7984473800089567412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -37.24}
---- !u!114 &650378040524793261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7556182694558870262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb3d3d099a45c448864b3838abea55c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AutoTurret
-  targetTag: Enemy
-  maxRange: 100
-  firePoint: {fileID: 3143680211768704691}
-  projectilePrefab: {fileID: 3903467889774677732, guid: dbf8569820cd2f7468dce360c7b2d960, type: 3}
-  fireInterval: 1.5
-  rotateSpeed: 5
-  minAngle: -90
-  maxAngle: 90
-  angleOffset: -37.24
 --- !u!212 &6183054197065230480
 SpriteRenderer:
   serializedVersion: 2

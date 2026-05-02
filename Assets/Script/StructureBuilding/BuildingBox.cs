@@ -1,17 +1,28 @@
-using Utility;
 using UnityEngine;
+using Utility;
 
 public class BuildingBox : MonoBehaviour
 {
-    private GameObject _structure;
-    private CountdownTimer _countdownTimer;
+    private GameObject _structurePrefab;
+    private CountdownTimer _buildTimer;
+    private Health _health;
+    protected void Awake()
+    {
+        _health = GetComponent<Health>();
+    }
+    protected void Start()
+    {
+        if (_health != null)
+        {
+            _health.OnDied += Die;
+        }
+    }
 
     public void Init(StructureData data)
     {
-        _structure = data.Prefab;
-        _countdownTimer = new CountdownTimer(data.BuildTime);
-        _countdownTimer.Start();
-
+        _structurePrefab = data.Prefab;
+        _buildTimer = new CountdownTimer(data.BuildTime);
+        _buildTimer.Start();
         transform.localScale = new Vector2(
             transform.localScale.x * data.GridSize.x,
             transform.localScale.y * data.GridSize.y
@@ -20,11 +31,24 @@ public class BuildingBox : MonoBehaviour
 
     private void Update()
     {
-        _countdownTimer.Tick();
-        if (_countdownTimer.IsFinished())
+        _buildTimer.Tick();
+        if (_buildTimer.IsFinished())
         {
-            Instantiate(_structure, transform.position, Quaternion.identity);
+            Instantiate(_structurePrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (_health != null)
+        {
+            _health.OnDied -= Die;
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

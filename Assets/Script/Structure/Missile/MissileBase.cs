@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MissileLauncher2D : MonoBehaviour
+public class MissileLauncher2D : Structure
 {
     public MissileBullet missilePrefab;
     public Transform firePoint;
@@ -11,21 +11,9 @@ public class MissileLauncher2D : MonoBehaviour
     public float spreadAngle = 30f;   // バラけ幅
     public float targetRange = 20f;   // ターゲット射程距離
 
-    [Header("連射設定")]
-    public float fireInterval = 2.0f; // 何秒ごとに発射するか
-    private float timer;              // 内部タイマー用
-
-    void Update()
+    protected override void Execute()
     {
-        // タイマーを加算
-        timer += Time.deltaTime;
-
-        // 設定した間隔を超えたら発射
-        if (timer >= fireInterval)
-        {
-            Fire();
-            timer = 0f; // タイマーをリセット
-        }
+        Fire();
     }
 
     public void Fire()
