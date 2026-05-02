@@ -10,7 +10,7 @@ namespace BehaviourTrees
         private readonly float _range;
         public IsTargetInRange(Transform target, float range) : base("IsTargetInRange")
         {
-            _target = target;
+            _target = target == null ? _blackboard.GetValue(CharacterKeys.BaseTargetTransform) : target;
             _range = range;
         }
 
