@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AutoTurret : MonoBehaviour
+public class Ballista : Structure
 {
     [Header("Target")]
     public string targetTag = "Enemy";
@@ -12,6 +12,7 @@ public class AutoTurret : MonoBehaviour
     public float fireInterval = 1.5f;
 
     [Header("Rotation")]
+    public Transform muzzle;
     public float rotateSpeed = 5f;
     [Tooltip("回転できる最小角度")]
     public float minAngle = -90f;
@@ -105,8 +106,8 @@ public class AutoTurret : MonoBehaviour
     private void ApplyRotation(float targetZAngle)
     {
         Quaternion targetRot = Quaternion.Euler(0f, 0f, targetZAngle);
-        transform.rotation = Quaternion.Lerp(
-            transform.rotation,
+        muzzle.transform.rotation = Quaternion.Lerp(
+            muzzle.transform.rotation,
             targetRot,
             rotateSpeed * Time.deltaTime
         );

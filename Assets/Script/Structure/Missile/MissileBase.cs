@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MissileLauncher2D : MonoBehaviour
+public class MissileLauncher2D : Structure
 {
     public MissileBullet missilePrefab;
     public Transform firePoint;

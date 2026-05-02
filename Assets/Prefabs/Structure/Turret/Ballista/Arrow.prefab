@@ -138,7 +138,7 @@ MonoBehaviour:
   _lifeTime: 5
   _damageAmount: 15
   _destroyOnHit: 1
-  _groundHitStop: 0
+  _groundHitStop: 1
   _groundLayer:
     serializedVersion: 2
     m_Bits: 0

@@ -1,7 +1,7 @@
 using Utility;
 using UnityEngine;
 
-public class BuildingBox : MonoBehaviour
+public class BuildingBox : Structure
 {
     private GameObject _structure;
     private CountdownTimer _countdownTimer;
