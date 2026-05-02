@@ -1,7 +1,6 @@
 using UnityEngine;
 using BehaviourTrees;
 using BlackboardSystem;
-using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAIController : MonoBehaviour
@@ -14,13 +13,14 @@ public class CharacterAIController : MonoBehaviour
     [SerializeField] private bool _isChasing;//テスト用    
 
     private Rigidbody2D _rigidbody;
-
     private Blackboard _blackboard = new Blackboard();
     private BehaviourTree _behaviourTree;
+    private Health _health;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
     }
 
     public void Init(Transform baseTarget)
@@ -30,6 +30,11 @@ public class CharacterAIController : MonoBehaviour
 
     private void Start()
     {
+        if (_health != null)
+        {
+            _health.OnDied += Die;
+        }
+
         if (_baseTarget == null)
         {
             Debug.Assert(false, $"{gameObject.name}: BaseTarget is not set.");
@@ -55,6 +60,14 @@ public class CharacterAIController : MonoBehaviour
         _behaviourTree.SetBlackboard(_blackboard);
     }
 
+    private void OnDestroy()
+    {
+        if (_health != null)
+        {
+            _health.OnDied -= Die;
+        }
+    }
+
     private void Update()
     {
         if (_baseTarget == null)
@@ -68,5 +81,10 @@ public class CharacterAIController : MonoBehaviour
         {
             _rigidbody.linearVelocity = Vector2.zero;
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
