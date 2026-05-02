@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6907420801800402464}
   - component: {fileID: 2218388540086721585}
   - component: {fileID: 2533471960911491255}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Missile_base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8642870326282586605}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
