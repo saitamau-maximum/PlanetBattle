@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9060961836056297991}
   - component: {fileID: 6165980054756837820}
   - component: {fileID: 8732412041219636183}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2189913995136535201}
   - component: {fileID: 6692704554536368244}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6692704554536368244
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -174,6 +175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 616d49b532686e94bbb9b7481a204293, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -183,7 +185,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &613977094740106073
 PrefabInstance:
@@ -207,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2509764297106116094, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2747549760973772302, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: _health
@@ -215,11 +216,11 @@ PrefabInstance:
       objectReference: {fileID: 6165980054756837820}
     - target: {fileID: 5378734656065085756, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5710801932902776823, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7718613025207476557, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976376525813317809, guid: 62e02196856fa4c06b0b6afd877ea733, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1529349042632811308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9121777397752388120}
+  m_Layer: 9
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9121777397752388120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529349042632811308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8860716368864090204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4719304359150711796
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,8 @@ GameObject:
   - component: {fileID: 1290252913791368360}
   - component: {fileID: 6747138814995098857}
   - component: {fileID: 3526564243829748468}
-  m_Layer: 0
+  - component: {fileID: 8962385219708399923}
+  m_Layer: 9
   m_Name: Misslie_valet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +64,8 @@ Transform:
   m_LocalPosition: {x: -5.05, y: 0.73, z: 0}
   m_LocalScale: {x: 0.035507843, y: 0.0512369, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9121777397752388120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6259430126860271989
@@ -176,9 +209,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 4719304359150711796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51930b2fec37c964ab87204048257422, type: 3}
+  m_Script: {fileID: 11500000, guid: f12d16f65a8244b9798f554261617af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Missile2D
-  speed: 8
-  rotateSpeed: 300
-  homingDelay: 0.3
+  _speed: 10
+  _lifeTime: 5
+  _damageAmount: 50
+  _destroyOnHit: 1
+  _groundHitStop: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _rotateSpeed: 200
+  _homingDelay: 0.5
+  _explosionDamage: 15
+  _explosionPrefab: {fileID: 5810559904800018322, guid: 2b8b348738bff49d98d4b729faa3406c, type: 3}
+--- !u!114 &8962385219708399923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719304359150711796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc06e9035cb044627ac2064544b0e269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hitbox
+  _isAreaAttack: 0
