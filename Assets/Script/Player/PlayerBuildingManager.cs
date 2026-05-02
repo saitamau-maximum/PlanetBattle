@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class StructureEntry
 {
-    private bool _canAfford = false;
     public readonly StructureData StructureData;
-    public bool IsAvailable => _canAfford;
+    public bool CanAfford { get; private set; }
+    public bool IsAvailable => CanAfford;
 
     public StructureEntry(StructureData structureData)
     {
         StructureData = structureData;
     }
 
-    public void UpdateAfford(int amount)
+    public void UpdateHasCost(int amount)
     {
-        _canAfford = amount >= StructureData.Cost;
+        CanAfford = amount >= StructureData.Cost;
     }
 }
 
@@ -35,7 +35,7 @@ public class PlayerBuildingManager : MonoBehaviour
         foreach (var structure in _structures)
         {
             StructureEntry entry = new StructureEntry(structure);
-            entry.UpdateAfford(_currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin));
+            entry.UpdateHasCost(_currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin));
             Entries.Add(entry);
         }
     }
@@ -47,7 +47,7 @@ public class PlayerBuildingManager : MonoBehaviour
         _currencyWallet.OnCurrencyChanged += OnCoinChanged;
     }
 
-    public void OnDestroy()
+    private void OnDestroy()
     {
         _currencyWallet.OnCurrencyChanged -= OnCoinChanged;
     }
@@ -75,7 +75,7 @@ public class PlayerBuildingManager : MonoBehaviour
         if (type != CurrencyData.CurrencyType.Coin) return;
 
         foreach (var e in Entries)
-            e.UpdateAfford(amount);
+            e.UpdateHasCost(amount);
     }
 
     public void TryPlaceStructure()

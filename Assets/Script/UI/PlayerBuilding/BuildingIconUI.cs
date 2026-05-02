@@ -11,12 +11,18 @@ public class BuildingIconUI : MonoBehaviour
         _groundIcon.SetActive(false);
     }
 
-    public void SetCoinIconActive(bool active)
+    public void UpdateState(BuildCheckResult checkResult)
+    {
+        SetCoinIconActive(!checkResult.StructureEntry.CanAfford);
+        SetGroundIconActive(!checkResult.IsPlacementValid);
+    }
+
+    private void SetCoinIconActive(bool active)
     {
         _coinIcon.SetActive(active);
     }
 
-    public void SetGroundIconActive(bool active)
+    private void SetGroundIconActive(bool active)
     {
         _groundIcon.SetActive(active);
     }

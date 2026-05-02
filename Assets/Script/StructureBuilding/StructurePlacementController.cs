@@ -1,5 +1,19 @@
 using UnityEngine;
 
+public readonly struct BuildCheckResult
+{
+    public readonly bool IsPlacementValid;
+    public readonly StructureEntry StructureEntry;
+    public readonly bool CanBuild;
+
+    public BuildCheckResult(bool isPlacementValid, StructureEntry structureEntry)
+    {
+        IsPlacementValid = isPlacementValid;
+        StructureEntry = structureEntry;
+        CanBuild = isPlacementValid && structureEntry.IsAvailable;
+    }
+}
+
 public class StructurePlacementController : MonoBehaviour
 {
     [SerializeField] private GameObject _placementPreviewObject;
@@ -11,7 +25,7 @@ public class StructurePlacementController : MonoBehaviour
     private StructurePlacementValidator _placementValidator;
     private GridSnapper _gridSnapper;
     private StructureEntry _structureEntry;
-    private bool _canBuild => _structureEntry != null && _structureEntry.IsAvailable && _placementValidator.CanPlace();
+    private BuildCheckResult _currentBuildCheck;
 
     private void Awake()
     {
@@ -25,11 +39,9 @@ public class StructurePlacementController : MonoBehaviour
     {
         if (_structureEntry == null) return;
 
-        bool canPlace = _placementValidator.CanPlace();
-        bool entryAvailable = _structureEntry.IsAvailable;
-        _iconUI.SetCoinIconActive(!entryAvailable);
-        _iconUI.SetGroundIconActive(!canPlace);
-        _placementPreview.UpdateState(canPlace && entryAvailable);
+        _currentBuildCheck = new BuildCheckResult(_placementValidator.CanPlace(), _structureEntry);
+        _iconUI.UpdateState(_currentBuildCheck);
+        _placementPreview.UpdateState(_currentBuildCheck.CanBuild);
     }
 
     public void SetStructureEntry(StructureEntry entry)
@@ -41,8 +53,8 @@ public class StructurePlacementController : MonoBehaviour
 
     public bool TryPlaceStructure()
     {
-        //建造物の配置処理
-        if (_canBuild)
+        //建造物の配置処理        
+        if (_currentBuildCheck.CanBuild)
         {
             BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
             buildingBox.Init(_structureEntry.StructureData);
