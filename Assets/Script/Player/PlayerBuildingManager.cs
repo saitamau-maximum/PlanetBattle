@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ public class PlayerBuildingManager : MonoBehaviour
     private CurrencyWallet _currencyWallet;
     private int _selectedStructureIndex = 0;
 
+    public event Action<int> OnSelectedStructureChanged;
     public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
 
     private void Awake()
@@ -47,7 +49,7 @@ public class PlayerBuildingManager : MonoBehaviour
         _currencyWallet.OnCurrencyChanged += OnCoinChanged;
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         _currencyWallet.OnCurrencyChanged -= OnCoinChanged;
     }
@@ -67,6 +69,7 @@ public class PlayerBuildingManager : MonoBehaviour
         if (index < 0 || index >= Entries.Count) return;
 
         _selectedStructureIndex = index;
+        OnSelectedStructureChanged?.Invoke(index);
         _structurePlacement.SetStructureEntry(Entries[_selectedStructureIndex]);
     }
 
