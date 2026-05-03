@@ -10,6 +10,7 @@ public class BuildingModeUI : MonoBehaviour
     [SerializeField] private GameObject _buildIcon;
 
     private List<StructureEntryUI> _entryUIList = new();
+    private bool _cashedCanBuild = true;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class BuildingModeUI : MonoBehaviour
 
         UpdateSelectedStructure(0);
         SetActiveByMode(_playerController.CurrentMode);
+        _cashedCanBuild = _buildingManager.CanBuildSelectedStructure;
     }
 
     private void OnDestroy()
@@ -48,7 +50,11 @@ public class BuildingModeUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        _buildIcon.SetActive(_buildingManager.CanBuildSelectedStructure);
+        if (_buildingManager.CanBuildSelectedStructure != _cashedCanBuild)
+        {
+            _cashedCanBuild = _buildingManager.CanBuildSelectedStructure;
+            _buildIcon.SetActive(_cashedCanBuild);
+        }
     }
 
     private void UpdateSelectedStructure(int index)
