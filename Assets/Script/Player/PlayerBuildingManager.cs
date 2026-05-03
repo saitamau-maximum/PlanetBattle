@@ -26,7 +26,7 @@ public class PlayerBuildingManager : MonoBehaviour
     [SerializeField] private StructurePlacementController _structurePlacement;
 
     private CurrencyWallet _currencyWallet;
-    private int _selectedStructureIndex = 0;
+    public int SelectedStructureIndex { get; private set; } = 0;
 
     public event Action<int> OnSelectedStructureChanged;
     public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
@@ -68,9 +68,9 @@ public class PlayerBuildingManager : MonoBehaviour
     {
         if (index < 0 || index >= Entries.Count) return;
 
-        _selectedStructureIndex = index;
+        SelectedStructureIndex = index;
         OnSelectedStructureChanged?.Invoke(index);
-        _structurePlacement.SetStructureEntry(Entries[_selectedStructureIndex]);
+        _structurePlacement.SetStructureEntry(Entries[SelectedStructureIndex]);
     }
 
     private void OnCoinChanged(CurrencyData.CurrencyType type, int amount)
@@ -85,7 +85,7 @@ public class PlayerBuildingManager : MonoBehaviour
     {
         if (_structurePlacement.TryPlaceStructure())
         {
-            _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, Entries[_selectedStructureIndex].StructureData.Cost);
+            _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, Entries[SelectedStructureIndex].StructureData.Cost);
         }
     }
 }

@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.24905685, b: 0.735849, a: 0.5882353}
+  m_Color: {r: 0, g: 0.25223383, b: 0.7372549, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -395,9 +395,9 @@ RectTransform:
   - {fileID: 6928378614932662867}
   - {fileID: 5592426661996151980}
   - {fileID: 5085568251718753829}
-  - {fileID: 1038578484572895561}
   - {fileID: 2234344718456642049}
   - {fileID: 997513333123966898}
+  - {fileID: 1038578484572895561}
   - {fileID: 5955727382740173780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
