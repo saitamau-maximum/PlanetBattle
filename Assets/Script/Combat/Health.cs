@@ -41,6 +41,24 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Heal(float amount) 
+    {
+        if (amount <= 0) return;
+
+        _currentHealth += amount;
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+
+        NotifyHealthChanged();
+        Debug.Log($"{gameObject.name} が{amount}回復した");
+    }
+
+    public void RecoverToMax() 
+    {
+        _currentHealth = _maxHealth;
+        NotifyHealthChanged();
+        Debug.Log($"{gameObject.name} がHP満タンに回復した");
+    }
+
     private void NotifyHealthChanged()
     {
         OnHealthChanged?.Invoke(HealthRatio);

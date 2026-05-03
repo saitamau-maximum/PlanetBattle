@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAnimator))]
 [RequireComponent(typeof(PlayerWeaponManager))]
+[RequireComponent(typeof(Health))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _inputActions;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
     private PlayerBuildingManager _structureManager;
+    private Health _health;
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
+    private bool _isDiedCtrlLocked;
 
     private const int MAX_SLOT_COUNT = 4;
 
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
         _structureManager = GetComponent<PlayerBuildingManager>();
+        _health = GetComponent<Health>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
@@ -70,6 +75,7 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i].performed += SelectSlot;
         }
     }
+
     private void OnDisable()
     {
         _inputActions.FindActionMap("Player").Disable();
@@ -86,6 +92,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_isDiedCtrlLocked)
+        {
+            _moveInputX = 0f;
+            _currentSpeed = 0f;
+            return;
+        }
+
         _moveInputX = _moveAction.ReadValue<Vector2>().x;
 
         //武器使用中でなければ移動処理を行う
@@ -124,6 +137,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isDiedCtrlLocked)
+        {
+            _rigidbody.linearVelocityX = 0f;
+            return;
+        }
+
         _rigidbody.linearVelocityX = _currentSpeed;
     }
 
@@ -148,6 +167,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         if (_currentJumpCount >= _maxMultiJumpCount) return;
 
         _rigidbody.linearVelocityY = 0;
@@ -162,6 +183,8 @@ public class PlayerController : MonoBehaviour
 
     private void JumpCanceled(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         //ジャンプボタンが離されたときに上方向の速度を半減させることで小ジャンプを再現
         if (_rigidbody.linearVelocityY > 0)
         {
@@ -171,6 +194,8 @@ public class PlayerController : MonoBehaviour
 
     private void PrimaryAttack(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         if (_currentMode == Mode.Attack)
         {
             if (_weaponManager.TryUsePrimaryWeapon())
@@ -186,6 +211,8 @@ public class PlayerController : MonoBehaviour
 
     private void SecondaryAttack(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         if (_currentMode == Mode.Attack)
         {
             if (_weaponManager.TryUseSecondaryWeapon())
@@ -195,6 +222,8 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeMode(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         Debug.Log("Mode Change");
         if (_currentMode == Mode.Attack)
         {
@@ -210,6 +239,8 @@ public class PlayerController : MonoBehaviour
 
     private void SelectSlot(InputAction.CallbackContext context)
     {
+        if (_isDiedCtrlLocked) return;
+
         int slotIndex = context.action.name switch
         {
             "Slot1" => 0,
@@ -225,6 +256,11 @@ public class PlayerController : MonoBehaviour
     {
         _currentSpeed = 0f;
         _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
+    }
+
+    public void SetControlLock(bool lockState)
+    {
+        _isDiedCtrlLocked = lockState;
     }
 }
 
