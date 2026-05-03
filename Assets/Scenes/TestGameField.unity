@@ -4618,7 +4618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathHandler
   _deathTeleportPoint: {fileID: 484702798}
-  _lockDuration: 3
+  _lockDuration: 5
   _healthBarCanvas: {fileID: 1546047542}
   _countdownDisplay: {fileID: 2018628567}
 --- !u!1 &2111900791
