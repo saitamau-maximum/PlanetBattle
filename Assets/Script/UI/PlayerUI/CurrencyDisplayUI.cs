@@ -5,7 +5,6 @@ public class CurrencyDisplayUI : MonoBehaviour
 {
     [SerializeField] private CurrencyWallet _playerWallet;
     [SerializeField] private TMP_Text _numberText;
-
     private void Start()
     {
         // 初期表示

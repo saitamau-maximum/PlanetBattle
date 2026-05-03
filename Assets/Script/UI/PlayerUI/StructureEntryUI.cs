@@ -15,14 +15,20 @@ public class StructureEntryUI : MonoBehaviour
     public void Init(StructureEntry entry, string keyName)
     {
         _entry = entry;
+        _entry.OnIsAvailableChanged += UpdateAvailable;
         _structureImage.sprite = entry.StructureData.Image;
         _costText.text = entry.StructureData.Cost.ToString();
         _keyText.text = keyName;
     }
 
-    private void LateUpdate()
+    public void OnDestroy()
     {
-        _availableFill.SetActive(!_entry.IsAvailable);
+        _entry.OnIsAvailableChanged -= UpdateAvailable;
+    }
+
+    private void UpdateAvailable(bool isAvailable)
+    {
+        _availableFill.SetActive(!isAvailable);
     }
 
     public void SetSelected(bool isSelected)

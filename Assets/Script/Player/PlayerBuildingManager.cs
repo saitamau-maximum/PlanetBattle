@@ -8,6 +8,7 @@ public class StructureEntry
     public bool CanAfford { get; private set; }
     public bool IsAvailable => CanAfford;
 
+    public event Action<bool> OnIsAvailableChanged;
     public StructureEntry(StructureData structureData)
     {
         StructureData = structureData;
@@ -16,6 +17,7 @@ public class StructureEntry
     public void UpdateHasCost(int amount)
     {
         CanAfford = amount >= StructureData.Cost;
+        OnIsAvailableChanged?.Invoke(IsAvailable);
     }
 }
 
@@ -27,7 +29,7 @@ public class PlayerBuildingManager : MonoBehaviour
 
     private CurrencyWallet _currencyWallet;
     public int SelectedStructureIndex { get; private set; } = 0;
-
+    public bool CanBuildSelectedStructure => _structurePlacement.CurrentBuildCheck.CanBuild;
     public event Action<int> OnSelectedStructureChanged;
     public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
 

@@ -48,7 +48,7 @@ public class BuildingModeUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        _buildIcon.SetActive(_buildingManager.Entries[_buildingManager.SelectedStructureIndex].IsAvailable);
+        _buildIcon.SetActive(_buildingManager.CanBuildSelectedStructure);
     }
 
     private void UpdateSelectedStructure(int index)
