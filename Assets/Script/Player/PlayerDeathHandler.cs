@@ -12,6 +12,8 @@ public class PlayerDeathHandler : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerBuildingManager _buildingManager;
     private Health _health;
+    private UnityEngine.SpriteRenderer[] _spriteRenderers;
+    private UnityEngine.Color[] _originalColors;
 
     private void Awake()
     {
@@ -28,6 +30,16 @@ public class PlayerDeathHandler : MonoBehaviour
         if (_countdownDisplay == null)
         {
             _countdownDisplay = FindFirstObjectByType<DeathCountdownDisplay>();
+        }
+        // キャラクターのスプライトを取得しておく
+        _spriteRenderers = GetComponentsInChildren<UnityEngine.SpriteRenderer>(true);
+        if (_spriteRenderers != null && _spriteRenderers.Length > 0)
+        {
+            _originalColors = new UnityEngine.Color[_spriteRenderers.Length];
+            for (int i = 0; i < _spriteRenderers.Length; i++)
+            {
+                _originalColors[i] = _spriteRenderers[i].color;
+            }
         }
     }
 
@@ -72,27 +84,37 @@ public class PlayerDeathHandler : MonoBehaviour
         {
             _healthBarCanvas.PlayLinearFill(1f, _lockDuration);
         }
-        else
-        {
-            Debug.LogWarning("[PlayerDeathHandler] HealthBarCanvas not found");
-        }
 
         // カウントダウン表示開始
         if (_countdownDisplay != null)
         {
             _countdownDisplay.SetActive(true);
         }
-        else
-        {
-            Debug.LogError("[PlayerDeathHandler] CountdownDisplay is null in DeathRoutine!");
-        }
 
         float remainingTime = _lockDuration;
+        float elapsed = 0f;
 
         while (remainingTime > 0)
         {
-            remainingTime -= Time.deltaTime;
+            float dt = Time.deltaTime;
+            remainingTime -= dt;
             remainingTime = Mathf.Max(0, remainingTime);
+            elapsed += dt;
+
+            // アルファを0.5〜1で往復させる。片方向の遷移時間は0.5秒。
+            float ping = Mathf.PingPong(elapsed, 0.5f) / 0.5f; // 0..1..0 over 1s
+            float alpha = Mathf.Lerp(0.5f, 1f, ping);
+
+            if (_spriteRenderers != null)
+            {
+                for (int i = 0; i < _spriteRenderers.Length; i++)
+                {
+                    if (_spriteRenderers[i] == null) continue;
+                    Color c = _spriteRenderers[i].color;
+                    c.a = alpha;
+                    _spriteRenderers[i].color = c;
+                }
+            }
 
             if (_countdownDisplay != null)
             {
@@ -115,6 +137,15 @@ public class PlayerDeathHandler : MonoBehaviour
         if (_countdownDisplay != null)
         {
             _countdownDisplay.SetActive(false);
+        }
+        // スプライトのアルファを元に戻す
+        if (_spriteRenderers != null && _originalColors != null)
+        {
+            for (int i = 0; i < _spriteRenderers.Length; i++)
+            {
+                if (_spriteRenderers[i] == null) continue;
+                _spriteRenderers[i].color = _originalColors[i];
+            }
         }
 
         _controller.SetControlLock(false);
