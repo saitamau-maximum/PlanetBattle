@@ -4,7 +4,6 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Transform _HealthBarFill;
-
     [SerializeField] private Health _health;
 
     private void Awake()
