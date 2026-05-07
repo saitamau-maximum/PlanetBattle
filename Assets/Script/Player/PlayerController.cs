@@ -199,7 +199,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_isDiedCtrlLocked) return;
 
-        if (_currentMode == Mode.Attack)
         if (CurrentMode == Mode.Attack)
         {
             if (_weaponManager.TryUsePrimaryWeapon())
@@ -217,7 +216,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_isDiedCtrlLocked) return;
 
-        if (_currentMode == Mode.Attack)
         if (CurrentMode == Mode.Attack)
         {
             if (_weaponManager.TryUseSecondaryWeapon())
