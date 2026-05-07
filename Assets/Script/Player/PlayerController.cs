@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,30 +13,51 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _acceleration;
     [SerializeField] private float _jumpForce;
     [SerializeField] private int _maxMultiJumpCount; //多段ジャンプできる最大回数
-    [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)
+    [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)       
 
     private Rigidbody2D _rigidbody;
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
+    private PlayerBuildingManager _structureManager;
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _attackAction2;
+    private InputAction _modeChange;
+    private InputAction[] _slotSelectActions;
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
+
+    public event Action<Mode> OnModeChanged;
+
+    private const int MAX_SLOT_COUNT = 4;
+
+    public enum Mode
+    {
+        Attack,
+        Building
+    }
+    public Mode CurrentMode { get; private set; } = Mode.Attack;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
+        _structureManager = GetComponent<PlayerBuildingManager>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
+        _modeChange = InputSystem.actions.FindAction("ModeChange");
+        _slotSelectActions = new InputAction[MAX_SLOT_COUNT];
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i] = InputSystem.actions.FindAction($"Slot{i + 1}");
+        }
     }
 
     private void OnEnable()
@@ -45,6 +67,11 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
+        _modeChange.performed += ChangeMode;
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i].performed += SelectSlot;
+        }
     }
     private void OnDisable()
     {
@@ -53,6 +80,11 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
+        _modeChange.performed -= ChangeMode;
+        for (int i = 0; i < MAX_SLOT_COUNT; i++)
+        {
+            _slotSelectActions[i].performed -= SelectSlot;
+        }
     }
 
     private void Update()
@@ -109,6 +141,12 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+
+        if (_moveInputX * _currentSpeed < 0)
+        {
+            _currentSpeed = 0f;
+        }
+
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -130,20 +168,62 @@ public class PlayerController : MonoBehaviour
         //ジャンプボタンが離されたときに上方向の速度を半減させることで小ジャンプを再現
         if (_rigidbody.linearVelocityY > 0)
         {
-            _rigidbody.linearVelocityY = _rigidbody.linearVelocityY * _jumpCutMultiplier; 
+            _rigidbody.linearVelocityY = _rigidbody.linearVelocityY * _jumpCutMultiplier;
         }
     }
 
     private void PrimaryAttack(InputAction.CallbackContext context)
     {
-        if (_weaponManager.TryUsePrimaryWeapon())
-            AttackAnimation();
+        if (CurrentMode == Mode.Attack)
+        {
+            if (_weaponManager.TryUsePrimaryWeapon())
+                AttackAnimation();
+        }
+        else if (CurrentMode == Mode.Building)
+        {
+            //建築モードのときは攻撃ボタンで建築配置
+            _structureManager.TryPlaceStructure();
+
+        }
     }
 
     private void SecondaryAttack(InputAction.CallbackContext context)
     {
-        if (_weaponManager.TryUseSecondaryWeapon())
-            AttackAnimation();
+        if (CurrentMode == Mode.Attack)
+        {
+            if (_weaponManager.TryUseSecondaryWeapon())
+                AttackAnimation();
+        }
+    }
+
+    private void ChangeMode(InputAction.CallbackContext context)
+    {
+        Debug.Log("Mode Change");
+        if (CurrentMode == Mode.Attack)
+        {
+            CurrentMode = Mode.Building;
+            _structureManager.EnterBuildingMode();
+        }
+        else if (CurrentMode == Mode.Building)
+        {
+            CurrentMode = Mode.Attack;
+            _structureManager.ExitBuildingMode();
+        }
+
+        OnModeChanged?.Invoke(CurrentMode);
+    }
+
+    private void SelectSlot(InputAction.CallbackContext context)
+    {
+        int slotIndex = context.action.name switch
+        {
+            "Slot1" => 0,
+            "Slot2" => 1,
+            "Slot3" => 2,
+            "Slot4" => 3,
+            _ => throw new System.NotImplementedException()
+        };
+        _structureManager.SelectStructure(slotIndex);
     }
 
     private void AttackAnimation()

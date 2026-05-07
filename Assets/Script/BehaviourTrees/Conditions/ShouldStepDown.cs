@@ -12,6 +12,7 @@ namespace BehaviourTrees
         {
             EnvironmentSensor sensor = _blackboard.GetValue(CharacterKeys.SelfEnvironmentSensor);
             Transform target = _blackboard.GetValue(CharacterKeys.TargetTransform);
+            if (target == null) target = _blackboard.GetValue(CharacterKeys.BaseTargetTransform);
             Transform self = _blackboard.GetValue(CharacterKeys.SelfTransform);
 
             const float STEP_HEIGHT = 0.4f;

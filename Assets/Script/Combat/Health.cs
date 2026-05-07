@@ -15,16 +15,6 @@ public class Health : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    private void Start()
-    {
-        OnDied += Die;
-    }
-
-    private void OnDestroy()
-    {
-        OnDied -= Die;
-    }
-
     // インスペクターで値が変更されたときに呼ばれる
     private void OnValidate()
     {
@@ -54,11 +44,5 @@ public class Health : MonoBehaviour
     private void NotifyHealthChanged()
     {
         OnHealthChanged?.Invoke(HealthRatio);
-    }
-
-    private void Die()
-    {
-        Debug.Log($"{gameObject.name} が倒れました");
-        Destroy(gameObject);
     }
 }
