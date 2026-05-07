@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -33,14 +34,16 @@ public class PlayerController : MonoBehaviour
     private int _currentJumpCount = 0;
     private bool _isDiedCtrlLocked;
 
+    public event Action<Mode> OnModeChanged;
+
     private const int MAX_SLOT_COUNT = 4;
 
-    private enum Mode
+    public enum Mode
     {
         Attack,
         Building
     }
-    private Mode _currentMode = Mode.Attack;
+    public Mode CurrentMode { get; private set; } = Mode.Attack;
 
     private void Awake()
     {
@@ -197,11 +200,12 @@ public class PlayerController : MonoBehaviour
         if (_isDiedCtrlLocked) return;
 
         if (_currentMode == Mode.Attack)
+        if (CurrentMode == Mode.Attack)
         {
             if (_weaponManager.TryUsePrimaryWeapon())
                 AttackAnimation();
         }
-        else if (_currentMode == Mode.Building)
+        else if (CurrentMode == Mode.Building)
         {
             //建築モードのときは攻撃ボタンで建築配置
             _structureManager.TryPlaceStructure();
@@ -214,6 +218,7 @@ public class PlayerController : MonoBehaviour
         if (_isDiedCtrlLocked) return;
 
         if (_currentMode == Mode.Attack)
+        if (CurrentMode == Mode.Attack)
         {
             if (_weaponManager.TryUseSecondaryWeapon())
                 AttackAnimation();
@@ -225,16 +230,18 @@ public class PlayerController : MonoBehaviour
         if (_isDiedCtrlLocked) return;
 
         Debug.Log("Mode Change");
-        if (_currentMode == Mode.Attack)
+        if (CurrentMode == Mode.Attack)
         {
-            _currentMode = Mode.Building;
+            CurrentMode = Mode.Building;
             _structureManager.EnterBuildingMode();
         }
-        else if (_currentMode == Mode.Building)
+        else if (CurrentMode == Mode.Building)
         {
-            _currentMode = Mode.Attack;
+            CurrentMode = Mode.Attack;
             _structureManager.ExitBuildingMode();
         }
+
+        OnModeChanged?.Invoke(CurrentMode);
     }
 
     private void SelectSlot(InputAction.CallbackContext context)

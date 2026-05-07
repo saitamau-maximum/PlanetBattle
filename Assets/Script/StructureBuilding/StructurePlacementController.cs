@@ -25,7 +25,7 @@ public class StructurePlacementController : MonoBehaviour
     private StructurePlacementValidator _placementValidator;
     private GridSnapper _gridSnapper;
     private StructureEntry _structureEntry;
-    private BuildCheckResult _currentBuildCheck;
+    public BuildCheckResult CurrentBuildCheck { get; private set; }
 
     private void Awake()
     {
@@ -39,9 +39,9 @@ public class StructurePlacementController : MonoBehaviour
     {
         if (_structureEntry == null) return;
 
-        _currentBuildCheck = new BuildCheckResult(_placementValidator.CanPlace(), _structureEntry);
-        _iconUI.UpdateState(_currentBuildCheck);
-        _placementPreview.UpdateState(_currentBuildCheck.CanBuild);
+        CurrentBuildCheck = new BuildCheckResult(_placementValidator.CanPlace(), _structureEntry);
+        _iconUI.UpdateState(CurrentBuildCheck);
+        _placementPreview.UpdateState(CurrentBuildCheck.CanBuild);
     }
 
     public void SetStructureEntry(StructureEntry entry)
@@ -54,7 +54,7 @@ public class StructurePlacementController : MonoBehaviour
     public bool TryPlaceStructure()
     {
         //建造物の配置処理        
-        if (_currentBuildCheck.CanBuild)
+        if (CurrentBuildCheck.CanBuild)
         {
             BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
             buildingBox.Init(_structureEntry.StructureData);

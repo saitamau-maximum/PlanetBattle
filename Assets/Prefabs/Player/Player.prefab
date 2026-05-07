@@ -909,6 +909,8 @@ MonoBehaviour:
   _structures:
   - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
   - {fileID: 11400000, guid: 18c8021b666b54431a5b9474ee4efdc3, type: 2}
+  - {fileID: 11400000, guid: 18c8021b666b54431a5b9474ee4efdc3, type: 2}
+  - {fileID: 11400000, guid: 18c8021b666b54431a5b9474ee4efdc3, type: 2}
   _structurePlacement: {fileID: 5636535060355214845}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
