@@ -68,25 +68,26 @@ public class PlayerDeathHandler : MonoBehaviour
         if (_countdownDisplay != null)
         {
             _countdownDisplay.SetActive(true);
+            _countdownDisplay.SetCountdown(_lockDuration);
         }
 
         // ブリンク処理を実行
-        yield return StartCoroutine(_playerAnimator.PlayDeathBlinking(_lockDuration));
+        StartCoroutine(_playerAnimator.PlayDeathBlinking(_lockDuration));
 
         // カウントダウン中の時間経過処理
         float remainingTime = _lockDuration;
         while (remainingTime > 0)
         {
-            float dt = Time.deltaTime;
-            remainingTime -= dt;
-            remainingTime = Mathf.Max(0, remainingTime);
-
             if (_countdownDisplay != null)
             {
                 _countdownDisplay.SetCountdown(remainingTime);
             }
 
             yield return null;
+
+            float dt = Time.deltaTime;
+            remainingTime -= dt;
+            remainingTime = Mathf.Max(0, remainingTime);
         }
 
         // HP を最大値に回復
