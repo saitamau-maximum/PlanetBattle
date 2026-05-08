@@ -25,7 +25,7 @@ public class CountdownDisplay : MonoBehaviour
         if (_countdownText == null) return;
 
         int displaySeconds = Mathf.CeilToInt(remainingTime);
-        _countdownText.text = $"Time:{displaySeconds}s";
+        _countdownText.text = displaySeconds.ToString();
     }
 
     public void SetActive(bool active)
@@ -33,10 +33,6 @@ public class CountdownDisplay : MonoBehaviour
         if (_countdownText != null)
         {
             _countdownText.gameObject.SetActive(active);
-        }
-        else
-        {
-            gameObject.SetActive(active);
         }
     }
 }

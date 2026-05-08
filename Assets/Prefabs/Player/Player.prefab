@@ -773,6 +773,7 @@ GameObject:
   - component: {fileID: 2661061160532804966}
   - component: {fileID: 7320677745884557263}
   - component: {fileID: 5524093445840077495}
+  - component: {fileID: 4403821164584887795}
   - component: {fileID: 2496341395458143598}
   - component: {fileID: 4962964937671980220}
   - component: {fileID: -270791443910438903}
@@ -970,6 +971,21 @@ MonoBehaviour:
   - Type: 1
     MaxAmount: 500
     Amount: 0
+--- !u!114 &4403821164584887795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792236778970836163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0dbf066dffad848bc1fd884c7ba52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathHandler
+  _deathTeleportPoint: {fileID: 0}
+  _lockDuration: 3
+  _countdownDisplay: {fileID: 0}
 --- !u!95 &2496341395458143598
 Animator:
   serializedVersion: 7

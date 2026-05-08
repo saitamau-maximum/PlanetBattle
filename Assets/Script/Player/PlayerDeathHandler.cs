@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerDeathHandler : MonoBehaviour
 {
     [SerializeField] private Transform _deathTeleportPoint;
-    [SerializeField, Min(0f)] private float _lockDuration = 2f;
+    [SerializeField, Min(0f)] private float _lockDuration = 3f;
     [SerializeField] private CountdownDisplay _countdownDisplay;
 
     private PlayerController _controller;
