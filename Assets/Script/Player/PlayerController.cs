@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAnimator))]
 [RequireComponent(typeof(PlayerWeaponManager))]
+[RequireComponent(typeof(Health))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _inputActions;
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
     private PlayerBuildingManager _structureManager;
+    private Health _health;
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
         _structureManager = GetComponent<PlayerBuildingManager>();
+        _health = GetComponent<Health>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
@@ -73,6 +77,7 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i].performed += SelectSlot;
         }
     }
+
     private void OnDisable()
     {
         _inputActions.FindActionMap("Player").Disable();
@@ -230,6 +235,20 @@ public class PlayerController : MonoBehaviour
     {
         _currentSpeed = 0f;
         _playerAnimator.AttackAnimation(_weaponManager.GetCurrentWeaponName);
+    }
+
+    public void SetControlLock(bool lockState)
+    {
+        if (lockState)
+        {
+            _currentSpeed = 0f;
+            _moveInputX = 0f;
+            _rigidbody.linearVelocityX = 0f;
+            _inputActions.FindActionMap("Player").Disable();
+            return;
+        }
+
+        _inputActions.FindActionMap("Player").Enable();
     }
 }
 
