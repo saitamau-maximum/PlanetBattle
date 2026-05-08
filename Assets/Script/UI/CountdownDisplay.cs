@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class CountdownDisplay : MonoBehaviour
 {
-    [SerializeField] private Text _countdownText;
+    [SerializeField] private TextMeshProUGUI _countdownText;
 
     private void Awake()
     {
         if (_countdownText == null)
         {
-            _countdownText = GetComponent<Text>();
+            _countdownText = GetComponent<TextMeshProUGUI>();
         }
 
         if (_countdownText == null)
@@ -30,6 +30,13 @@ public class CountdownDisplay : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        gameObject.SetActive(active);
+        if (_countdownText != null)
+        {
+            _countdownText.gameObject.SetActive(active);
+        }
+        else
+        {
+            gameObject.SetActive(active);
+        }
     }
 }
