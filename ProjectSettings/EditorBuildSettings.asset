@@ -15,6 +15,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Config.unity
     guid: 1a205bd0d971aa942ac99d32247ef60c
   - enabled: 1
+    path: Assets/Scenes/NewStage.unity
+    guid: f5f9452e176332a4fbc1332113820741
+  - enabled: 1
+    path: Assets/Scenes/NewStage2.unity
+    guid: e765f76fd7c84604497f008f1cc7a47e
+  - enabled: 1
+    path: Assets/Scenes/NewStage3.unity
+    guid: 05d84985e8d7b3c48861dcc542d81224
+  - enabled: 1
+    path: Assets/Scenes/NewStage4.unity
+    guid: 234ba48689c4ce046b1adec6c34f1e67
+  - enabled: 1
+    path: Assets/Scenes/NewStage5.unity
+    guid: 82f06f2f33f2cde41bdc73e8cf843b7a
+  - enabled: 1
     path: Assets/Scenes/StageSelect.unity
     guid: 7d9eaf0af46fee548adbf4e7f7fcf884
   m_configObjects:
