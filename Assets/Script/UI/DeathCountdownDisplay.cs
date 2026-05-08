@@ -30,9 +30,6 @@ public class DeathCountdownDisplay : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        if (_countdownText != null)
-        {
-            _countdownText.gameObject.SetActive(active);
-        }
+        gameObject.SetActive(active);
     }
 }
