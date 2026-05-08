@@ -15,6 +15,9 @@ public class PlayerAnimator : MonoBehaviour
     readonly int _hashSpeed = Animator.StringToHash("Speed");
     readonly int _hashJump = Animator.StringToHash("Jump");
 
+    private const float MIN_ALPHA = 0.5f;
+    private const float PING_HALF_PERIOD = 0.5f;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -63,9 +66,9 @@ public class PlayerAnimator : MonoBehaviour
             remainingTime = Mathf.Max(0, remainingTime);
             elapsed += dt;
 
-            // アルファを0.5〜1で往復させる。片方向の遷移時間は0.5秒。
-            float ping = Mathf.PingPong(elapsed, 0.5f) / 0.5f; // 0..1..0 over 1s
-            float alpha = Mathf.Lerp(0.5f, 1f, ping);
+            // アルファをMIN_ALPHA〜1で往復させる。片方向の遷移時間は PING_HALF_PERIOD 秒。
+            float ping = Mathf.PingPong(elapsed, PING_HALF_PERIOD) / PING_HALF_PERIOD; // 0..1..0 over 1s
+            float alpha = Mathf.Lerp(MIN_ALPHA, 1f, ping);
 
             if (_spriteRenderers != null)
             {
