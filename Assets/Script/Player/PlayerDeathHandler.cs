@@ -5,7 +5,7 @@ public class PlayerDeathHandler : MonoBehaviour
 {
     [SerializeField] private Transform _deathTeleportPoint;
     [SerializeField, Min(0f)] private float _lockDuration = 2f;
-    [SerializeField] private DeathCountdownDisplay _countdownDisplay;
+    [SerializeField] private CountdownDisplay _countdownDisplay;
 
     private PlayerController _controller;
     private PlayerAnimator _playerAnimator;
@@ -23,7 +23,7 @@ public class PlayerDeathHandler : MonoBehaviour
 
         if (_countdownDisplay == null)
         {
-            _countdownDisplay = FindFirstObjectByType<DeathCountdownDisplay>();
+            _countdownDisplay = FindFirstObjectByType<CountdownDisplay>();
         }
     }
 

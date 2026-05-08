@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathCountdownDisplay : MonoBehaviour
+public class CountdownDisplay : MonoBehaviour
 {
     [SerializeField] private Text _countdownText;
 
@@ -14,7 +14,7 @@ public class DeathCountdownDisplay : MonoBehaviour
 
         if (_countdownText == null)
         {
-            Debug.LogError("[DeathCountdownDisplay] Text component is null!");
+            Debug.LogError("[CountdownDisplay] Text component is null!");
         }
 
         SetActive(false);
