@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8846452262393285936}
+  - {fileID: 8091273022901646364}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3136778619705771246
@@ -111,7 +112,7 @@ MonoBehaviour:
     DamageAmount: 3
     CoolTime: 5
   _projectilePrefab: {fileID: 2444403896405954750, guid: 2ed9a4abfbe294583b9df33b03d142f2, type: 3}
-  _muzzle: {fileID: 8846452262393285936}
+  _muzzle: {fileID: 8091273022901646364}
   _attackAnimationClipName: Attack
   _burstShotCount: 7
   _burstShotInterval: 0.1
@@ -148,7 +149,7 @@ GameObject:
   - component: {fileID: 8846452262393285936}
   - component: {fileID: 7340018678210127788}
   m_Layer: 10
-  m_Name: muzle
+  m_Name: muzleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,3 +229,34 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &8773836712516240556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8091273022901646364}
+  m_Layer: 10
+  m_Name: muzl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8091273022901646364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773836712516240556}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.169, y: 0.158, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3136778619705771244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
