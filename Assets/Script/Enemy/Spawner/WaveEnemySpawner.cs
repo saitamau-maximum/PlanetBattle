@@ -8,12 +8,12 @@ public class WaveEnemySpawner : MonoBehaviour
     [SerializeField] private int _firstIndex = 0;
     [SerializeField] private WaveData _waveData;
 
-    public float ProgressRatio => 1 - (_waveData.EnemyList.Length == 0 ? 0 : Mathf.Clamp01((float)_enemyIndex / _waveData.EnemyList.Length));
-    public event Action<float> OnProgressChanged;
-
-
+    private int _killedEnemyCount = 0;
     private float _timer = 0;
     private int _enemyIndex = 0;
+
+    public float ProgressRatio => 1 - (_waveData.EnemyList.Length == 0 ? 0 : Mathf.Clamp01((float)_killedEnemyCount / _waveData.EnemyList.Length));
+    public event Action<float> OnProgressChanged;
 
     private void Start()
     {
@@ -31,6 +31,7 @@ public class WaveEnemySpawner : MonoBehaviour
         {
             GameObject enemy = Instantiate(spawnInfo.EnemyPrefab, transform.position, transform.rotation, transform);
             enemy.GetComponent<CharacterAIController>().Init(_target);
+            enemy.GetComponent<Health>().OnDied += () => { _killedEnemyCount++; };
 
             _enemyIndex++;
             OnProgressChanged?.Invoke(ProgressRatio);
