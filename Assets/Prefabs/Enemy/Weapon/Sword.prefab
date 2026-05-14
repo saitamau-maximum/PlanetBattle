@@ -108,8 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Melee
   _weaponData:
     WeaponName: Sword
-    DamageAmount: 5
+    DamageAmount: 15
     CoolTime: 0.4
+  _attackAnimationClipName: Attack
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7

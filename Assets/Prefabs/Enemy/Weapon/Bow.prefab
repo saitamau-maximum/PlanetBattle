@@ -108,10 +108,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileWeapon
   _weaponData:
     WeaponName: Bow
-    DamageAmount: 5
-    CoolTime: 2
+    DamageAmount: 10
+    CoolTime: 4
   _projectilePrefab: {fileID: 2444403896405954750, guid: de5898b2c435845e3bc26417ecdfddce, type: 3}
   _muzzle: {fileID: 8846452262393285936}
+  _attackAnimationClipName: Attack
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7

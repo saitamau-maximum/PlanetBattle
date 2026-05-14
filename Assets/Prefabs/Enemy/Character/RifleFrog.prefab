@@ -158,10 +158,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAIController
   _context:
-    Speed: 1
+    Speed: 0.6
     JumpForwardSpeed: 1.2
     JumpForce: 5
-    AttackRange: 5
+    AttackRange: 3
     SearchRange: 6
     BaseTargetLockRange: 0
     TargetTag: Player

@@ -108,11 +108,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BurstProjectileWeapon
   _weaponData:
     WeaponName: Rifle
-    DamageAmount: 5
+    DamageAmount: 3
     CoolTime: 5
   _projectilePrefab: {fileID: 2444403896405954750, guid: 2ed9a4abfbe294583b9df33b03d142f2, type: 3}
   _muzzle: {fileID: 8846452262393285936}
-  _burstShotCount: 5
+  _attackAnimationClipName: Attack
+  _burstShotCount: 7
   _burstShotInterval: 0.1
 --- !u!95 &3136778619705771245
 Animator:

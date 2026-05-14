@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Missile2D
   _speed: 10
   _lifeTime: 5
-  _damageAmount: 50
+  _damageAmount: 25
   _destroyOnHit: 1
   _groundHitStop: 0
   _groundLayer:

@@ -199,8 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Melee
   _weaponData:
     WeaponName: Spike
-    DamageAmount: 10
+    DamageAmount: 25
     CoolTime: 2
+  _attackAnimationClipName: Attack
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
