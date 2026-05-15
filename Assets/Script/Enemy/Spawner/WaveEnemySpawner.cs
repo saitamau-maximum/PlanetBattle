@@ -13,7 +13,7 @@ public class WaveEnemySpawner : MonoBehaviour
     private float _timer = 0;
     private int _enemyIndex = 0;
 
-    public float ProgressRatio => 1 - ((float)_killedEnemyCount / _maxEnemyCount);
+    public float ProgressRatio => (float)_killedEnemyCount / _maxEnemyCount;
     public event Action<float> OnProgressChanged;
 
     private void Start()

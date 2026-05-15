@@ -10,7 +10,7 @@ public class EnemyWaveBar : MonoBehaviour
     private void Start()
     {
         _enemySpawner.OnProgressChanged += UpdateWaveBar;
-        _waveBarFill.fillAmount = _enemySpawner.ProgressRatio;
+        UpdateWaveBar(_enemySpawner.ProgressRatio);
     }
 
     private void OnDestroy()
@@ -20,6 +20,6 @@ public class EnemyWaveBar : MonoBehaviour
 
     private void UpdateWaveBar(float ratio)
     {
-        _waveBarFill.fillAmount = ratio;
+        _waveBarFill.fillAmount = 1 - ratio;
     }
 }
