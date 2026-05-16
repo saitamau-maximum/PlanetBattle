@@ -9,24 +9,23 @@ public class PlayerAllyManager : MonoBehaviour
     [SerializeField] private Transform _targetTransform;
 
     private CurrencyWallet _currencyWallet;
-    private AllyData _nextAllyEntry;
+    private int _allyIndex = 0;
 
-    public int SpawnCost => _spawnCost;
+    public AllyData NextAllyEntry { get; private set; }
     public float ExperienceForNextRatio { get; private set; }
     public int EntryAllyCount { get; private set; }
-
     public Action<float, int> OnSpawnCapacityChanged;
+    public Action<AllyData> OnNextAllyEntryChanged;
 
     private void Awake()
     {
         _currencyWallet = GetComponent<CurrencyWallet>();
         OnExperienceChanged(CurrencyData.CurrencyType.Experience, _currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Experience));
+        NextAllyEntry = _allyEntries[_allyIndex];
     }
 
     private void Start()
     {
-        _nextAllyEntry = GetRandomAllyEntry();
-
         _currencyWallet.OnCurrencyChanged += OnExperienceChanged;
     }
 
@@ -50,9 +49,10 @@ public class PlayerAllyManager : MonoBehaviour
     {
         if (_currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Experience, _spawnCost))
         {
-            GameObject ally = Instantiate(_nextAllyEntry.Prefab, _spawnTransform.position, _spawnTransform.rotation);
+            GameObject ally = Instantiate(NextAllyEntry.Prefab, _spawnTransform.position, _spawnTransform.rotation);
             ally.GetComponent<CharacterAIController>().Init(_targetTransform);
-            _nextAllyEntry = GetRandomAllyEntry();
+            NextAllyEntry = GetNextAllyEntry();
+            OnNextAllyEntryChanged?.Invoke(NextAllyEntry);
 
             return true;
         }
@@ -60,8 +60,11 @@ public class PlayerAllyManager : MonoBehaviour
         return false;
     }
 
-    private AllyData GetRandomAllyEntry()
+    private AllyData GetNextAllyEntry()
     {
-        return _allyEntries[UnityEngine.Random.Range(0, _allyEntries.Length)];
+        if (_allyIndex < _allyEntries.Length - 1) _allyIndex++;
+        else _allyIndex = 0;
+
+        return _allyEntries[_allyIndex];
     }
 }

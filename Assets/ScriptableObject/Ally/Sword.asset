@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::AllyData
   Prefab: {fileID: 8437554141696259431, guid: 5d8cfcc67d2784e3f8d1f6bfba51b71e, type: 3}
-  Image: {fileID: 0}
+  WeaponImage: {fileID: 21300000, guid: 4c3bfd3ef11e418babd878fef32326dd, type: 3}

@@ -4,5 +4,5 @@ using UnityEngine;
 public class AllyData : ScriptableObject
 {
     public GameObject Prefab;
-    public Sprite Image;
+    public Sprite WeaponImage;
 }

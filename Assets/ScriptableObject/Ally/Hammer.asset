@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: Assembly-CSharp::AllyData
   Prefab: {fileID: 8437554141696259431, guid: ad3863791de6a4060b663fb63153a056, type: 3}
-  Image: {fileID: 0}
+  WeaponImage: {fileID: 21300000, guid: 3dcd436c7af04f4bae1e212cd8ae04e2, type: 3}

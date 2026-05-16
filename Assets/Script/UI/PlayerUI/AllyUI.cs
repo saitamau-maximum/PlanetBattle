@@ -7,6 +7,7 @@ public class AllyUI : MonoBehaviour
 {
     [SerializeField] private PlayerAllyManager _playerAllyManager;
     [SerializeField] private Image _experieneBarFill;
+    [SerializeField] private Image _nextAllyWeaponImage;
     [SerializeField] private TMP_Text _entryNumberText;
     [SerializeField] private float _speed = 5f; // 大きいほど速い
 
@@ -16,13 +17,17 @@ public class AllyUI : MonoBehaviour
     private void Start()
     {
         _playerAllyManager.OnSpawnCapacityChanged += UpdateSpawnCapacity;
+        _playerAllyManager.OnNextAllyEntryChanged += UpdateWeaponImage;
+
         _experieneBarFill.fillAmount = _playerAllyManager.ExperienceForNextRatio;
         _entryNumberText.text = _playerAllyManager.EntryAllyCount.ToString();
+        _nextAllyWeaponImage.sprite = _playerAllyManager.NextAllyEntry.WeaponImage;
     }
 
     private void OnDestroy()
     {
         _playerAllyManager.OnSpawnCapacityChanged -= UpdateSpawnCapacity;
+        _playerAllyManager.OnNextAllyEntryChanged -= UpdateWeaponImage;
     }
 
     private void Update()
@@ -38,5 +43,10 @@ public class AllyUI : MonoBehaviour
     {
         _targetExperienceRatio = experienceForNextRatio;
         _entryNumberText.text = entryCount.ToString();
+    }
+
+    private void UpdateWeaponImage(AllyData data)
+    {
+        _nextAllyWeaponImage.sprite = data.WeaponImage;
     }
 }

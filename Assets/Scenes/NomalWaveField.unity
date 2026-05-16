@@ -3946,10 +3946,6 @@ PrefabInstance:
       propertyPath: _enemySpawner
       value: 
       objectReference: {fileID: 774680227}
-    - target: {fileID: 6013589490520576354, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _health
-      value: 
-      objectReference: {fileID: 2043700749}
     - target: {fileID: 6977512217549294675, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: m_Name
       value: GamePlay

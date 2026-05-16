@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::AllyData
   Prefab: {fileID: 8437554141696259431, guid: 40db3bc27ae694012a129e218d841ba7, type: 3}
-  Image: {fileID: 0}
+  WeaponImage: {fileID: 21300000, guid: 8e9b717c0b6342debbd2277f47e20eb3, type: 3}
