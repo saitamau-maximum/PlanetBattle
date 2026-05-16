@@ -187,8 +187,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.1764705}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6428679312395715546}
   - {fileID: 2011598554727204710}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bde8f3560cfea40aad262d2a835090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  _maxHealth: 100
+  _maxHealth: 200
   _currentHealth: 0
 --- !u!114 &2447270333455950194
 MonoBehaviour:
@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6577305756939457091, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
       propertyPath: _weaponData.DamageAmount
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6717655182974550672, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
       propertyPath: m_Layer

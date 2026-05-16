@@ -931,7 +931,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 562a53d9aa69f4ba2bc4b168bbeda0da, type: 2}
   - {fileID: 11400000, guid: 1f5e284c021124dbf965d3d4f9166ca5, type: 2}
   - {fileID: 11400000, guid: d9ad6f7c869704afd91adb7eb1390dc7, type: 2}
-  _spawnCost: 15
+  _spawnCost: 20
   _spawnTransform: {fileID: 0}
   _targetTransform: {fileID: 0}
 --- !u!114 &6304543317347794888
@@ -1008,7 +1008,7 @@ MonoBehaviour:
     Amount: 0
   - Type: 2
     MaxAmount: 100
-    Amount: 15
+    Amount: 20
 --- !u!114 &4403821164584887795
 MonoBehaviour:
   m_ObjectHideFlags: 0
