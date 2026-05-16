@@ -20,7 +20,7 @@ public class AllyUI : MonoBehaviour
         _playerAllyManager.OnNextAllyEntryChanged += UpdateWeaponImage;
 
         _experieneBarFill.fillAmount = _playerAllyManager.ExperienceForNextRatio;
-        _entryNumberText.text = _playerAllyManager.EntryAllyCount.ToString();
+        _entryNumberText.text = _playerAllyManager.AllyToken.ToString();
         _nextAllyWeaponImage.sprite = _playerAllyManager.NextAllyEntry.WeaponImage;
     }
 

@@ -13,7 +13,7 @@ public class PlayerAllyManager : MonoBehaviour
 
     public AllyData NextAllyEntry { get; private set; }
     public float ExperienceForNextRatio { get; private set; }
-    public int EntryAllyCount { get; private set; }
+    public int AllyToken { get; private set; }
     public Action<float, int> OnSpawnCapacityChanged;
     public Action<AllyData> OnNextAllyEntryChanged;
 
@@ -40,8 +40,8 @@ public class PlayerAllyManager : MonoBehaviour
         {
             int experienceForNext = amount % _spawnCost;
             ExperienceForNextRatio = (float)experienceForNext / _spawnCost;
-            EntryAllyCount = amount / _spawnCost;
-            OnSpawnCapacityChanged?.Invoke(ExperienceForNextRatio, EntryAllyCount);
+            AllyToken = amount / _spawnCost;
+            OnSpawnCapacityChanged?.Invoke(ExperienceForNextRatio, AllyToken);
         }
     }
 
