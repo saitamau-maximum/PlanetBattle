@@ -3510,6 +3510,37 @@ Transform:
   - {fileID: 688758784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &960032318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 960032319}
+  m_Layer: 0
+  m_Name: AllySpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &960032319
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960032318}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.757, y: 0.138, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1002139815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3518,6 +3549,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2521965484126557445, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
+      propertyPath: _spawnTransform
+      value: 
+      objectReference: {fileID: 960032319}
+    - target: {fileID: 2521965484126557445, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
+      propertyPath: _targetTransform
+      value: 
+      objectReference: {fileID: 2084434731}
     - target: {fileID: 4403821164584887795, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
       propertyPath: _deathTeleportPoint
       value: 
@@ -3587,6 +3626,10 @@ PrefabInstance:
       propertyPath: _firstIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2495945870385886301, guid: e0cbb333888c54a488ff83405cb9d4c6, type: 3}
+      propertyPath: _playerCurrencyWallet
+      value: 
+      objectReference: {fileID: 2043700748}
     - target: {fileID: 5538833221161398068, guid: e0cbb333888c54a488ff83405cb9d4c6, type: 3}
       propertyPath: m_Name
       value: WaveSpawner
@@ -3895,6 +3938,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2665468326329700584, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
+      propertyPath: _playerAllyManager
+      value: 
+      objectReference: {fileID: 2043700776}
     - target: {fileID: 4193249387171373993, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: _enemySpawner
       value: 
@@ -3970,6 +4017,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b7ea7a79744fa41b48bba5c3aab37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!114 &2043700776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521965484126557445, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
+  m_PrefabInstance: {fileID: 1002139815}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56acd7eaa6a3b4e7898b4fc3613db3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAllyManager
+--- !u!4 &2084434731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8834175080060217960, guid: e0cbb333888c54a488ff83405cb9d4c6, type: 3}
+  m_PrefabInstance: {fileID: 1098709357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2111900791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,3 +4142,4 @@ SceneRoots:
   - {fileID: 1207084369}
   - {fileID: 1300978036}
   - {fileID: 1098709357}
+  - {fileID: 960032319}
