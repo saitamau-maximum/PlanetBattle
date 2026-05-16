@@ -268,8 +268,9 @@ public class PlayerController : MonoBehaviour
             _attackAction.Enable();
             _attackAction.Enable();
             _modeChange.Enable();
-
         }
+
+        OnModeChanged?.Invoke(Mode.Attack);//建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
     }
 }
 
