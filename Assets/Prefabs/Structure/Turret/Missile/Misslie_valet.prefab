@@ -147,10 +147,10 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _rotateSpeed: 200
-  _homingDelay: 0.5
   _explosionDamage: 30
   _explosionPrefab: {fileID: 5810559904800018322, guid: 2b8b348738bff49d98d4b729faa3406c, type: 3}
+  _rotateSpeed: 200
+  _homingDelay: 0.3
 --- !u!50 &1290252913791368360
 Rigidbody2D:
   serializedVersion: 5
