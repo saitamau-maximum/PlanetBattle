@@ -52,13 +52,16 @@ public class MissileBullet : ExplosiveProjectile
     {
         Vector2 dir = (target.position - transform.position).normalized;
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Vector3 currentDirection = transform.right;
+        float currentAngle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
 
         float angle = Mathf.MoveTowardsAngle(
-            transform.eulerAngles.z,
+            currentAngle,
             targetAngle,
             _rotateSpeed * Time.deltaTime
         );
 
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        float rotationDelta = Mathf.DeltaAngle(currentAngle, angle);
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationDelta) * transform.rotation;
     }
 }
