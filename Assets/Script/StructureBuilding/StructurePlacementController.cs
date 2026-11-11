@@ -56,7 +56,8 @@ public class StructurePlacementController : MonoBehaviour
         //建造物の配置処理        
         if (CurrentBuildCheck.CanBuild)
         {
-            BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
+            Quaternion rotation = Quaternion.Euler(0f, player.transform.eulerAngles.y - 180f, 0f);
+            BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, rotation);
             buildingBox.Init(_structureEntry.StructureData, player);
             return true;
         }

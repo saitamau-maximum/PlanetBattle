@@ -47,7 +47,7 @@ public class BuildingBox : MonoBehaviour
         _buildTimer.Tick();
         if (_buildTimer.IsFinished())
         {
-            Structure structure = Instantiate(_structurePrefab, transform.position, Quaternion.identity).GetComponent<Structure>();
+            Structure structure = Instantiate(_structurePrefab, transform.position, transform.rotation).GetComponent<Structure>();
             structure.Init(_player);
             AudioManager.Instance.PlaySoundEffect(_buildCompleteSound);
             Destroy(gameObject);
