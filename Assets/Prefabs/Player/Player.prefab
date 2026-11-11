@@ -893,9 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ec57fea8a04bf4ab7263468deebbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
-  _playerWeaponDataArray:
-  - {fileID: 11400000, guid: 6fbba932619354e03a3341e11b8346d7, type: 2}
-  - {fileID: 11400000, guid: 7cd9d94e913e74fab8a30c10e1a25d44, type: 2}
+  _gameData: {fileID: 11400000, guid: d755db3334f8444b3863ad5149ee6fe6, type: 2}
   _weaponParent: {fileID: 7254372336505445190}
 --- !u!114 &6808467293976408606
 MonoBehaviour:

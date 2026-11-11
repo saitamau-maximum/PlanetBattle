@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5105661f7700649cabfb558e80efaf14, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::GameSaveData
+  _selectedWeapons:
+  - {fileID: 11400000, guid: 6fbba932619354e03a3341e11b8346d7, type: 2}
+  - {fileID: 11400000, guid: 7cd9d94e913e74fab8a30c10e1a25d44, type: 2}
   _selectedStructures:
   - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
   - {fileID: 11400000, guid: 0a5dcec7f0acf4c37a94e00d51691334, type: 2}

@@ -17,16 +17,21 @@ public class PlayerWeaponSlotUI : SlotUI
 
     private void Start()
     {
-        for (int i = 0; i < _weaponManager.PlayerWeaponDataArray.Length; i++)
+        for (int i = 0; i < GameSaveData.WEAPON_SLOT_COUNT; i++)
         {
             PlayerWeaponEntryUI entryUI = Instantiate(_entryPrefab, _slotContents.transform);
             _entryUIList.Add(entryUI);
-            entryUI.Init(_weaponManager.PlayerWeaponDataArray[i], i == 0 ? "E" : "R"); //TODO: キーバインドからキーの割り当てを行うように変更する
+            entryUI.Init(_weaponManager.SelectedWeapons[i], i == 0 ? "E" : "R"); //TODO: キーバインドからキーの割り当てを行うように変更する
         }
 
-        _weaponManager.OnSelectedStructureChanged += UpdateSelectedEntry;
+        _weaponManager.OnSelectedWeaponChanged += UpdateSelectedEntry;
 
         UpdateSelectedEntry(0);
+    }
+
+    private void OnDestroy()
+    {
+        _weaponManager.OnSelectedWeaponChanged -= UpdateSelectedEntry;
     }
 
     protected override void UpdateSelectedEntry(int index)
