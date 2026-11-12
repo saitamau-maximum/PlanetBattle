@@ -17,7 +17,7 @@ public abstract class Structure : MonoBehaviour
     protected GameObject _player;
     protected CountdownTimer _cooldownTimer;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         _health = GetComponent<Health>();
     }

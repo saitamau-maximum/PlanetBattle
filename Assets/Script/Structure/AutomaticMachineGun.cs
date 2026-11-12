@@ -1,6 +1,7 @@
 using UnityEngine;
 using Utility;
 
+[RequireComponent(typeof(Animator))]
 public class AutomaticMachineGun : Structure
 {
     [SerializeField] private Projectile _projectilePrefab;
@@ -12,10 +13,19 @@ public class AutomaticMachineGun : Structure
 
     private int _shotsFired;
     private CountdownTimer _shotIntervalTimer;
+    private Animator _animator;
+    private static readonly int _hashAttacking = Animator.StringToHash("Attacking");
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _animator = GetComponent<Animator>();
+    }
 
     protected override void Start()
     {
         base.Start();
+        _animator.SetBool(_hashAttacking, false);
         _shotIntervalTimer = new CountdownTimer(_burstShotInterval);
     }
 
@@ -24,6 +34,7 @@ public class AutomaticMachineGun : Structure
         if (_shotsFired == 0)
         {
             if (!HasEnemyInFront()) return ExecutionStatus.Failure;
+            _animator.SetBool(_hashAttacking, true);
         }
         else
         {
@@ -38,6 +49,7 @@ public class AutomaticMachineGun : Structure
         if (_shotsFired >= _burstShotCount)
         {
             _shotsFired = 0;
+            _animator.SetBool(_hashAttacking, false);
             return ExecutionStatus.Success;
         }
 
