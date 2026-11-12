@@ -4,38 +4,36 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    [SerializeField] private PlayerWeaponData[] _playerWeaponDataArray;
+    [SerializeField] private GameSaveData _gameData;
     [SerializeField] private Transform _weaponParent;
     private WeaponBase[] _weapons;
 
     // -1は、現在武器が装備されていないことを意味します。
     private int _currentWeaponIndex = -1;
 
-    public PlayerWeaponData[] PlayerWeaponDataArray => _playerWeaponDataArray;
-    public event Action<int> OnSelectedStructureChanged;
+    public IReadOnlyList<PlayerWeaponData> SelectedWeapons => _gameData.SelectedWeapons;
+    public event Action<int> OnSelectedWeaponChanged;
+
+    private WeaponBase CurrentWeapon => _weapons[_currentWeaponIndex];
 
     public WeaponBase.WeaponState CurrentWeaponState =>
-        (_currentWeaponIndex >= 0 && _weapons != null && _currentWeaponIndex < _weapons.Length)
-            ? _weapons[_currentWeaponIndex].CurrentState
-            : WeaponBase.WeaponState.Idle;
+        _currentWeaponIndex == -1 ? WeaponBase.WeaponState.Idle : CurrentWeapon.CurrentState;
 
     public string GetCurrentWeaponName =>
-        (_currentWeaponIndex >= 0 && _weapons != null && _currentWeaponIndex < _weapons.Length)
-            ? _weapons[_currentWeaponIndex].WeaponName
-            : string.Empty;
+        _currentWeaponIndex == -1 ? string.Empty : CurrentWeapon.WeaponName;
 
     private void Start()
     {
         InitWeapons();
         // デフォルトは0、攻撃が発生するまでは武器を隠しておく。
-        if (_weapons != null && _weapons.Length > 0)
-        {
-            SelectWeapon(0);
-        }
+        SelectWeapon(0);
     }
 
     private void OnDestroy()
     {
+        // Start前に破棄された場合は、武器がまだ生成されていない。
+        if (_weapons == null) return;
+
         foreach (var weapon in _weapons)
         {
             weapon.OnAttackCompleted -= HandleWeaponAttackCompleted;
@@ -44,18 +42,17 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void InitWeapons()
     {
-        _weapons = new WeaponBase[_playerWeaponDataArray.Length];
-        for (int i = 0; i < _playerWeaponDataArray.Length; i++)
+        IReadOnlyList<PlayerWeaponData> selectedWeapons = SelectedWeapons;
+        _weapons = new WeaponBase[GameSaveData.WEAPON_SLOT_COUNT];
+        for (int i = 0; i < GameSaveData.WEAPON_SLOT_COUNT; i++)
         {
-            if (_playerWeaponDataArray[i] != null)
-            {
-                WeaponBase weaponBase = Instantiate(_playerWeaponDataArray[i].weaponBase, _weaponParent);
+            PlayerWeaponData data = selectedWeapons[i];
+            WeaponBase weaponBase = Instantiate(data.weaponBase, _weaponParent);
 
-                weaponBase.transform.localPosition = _playerWeaponDataArray[i].EquippedOffset;
-                _weapons[i] = weaponBase;
-                _weapons[i].OnAttackCompleted += HandleWeaponAttackCompleted;
-                _weapons[i].Unequip();
-            }
+            weaponBase.transform.localPosition = data.EquippedOffset;
+            _weapons[i] = weaponBase;
+            _weapons[i].OnAttackCompleted += HandleWeaponAttackCompleted;
+            _weapons[i].Unequip();
         }
     }
 
@@ -67,21 +64,21 @@ public class PlayerWeaponManager : MonoBehaviour
         UnequipCurrentWeapon();
 
         _currentWeaponIndex = index;
-        OnSelectedStructureChanged?.Invoke(_currentWeaponIndex);
+        OnSelectedWeaponChanged?.Invoke(_currentWeaponIndex);
     }
 
     public bool TryUseSelectedWeapon()
     {
-        if (CurrentWeaponState != WeaponBase.WeaponState.Idle) return false;
+        if (_currentWeaponIndex == -1 || CurrentWeaponState != WeaponBase.WeaponState.Idle) return false;
 
-        _weapons[_currentWeaponIndex].Equip();
-        return _weapons[_currentWeaponIndex].TryUseWeapon();
+        CurrentWeapon.Equip();
+        return CurrentWeapon.TryUseWeapon();
     }
 
     public void UnequipCurrentWeapon()
     {
-        if (_currentWeaponIndex >= 0 && _currentWeaponIndex < _weapons.Length)
-            _weapons[_currentWeaponIndex].Unequip();
+        if (_currentWeaponIndex != -1)
+            CurrentWeapon.Unequip();
     }
 
     private void HandleWeaponAttackCompleted(WeaponBase weapon)
