@@ -47,12 +47,15 @@ public class Ballista : Structure
         base.Update(); // 現在の索敵・照準結果で発射を判定する。
     }
 
-    protected override void Execute()
+    protected override ExecutionStatus Execute()
     {
         if (_isTargetInAngle && _currentTarget != null)
         {
             Fire(_currentTarget);
+            return ExecutionStatus.Success;
         }
+
+        return ExecutionStatus.Failure;
     }
 
     protected virtual Transform FindNearestTarget()
@@ -111,9 +114,6 @@ public class Ballista : Structure
 
     protected virtual void Fire(Transform target)
     {
-        if (firePoint != null && projectilePrefab != null)
-        {
-            Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        }
+        Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
     }
 }

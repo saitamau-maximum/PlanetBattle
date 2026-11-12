@@ -11,12 +11,12 @@ public class MissileLauncher2D : Structure
     public float spreadAngle = 30f;   // バラけ幅
     public float targetRange = 20f;   // ターゲット射程距離
 
-    protected override void Execute()
+    protected override ExecutionStatus Execute()
     {
-        Fire();
+        return Fire() ? ExecutionStatus.Success : ExecutionStatus.Failure;
     }
 
-    public void Fire()
+    public bool Fire()
     {
         // 射程範囲内の敵を検出
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(firePoint.position, targetRange);
@@ -36,6 +36,7 @@ public class MissileLauncher2D : Structure
 
         // 発射するミサイルの数を決定（敵の数 or 設定数のどちらか小さい方）
         int actualMissileCount = Mathf.Min(missileCount, validEnemyCount);
+        if (actualMissileCount <= 0) return false;
 
         // ミサイルを発射
         for (int i = 0; i < actualMissileCount; i++)
@@ -52,10 +53,9 @@ public class MissileLauncher2D : Structure
             );
 
             // ターゲットを設定            
-            if (missile != null)
-            {
-                missile.SetTarget(targets[i]);
-            }
+            missile.SetTarget(targets[i]);
         }
+
+        return true;
     }
 }

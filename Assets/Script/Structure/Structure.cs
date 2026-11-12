@@ -3,6 +3,13 @@ using Utility;
 
 public abstract class Structure : MonoBehaviour
 {
+    protected enum ExecutionStatus
+    {
+        Success,
+        Failure,
+        Running
+    }
+
     [Header("時間設定")]
     [SerializeField] protected float _executeInterval = 2.0f;
 
@@ -14,7 +21,7 @@ public abstract class Structure : MonoBehaviour
     {
         _health = GetComponent<Health>();
     }
-    protected void Start()
+    protected virtual void Start()
     {
         if (_health != null)
         {
@@ -33,12 +40,16 @@ public abstract class Structure : MonoBehaviour
         _cooldownTimer.Tick();
         if (_cooldownTimer.IsFinished())
         {
-            Execute();
-            _cooldownTimer.Start();
+            ExecutionStatus status = Execute();
+            if (status == ExecutionStatus.Success)
+            {
+                _cooldownTimer.Start();
+            }
         }
     }
 
-    protected abstract void Execute();
+    // Failure / Running の場合はクールダウンを開始せず、次フレームも呼び出す。
+    protected abstract ExecutionStatus Execute();
 
     protected void OnDestroy()
     {
