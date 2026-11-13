@@ -880,6 +880,7 @@ MonoBehaviour:
   _maxSpeed: 3
   _acceleration: 3
   _jumpForce: 5.25
+  _fastFallSpeed: 5
   _maxMultiJumpCount: 2
   _jumpCutMultiplier: 0.7
 --- !u!114 &53369434894549803
