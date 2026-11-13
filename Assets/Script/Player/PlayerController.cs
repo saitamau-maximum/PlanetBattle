@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _acceleration;
     [SerializeField] private float _jumpForce;
+    [SerializeField, Min(0f)] private float _fastFallSpeed = 10f;
     [SerializeField] private int _maxMultiJumpCount; //多段ジャンプできる最大回数
     [SerializeField] private float _jumpCutMultiplier; //ジャンプボタンを離したときに上昇速度へ掛ける倍率(可変ジャンプ用)       
 
@@ -196,6 +197,12 @@ public class PlayerController : MonoBehaviour
     {
         if (CurrentMode == Mode.Attack)
         {
+            if (_weaponManager.CurrentWeaponState == WeaponBase.WeaponState.Attacking)
+            {
+                if (_weaponManager.CanFastFall) FastFall();
+                return;
+            }
+
             if (_weaponManager.TryUseSelectedWeapon())
             {
                 AttackAnimation();
@@ -207,6 +214,11 @@ public class PlayerController : MonoBehaviour
             // 建築モードでは攻撃ボタンで配置を実行（モードは維持）
             _structureManager.TryPlaceStructure();
         }
+    }
+
+    private void FastFall()
+    {
+        _rigidbody.linearVelocityY = -_fastFallSpeed;
     }
 
     private void EquipPrimary(InputAction.CallbackContext context)
