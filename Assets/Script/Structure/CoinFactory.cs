@@ -4,9 +4,9 @@ public class CoinFactory : Structure
 {
     private CurrencyWallet _currencyWallet;
 
-    public override void Init(GameObject player)
+    public override void Init(GameObject player, int buildCost)
     {
-        base.Init(player);
+        base.Init(player, buildCost);
         _currencyWallet = player.GetComponent<CurrencyWallet>();
     }
 
