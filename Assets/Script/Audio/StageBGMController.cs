@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BGMController : MonoBehaviour
+public class StageBGMController : MonoBehaviour
 {
     [SerializeField] private AudioClip _stageBgmClip;
     [SerializeField] private AudioClip _gameClearBgmClip;

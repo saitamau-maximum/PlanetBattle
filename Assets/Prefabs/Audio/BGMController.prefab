@@ -43,5 +43,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af48d3c36a66f4ff7a3d51c344045b4f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BGMController
+  m_EditorClassIdentifier: Assembly-CSharp::StageBGMController
   _stageBgmClip: {fileID: 8300000, guid: 3fff245aa46844844ad4a672702e96a9, type: 3}
