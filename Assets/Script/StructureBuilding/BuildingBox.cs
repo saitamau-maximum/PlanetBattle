@@ -10,6 +10,7 @@ public class BuildingBox : MonoBehaviour
     private GameObject _structurePrefab;
     private GameObject _player;
     private StructureData _structureData;
+    private int _buildCost;
     private CountdownTimer _buildTimer;
     private Health _health;
     protected void Awake()
@@ -35,6 +36,7 @@ public class BuildingBox : MonoBehaviour
     public void Init(StructureData data, GameObject player)
     {
         _structureData = data;
+        _buildCost = data.Cost;
         _structurePrefab = data.Prefab;
         _player = player;
         _buildTimer = new CountdownTimer(data.BuildTime);
@@ -50,7 +52,7 @@ public class BuildingBox : MonoBehaviour
         if (_buildTimer.IsFinished())
         {
             Structure structure = Instantiate(_structurePrefab, transform.position, transform.rotation).GetComponent<Structure>();
-            structure.Init(_player);
+            structure.Init(_player, _buildCost);
             AudioManager.Instance.PlaySoundEffect(_buildCompleteSound);
             Destroy(gameObject);
         }

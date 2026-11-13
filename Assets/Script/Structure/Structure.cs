@@ -3,6 +3,8 @@ using Utility;
 
 public abstract class Structure : MonoBehaviour
 {
+    private const float MIN_REMOVAL_HEALTH_RATIO = 1f;
+
     protected enum ExecutionStatus
     {
         Success,
@@ -13,7 +15,14 @@ public abstract class Structure : MonoBehaviour
     [Header("時間設定")]
     [SerializeField] protected float _executeInterval = 2.0f;
 
+    [Header("削除アイコン")]
+    [SerializeField] private GameObject _removalIcon;
+
     private Health _health;
+    private int _refundCost;
+    private bool _isRemoving;
+    public int RefundCost => _refundCost;
+    public bool CanRemove => !_isRemoving && _health.HealthRatio >= MIN_REMOVAL_HEALTH_RATIO;
     protected GameObject _player;
     protected CountdownTimer _cooldownTimer;
 
@@ -23,20 +32,40 @@ public abstract class Structure : MonoBehaviour
     }
     protected virtual void Start()
     {
-        if (_health != null)
-        {
-            _health.OnDied += Die;
-        }
+        _health.OnDied += Die;
         _cooldownTimer = new CountdownTimer(_executeInterval);
+        HideRemovalIcon();
     }
 
-    public virtual void Init(GameObject player)
+    public virtual void Init(GameObject player, int buildCost)
     {
         _player = player;
+        _refundCost = buildCost;
+    }
+
+    public bool TryRemove()
+    {
+        if (!CanRemove) return false;
+
+        _isRemoving = true;
+        Destroy(gameObject);
+        return true;
+    }
+
+    public void ShowRemovalIcon()
+    {
+        _removalIcon.SetActive(true);
+    }
+
+    public void HideRemovalIcon()
+    {
+        _removalIcon.SetActive(false);
     }
 
     protected virtual void Update()
     {
+        if (_isRemoving) return;
+
         if (_cooldownTimer.IsFinished())
         {
             ExecutionStatus status = Execute();
@@ -52,13 +81,13 @@ public abstract class Structure : MonoBehaviour
 
     protected void OnDestroy()
     {
-        if (_health != null)
-        {
-            _health.OnDied -= Die;
-        }
+        _health.OnDied -= Die;
     }
     protected void Die()
     {
+        if (_isRemoving) return;
+
+        _isRemoving = true;
         Destroy(gameObject);
     }
 }

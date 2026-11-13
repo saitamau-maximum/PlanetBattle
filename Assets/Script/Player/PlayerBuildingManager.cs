@@ -109,14 +109,17 @@ public class PlayerBuildingManager : MonoBehaviour
 
     public void TryPlaceStructure()
     {
-        if (_structurePlacement.TryPlaceStructure(gameObject))
-        {
-            _currencyWallet.TryConsumeCurrency(
-                CurrencyData.CurrencyType.Coin,
-                Entries[_selectedStructureIndex].StructureData.Cost
-            );
+        if (!CanBuildSelectedStructure) return;
 
-            OnStructurePlaced?.Invoke();
+        int cost = Entries[_selectedStructureIndex].StructureData.Cost;
+        if (!_currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, cost)) return;
+
+        if (!_structurePlacement.TryPlaceStructure(gameObject))
+        {
+            _currencyWallet.AddCurrency(CurrencyData.CurrencyType.Coin, cost);
+            return;
         }
+
+        OnStructurePlaced?.Invoke();
     }
 }
