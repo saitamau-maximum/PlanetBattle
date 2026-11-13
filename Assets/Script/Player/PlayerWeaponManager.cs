@@ -22,6 +22,9 @@ public class PlayerWeaponManager : MonoBehaviour
     public string GetCurrentWeaponName =>
         _currentWeaponIndex == -1 ? string.Empty : CurrentWeapon.WeaponName;
 
+    public bool CanFastFall =>
+        _currentWeaponIndex != -1 && SelectedWeapons[_currentWeaponIndex].CanFastFall;
+
     private void Start()
     {
         InitWeapons();
@@ -42,11 +45,10 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void InitWeapons()
     {
-        IReadOnlyList<PlayerWeaponData> selectedWeapons = SelectedWeapons;
         _weapons = new WeaponBase[GameSaveData.WEAPON_SLOT_COUNT];
         for (int i = 0; i < GameSaveData.WEAPON_SLOT_COUNT; i++)
         {
-            PlayerWeaponData data = selectedWeapons[i];
+            PlayerWeaponData data = SelectedWeapons[i];
             WeaponBase weaponBase = Instantiate(data.weaponBase, _weaponParent);
 
             weaponBase.transform.localPosition = data.EquippedOffset;
