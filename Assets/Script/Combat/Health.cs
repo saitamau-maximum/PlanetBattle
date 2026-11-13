@@ -5,7 +5,10 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _currentHealth;
+    private float _invincibleUntil;
+
     public float HealthRatio => _maxHealth == 0 ? 0 : Mathf.Clamp01((float)_currentHealth / _maxHealth);
+    public bool IsInvincible => Time.time < _invincibleUntil;
 
     public event Action<float> OnHealthChanged;
     public event Action OnDied;
@@ -25,9 +28,14 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void GrantInvincibility(float duration)
+    {
+        _invincibleUntil = Mathf.Max(_invincibleUntil, Time.time + duration);
+    }
+
     public void TakeDamage(float amount)
     {
-        if (amount <= 0 || _currentHealth <= 0) return;
+        if (IsInvincible || amount <= 0 || _currentHealth <= 0) return;
 
         _currentHealth -= amount;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
