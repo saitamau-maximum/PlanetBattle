@@ -9,10 +9,10 @@ public class StructureMenuSlotManager : MonoBehaviour
     [SerializeField] private Transform _structureInventoryContent;
     [SerializeField] private StructureMenuSlot _structureSlotPre;
 
-    private StructureMenuSlot _targetSlot;
+    private MenuSlotView<StructureData> _targetSlot;
 
-    private readonly List<StructureMenuSlot> _selectedStructureList = new();
-    private readonly List<StructureMenuSlot> _inventoryStructureList = new();
+    private readonly List<MenuSlotView<StructureData>> _selectedStructureList = new();
+    private readonly List<MenuSlotView<StructureData>> _inventoryStructureList = new();
 
     private void Start()
     {
@@ -44,7 +44,7 @@ public class StructureMenuSlotManager : MonoBehaviour
                 _selectedStructureContent
             );
 
-            slot.UpdateStructureData(data);
+            slot.SetData(data);
             slot.OnSelect += SelectTargetSlot;
 
             _selectedStructureList.Add(slot);
@@ -71,14 +71,14 @@ public class StructureMenuSlotManager : MonoBehaviour
                 _structureInventoryContent
             );
 
-            slot.UpdateStructureData(structureData);
+            slot.SetData(structureData);
             slot.OnSelect += SelectStructure;
 
             _inventoryStructureList.Add(slot);
         }
     }
 
-    private void SelectTargetSlot(StructureMenuSlot selectedSlot)
+    private void SelectTargetSlot(MenuSlotView<StructureData> selectedSlot)
     {
         _targetSlot = selectedSlot;
 
@@ -90,7 +90,7 @@ public class StructureMenuSlotManager : MonoBehaviour
         _targetSlot.ShowFrame();
     }
 
-    private void SelectStructure(StructureMenuSlot selectedSlot)
+    private void SelectStructure(MenuSlotView<StructureData> selectedSlot)
     {
         if (_targetSlot == null)
         {
@@ -98,7 +98,7 @@ public class StructureMenuSlotManager : MonoBehaviour
         }
 
         // 既に選択されている建造物なら何もしない
-        if (IsSelected(selectedSlot.StructureData))
+        if (IsSelected(selectedSlot.Data))
         {
             return;
         }
@@ -111,12 +111,12 @@ public class StructureMenuSlotManager : MonoBehaviour
         }
 
         // UIを更新
-        _targetSlot.UpdateStructureData(selectedSlot.StructureData);
+        _targetSlot.SetData(selectedSlot.Data);
 
         // セーブデータを更新
         _gameData.SetSelectedStructure(
             targetIndex,
-            selectedSlot.StructureData
+            selectedSlot.Data
         );
 
         // インベントリ側の選択状態を更新
@@ -127,7 +127,7 @@ public class StructureMenuSlotManager : MonoBehaviour
     {
         foreach (var slot in _selectedStructureList)
         {
-            if (slot.StructureData == structureData)
+            if (slot.Data == structureData)
             {
                 return true;
             }
@@ -140,7 +140,7 @@ public class StructureMenuSlotManager : MonoBehaviour
     {
         foreach (var inventorySlot in _inventoryStructureList)
         {
-            if (IsSelected(inventorySlot.StructureData))
+            if (IsSelected(inventorySlot.Data))
             {
                 inventorySlot.ShowFrame();
             }
