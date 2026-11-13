@@ -2,5 +2,8 @@ using UnityEngine;
 
 public class Wall : Structure
 {
-    protected override void Execute() { }
+    protected override ExecutionStatus Execute()
+    {
+        return ExecutionStatus.Success;
+    }
 }

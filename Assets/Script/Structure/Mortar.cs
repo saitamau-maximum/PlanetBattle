@@ -9,10 +9,12 @@ public class Mortar : Structure
     [SerializeField] private float _spawnForceYMax;
     [SerializeField] private float _targetRange;
 
-    protected override void Execute()
+    protected override ExecutionStatus Execute()
     {
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, _targetRange);
-        if (enemiesInRange.Length == 0) return;
+
+        if (enemiesInRange.Length == 0) return ExecutionStatus.Failure;
+
         GameObject target = null;
         foreach (var enemy in enemiesInRange)
         {
@@ -22,7 +24,7 @@ public class Mortar : Structure
                 break;
             }
         }
-        if (target == null) return;
+        if (target == null) return ExecutionStatus.Failure;
 
         ExplosiveProjectile projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectile.Init(_damageAmount, _explosionDamageAmount);
@@ -31,5 +33,7 @@ public class Mortar : Structure
         const float SPAWN_LEAD_DISTANCE_FACTOR = 0.8f; //目標に対しての偏差打ちを行うための係数
         float spawnForceX = (target.transform.position.x - transform.position.x) * SPAWN_LEAD_DISTANCE_FACTOR;
         projectile.GetComponent<Rigidbody2D>().AddForce(new Vector2(spawnForceX, spawnForceY), ForceMode2D.Impulse);
+
+        return ExecutionStatus.Success;
     }
 }

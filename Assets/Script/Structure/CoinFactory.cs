@@ -10,8 +10,9 @@ public class CoinFactory : Structure
         _currencyWallet = player.GetComponent<CurrencyWallet>();
     }
 
-    protected override void Execute()
+    protected override ExecutionStatus Execute()
     {
         _currencyWallet.AddCurrency(CurrencyData.CurrencyType.Coin, 1);
+        return ExecutionStatus.Success;
     }
 }
