@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(PlayerAllyManager))]
 [RequireComponent(typeof(PlayerBuildingManager))]
+[RequireComponent(typeof(PlayerStructureRemovalController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _inputActions;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
     private PlayerBuildingManager _structureManager;
+    private PlayerStructureRemovalController _structureRemovalController;
     private PlayerAllyManager _allyManager;
 
     private InputAction _moveAction;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _equipSecondaryAction;
     private InputAction[] _slotSelectActions;
     private InputAction _spawnAllyAction;
+    private InputAction _removeStructureAction;
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
         _structureManager = GetComponent<PlayerBuildingManager>();
+        _structureRemovalController = GetComponent<PlayerStructureRemovalController>();
         _allyManager = GetComponent<PlayerAllyManager>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i] = InputSystem.actions.FindAction($"Slot{i + 1}");
         }
         _spawnAllyAction = InputSystem.actions.FindAction("SpawnAlly");
+        _removeStructureAction = InputSystem.actions.FindAction("RemoveStructure", true);
     }
 
     private void OnEnable()
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i].performed += SelectSlot;
         }
         _spawnAllyAction.performed += SpawnAlly;
+        _removeStructureAction.performed += RemoveStructure;
     }
 
     private void OnDisable()
@@ -98,6 +104,7 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i].performed -= SelectSlot;
         }
         _spawnAllyAction.performed -= SpawnAlly;
+        _removeStructureAction.performed -= RemoveStructure;
     }
 
     private void Update()
@@ -250,6 +257,11 @@ public class PlayerController : MonoBehaviour
         SwitchMode(Mode.Building);
     }
 
+    private void RemoveStructure(InputAction.CallbackContext context)
+    {
+        _structureRemovalController.TryRemoveStructure();
+    }
+
     private void SpawnAlly(InputAction.CallbackContext context)
     {
         _allyManager.TrySpawnAlly();
@@ -272,12 +284,14 @@ public class PlayerController : MonoBehaviour
             _moveAction.Disable();
             _jumpAction.Disable();
             _attackAction.Disable();
+            _removeStructureAction.Disable();
         }
         else
         {
             _moveAction.Enable();
             _jumpAction.Enable();
             _attackAction.Enable();
+            _removeStructureAction.Enable();
         }
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
