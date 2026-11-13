@@ -43,7 +43,7 @@ public class MissileLauncher2D : Structure
             float offset = Random.Range(-spreadAngle, spreadAngle);
             float finalAngle = baseAngle + offset;
 
-            Quaternion rot = Quaternion.Euler(0, 0, finalAngle);
+            Quaternion rot = firePoint.rotation * Quaternion.Euler(0f, 0f, finalAngle);
 
             MissileBullet missile = Instantiate(
                 missilePrefab,
