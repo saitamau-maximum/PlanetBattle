@@ -1001,9 +1001,6 @@ MonoBehaviour:
   - Type: 1
     MaxAmount: 500
     Amount: 0
-  - Type: 2
-    MaxAmount: 100
-    Amount: 10
 --- !u!114 &4403821164584887795
 MonoBehaviour:
   m_ObjectHideFlags: 0

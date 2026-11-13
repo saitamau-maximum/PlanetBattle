@@ -9,7 +9,6 @@ public class CurrencyData
     public enum CurrencyType
     {
         Coin,
-        Gem,
         Experience
     }
 

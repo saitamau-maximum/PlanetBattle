@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class Gem : Item
+public class Experience : Item
 {
     [SerializeField] private int _cost = 1;
 
     protected override void Execute(GameObject target)
     {
-        // ジェムを獲得する処理
+        // 経験値を獲得する処理
         if (target.TryGetComponent(out CurrencyWallet wallet))
         {
-            wallet.AddCurrency(CurrencyData.CurrencyType.Gem, _cost);
+            wallet.AddCurrency(CurrencyData.CurrencyType.Experience, _cost);
         }
     }
 }
