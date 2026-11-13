@@ -13,8 +13,6 @@ public class RandomEnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        _coolTimer.Tick();
-
         if (_coolTimer.IsFinished() && transform.childCount < _maxEnemyCount)
         {
             CharacterAIController enemy = Instantiate(_enemyPre[Random.Range(0, _enemyPre.Length)], transform.position, transform.rotation, transform);

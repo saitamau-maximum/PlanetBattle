@@ -44,7 +44,6 @@ public class BuildingBox : MonoBehaviour
 
     private void Update()
     {
-        _buildTimer.Tick();
         if (_buildTimer.IsFinished())
         {
             Structure structure = Instantiate(_structurePrefab, transform.position, transform.rotation).GetComponent<Structure>();

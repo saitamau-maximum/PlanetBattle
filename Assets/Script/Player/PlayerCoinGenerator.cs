@@ -23,8 +23,6 @@ public class CoinGenerator : MonoBehaviour
 
     private void Update()
     {
-        _timer.Tick();
-
         if (_timer.IsFinished())
         {
             _wallet.AddCurrency(CurrencyData.CurrencyType.Coin, _coinAmount);
