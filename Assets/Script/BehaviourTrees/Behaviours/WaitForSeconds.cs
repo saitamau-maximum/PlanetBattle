@@ -1,15 +1,14 @@
 using Utility;
-using UnityEngine;
 
 namespace BehaviourTrees
 {
     public class WaitForSeconds : Node
     {
-        private CountdownTimer _countdownTimer;
+        private TickCountdownTimer _countdownTimer;
 
         public WaitForSeconds(float time) : base("WaitForSeconds")
         {
-            _countdownTimer = new CountdownTimer(time);
+            _countdownTimer = new TickCountdownTimer(time);
             _countdownTimer.Start();
         }
 

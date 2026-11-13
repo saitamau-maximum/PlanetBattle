@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
+using Utility;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _currentHealth;
+    private readonly CountdownTimer _invincibilityTimer = new(0f);
+
     public float HealthRatio => _maxHealth == 0 ? 0 : Mathf.Clamp01((float)_currentHealth / _maxHealth);
+    public bool IsInvincible => !_invincibilityTimer.IsFinished();
 
     public event Action<float> OnHealthChanged;
     public event Action OnDied;
@@ -25,9 +29,16 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void GrantInvincibility(float duration)
+    {
+        float invincibilityDuration = Mathf.Max(_invincibilityTimer.CurrentTime, duration);
+        _invincibilityTimer.Reset(invincibilityDuration);
+        _invincibilityTimer.Start();
+    }
+
     public void TakeDamage(float amount)
     {
-        if (amount <= 0 || _currentHealth <= 0) return;
+        if (IsInvincible || amount <= 0 || _currentHealth <= 0) return;
 
         _currentHealth -= amount;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);

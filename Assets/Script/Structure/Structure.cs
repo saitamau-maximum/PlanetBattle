@@ -37,7 +37,6 @@ public abstract class Structure : MonoBehaviour
 
     protected virtual void Update()
     {
-        _cooldownTimer.Tick();
         if (_cooldownTimer.IsFinished())
         {
             ExecutionStatus status = Execute();

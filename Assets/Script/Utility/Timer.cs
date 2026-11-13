@@ -1,37 +1,40 @@
-using System;
-using UnityEngine;
-
 namespace Utility
 {
     public abstract class Timer
     {
-        private float _initalTime;
-        public float CurrentTime { get; protected set; }
-        public bool IsRunning { get; private set; }
-        public float Progress => (_initalTime <= 0) ? 1f : Mathf.Clamp(CurrentTime / _initalTime, 0f, 1f);
+        protected float _elapsedTime;
+        protected bool _isRunning;
 
-        protected Timer(float time)
-        {
-            _initalTime = time;
-        }
+        protected virtual float ElapsedTime => _elapsedTime;
+
+        public bool IsRunning => _isRunning && !IsFinished();
+        public abstract float CurrentTime { get; }
+        public abstract float Progress { get; }
+
         public void Start()
         {
-            CurrentTime = _initalTime;
-            IsRunning = true;
+            ResetElapsedTime(0f);
+            Resume();
         }
 
-        public abstract void Tick();
-
         public abstract bool IsFinished();
+        public abstract void Reset(float newTime);
 
-        public void Resume() => IsRunning = true;
-        public void Stop() => IsRunning = false;
-
-        public void Reset(float newTime)
+        public virtual void Resume()
         {
-            _initalTime = newTime;
-            CurrentTime = newTime;
-            IsRunning = false;
+            _isRunning = true;
+        }
+
+        public void Stop()
+        {
+            _elapsedTime = ElapsedTime;
+            _isRunning = false;
+        }
+
+        protected void ResetElapsedTime(float elapsedTime)
+        {
+            _elapsedTime = elapsedTime;
+            _isRunning = false;
         }
     }
 }

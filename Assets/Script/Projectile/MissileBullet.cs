@@ -29,8 +29,6 @@ public class MissileBullet : ExplosiveProjectile
     {
         if (state == State.Launch)
         {
-            timer.Tick();
-
             if (timer.IsFinished())
             {
                 state = State.Homing;

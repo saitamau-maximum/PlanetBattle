@@ -3,6 +3,7 @@ using Utility;
 
 public class BuildingBox : MonoBehaviour
 {
+    [SerializeField] private float _invincibilityTime;
     [SerializeField] private AudioClip _buildingSound;
     [SerializeField] private AudioClip _buildCompleteSound;
 
@@ -27,6 +28,8 @@ public class BuildingBox : MonoBehaviour
         {
             AudioManager.Instance.PlaySoundEffect(_buildingSound);
         }
+
+        _health.GrantInvincibility(_invincibilityTime);
     }
 
     public void Init(StructureData data, GameObject player)
@@ -44,7 +47,6 @@ public class BuildingBox : MonoBehaviour
 
     private void Update()
     {
-        _buildTimer.Tick();
         if (_buildTimer.IsFinished())
         {
             Structure structure = Instantiate(_structurePrefab, transform.position, transform.rotation).GetComponent<Structure>();

@@ -38,7 +38,6 @@ public class AutomaticMachineGun : Structure
         }
         else
         {
-            _shotIntervalTimer.Tick();
             if (!_shotIntervalTimer.IsFinished()) return ExecutionStatus.Running;
         }
 
