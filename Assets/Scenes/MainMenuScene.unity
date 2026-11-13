@@ -6549,9 +6549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StructureMenuSlotManager
   _gameData: {fileID: 11400000, guid: d755db3334f8444b3863ad5149ee6fe6, type: 2}
   _structureDatabase: {fileID: 11400000, guid: 18fc5d16343724818b5568bb9d510d04, type: 2}
-  _selectedStructureContent: {fileID: 13971950}
-  _structureInventoryContent: {fileID: 446317359}
-  _structureSlotPre: {fileID: 8639740629300829227, guid: bec7dfcb9222c48f2a9e133dff364041, type: 3}
+  _loadoutContent: {fileID: 13971950}
+  _inventoryContent: {fileID: 446317359}
+  _slotPrefab: {fileID: 8639740629300829227, guid: bec7dfcb9222c48f2a9e133dff364041, type: 3}
 --- !u!1 &1932825002
 GameObject:
   m_ObjectHideFlags: 0

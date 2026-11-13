@@ -8,11 +8,11 @@ public abstract class MenuSlotView<TData> : MonoBehaviour
     [SerializeField] private Image _image;
 
     public TData Data { get; private set; }
-    public event Action<MenuSlotView<TData>> OnSelect;
+    public event Action<MenuSlotView<TData>> OnClicked;
 
     public void OnClick()
     {
-        OnSelect?.Invoke(this);
+        OnClicked?.Invoke(this);
     }
 
     public void SetData(TData data)
