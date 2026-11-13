@@ -52,6 +52,15 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Kill()
+    {
+        if (_currentHealth <= 0) return;
+
+        _currentHealth = 0;
+        NotifyHealthChanged();
+        OnDied?.Invoke();
+    }
+
     public void Heal(float amount) 
     {
         if (amount <= 0) return;
