@@ -110,6 +110,7 @@ MonoBehaviour:
     WeaponName: Sword
     DamageAmount: 15
     CoolTime: 0.4
+  _attackSound: {fileID: 0}
   _attackAnimationClipName: Attack
 --- !u!95 &3136778619705771245
 Animator:
@@ -145,6 +146,7 @@ GameObject:
   - component: {fileID: 1362146289782622282}
   - component: {fileID: 2306001946592365402}
   - component: {fileID: 3296932450751681006}
+  - component: {fileID: 7655949025684203503}
   m_Layer: 10
   m_Name: Hitbox
   m_TagString: Untagged
@@ -253,6 +255,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2.78}
   m_EdgeRadius: 0
+--- !u!114 &7655949025684203503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001645751913811869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92729bfc8a4b463ebca079dbf6a5d6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructurePriorityTargetSelector
 --- !u!1 &6717655182974550672
 GameObject:
   m_ObjectHideFlags: 0

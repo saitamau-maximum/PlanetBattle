@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7669174101729926257}
   - component: {fileID: 2444403896405954750}
   - component: {fileID: 5189505191137795866}
+  - component: {fileID: -1240369481994854162}
   - component: {fileID: 7228576395349140141}
   - component: {fileID: 7620382765042887083}
   m_Layer: 10
@@ -128,6 +129,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageArea
   _isAreaAttack: 0
+  _targetSelector: {fileID: -1240369481994854162}
+--- !u!114 &-1240369481994854162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903467889774677732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92729bfc8a4b463ebca079dbf6a5d6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructurePriorityTargetSelector
 --- !u!50 &7228576395349140141
 Rigidbody2D:
   serializedVersion: 5
