@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2444403896405954750}
   - component: {fileID: 5189505191137795866}
   - component: {fileID: 3709797473687961533}
+  - component: {fileID: 302278608583715322}
   m_Layer: 9
   m_Name: Arrow
   m_TagString: Untagged
@@ -201,3 +202,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 7.6729302, y: 0.45496598}
   m_EdgeRadius: 0
+--- !u!114 &302278608583715322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903467889774677732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fde7c85f6114a5db648fb0ce3e160ed, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::RandomHitTargetSelector

@@ -110,6 +110,7 @@ MonoBehaviour:
     WeaponName: Hammer
     DamageAmount: 100
     CoolTime: 5
+  _attackSound: {fileID: 0}
   _attackAnimationClipName: Attack
 --- !u!95 &3136778619705771245
 Animator:
