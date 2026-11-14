@@ -20,7 +20,7 @@ public class Hitbox : MonoBehaviour //ダメージを与えるのは武器に任
     private void Awake()
     {
         _targetSelector = GetComponent<HitTargetSelector>();
-        if (_targetSelector == null)
+        if (_targetSelector == null && !_isAreaAttack)
         {
             _targetSelector = gameObject.AddComponent<RandomHitTargetSelector>();
         }
